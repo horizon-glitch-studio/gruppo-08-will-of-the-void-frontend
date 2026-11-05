@@ -1,0 +1,522 @@
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+:root {
+  /* Base colors */
+  --white: hsl(0, 0%, 100%);
+  --white-soft: hsla(0, 0%, 100%, 0.5);
+  --text-color: white;
+
+  /* Neons */
+  --neon-pink: hsl(300, 100%, 60%);
+  --neon-indigo: hsl(250, 100%, 60%);
+  --neon-cyan: hsl(180, 100%, 60%);
+  --neon-pink-transparent: hsla(300, 100%, 60%, 0.75);
+  --neon-cyan-transparent: hsla(180, 100%, 60%, 0.75);
+  --neon-pink-transparent-bg: hsla(300, 100%, 20%, 0.75);
+  --neon-cyan-transparent-bg: hsla(180, 100%, 20%, 0.75);
+
+  /* Panels */
+  --panel-bg: hsla(0, 0%, 10%, 0.75);
+  --panel-blur: blur(4px);
+
+  /* Card geometry */
+  --card-width: 320px;
+  --card-height: 500px;
+  --card-padding-inline: 20px;
+  --border-width: 2px;
+  --border-radius-sm: 20px;
+
+  /* Shape geometry (all shapes below are derived from these) */
+  --cut: var(--border-radius-sm); /* chamfer: card, name */
+  --notch-x: 80px; /* where the description notch starts, from the side */
+  --notch-depth: 20px; /* notch depth (45deg diagonals) */
+  --stat-height: 38px;
+
+  /* Inner offsets, so the border keeps the same thickness on 45deg edges
+     (my own geometry: 2 - sqrt2 = 0.586, sqrt2 = 1.414, sqrt2 - 1 = 0.414) */
+  --cut-in: calc(var(--cut) - var(--border-width) * 0.586);
+  --notch-x-in: calc(var(--notch-x) - var(--border-width) * 1.414);
+  --stat-cut: calc(var(--stat-height) / 2);
+  --stat-cut-in: calc(var(--stat-cut) - var(--border-width) * 0.586);
+  --stat-vertex-in: calc(var(--border-width) * 0.414);
+
+  /* Outer shapes (panel layer, clipped art) */
+  --shape-card: polygon(0 var(--cut), var(--cut) 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+  --shape-name: polygon(0 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+  --shape-panel: polygon(0 0, var(--notch-x) 0, calc(var(--notch-x) + var(--notch-depth)) var(--notch-depth), calc(100% - var(--notch-x) - var(--notch-depth)) var(--notch-depth), calc(100% - var(--notch-x)) 0, 100% 0, 100% 100%, 0 100%);
+  --shape-badge: polygon(0 50%, var(--stat-cut) 0, calc(100% - var(--stat-cut)) 0, 100% 50%, calc(100% - var(--stat-cut)) 100%, var(--stat-cut) 100%);
+
+  /* Ring shapes = the border: outer shape minus inner shape (evenodd).
+     The inner shape is written in the coordinates of the OUTER box (offset by --border-width).
+     shape(): Chrome 135, Safari 18.4, Firefox 148 (web-features, Baseline since 2026-02). */
+  --ring-card: shape(
+    evenodd from 0% var(--cut),
+    line to var(--cut) 0%,
+    line to calc(100% - var(--cut)) 0%,
+    line to 100% var(--cut),
+    line to 100% calc(100% - var(--cut)),
+    line to calc(100% - var(--cut)) 100%,
+    line to var(--cut) 100%,
+    line to 0% calc(100% - var(--cut)),
+    close,
+    move to var(--border-width) calc(var(--border-width) + var(--cut-in)),
+    line to calc(var(--border-width) + var(--cut-in)) var(--border-width),
+    line to calc(100% - var(--border-width) - var(--cut-in)) var(--border-width),
+    line to calc(100% - var(--border-width)) calc(var(--border-width) + var(--cut-in)),
+    line to calc(100% - var(--border-width)) calc(100% - var(--border-width) - var(--cut-in)),
+    line to calc(100% - var(--border-width) - var(--cut-in)) calc(100% - var(--border-width)),
+    line to calc(var(--border-width) + var(--cut-in)) calc(100% - var(--border-width)),
+    line to var(--border-width) calc(100% - var(--border-width) - var(--cut-in)),
+    close
+  );
+
+  /* Name: open at the top (it hangs from the card border), so it is a single U-shaped polygon */
+  --ring-name: polygon(
+    0 0,
+    0 calc(100% - var(--cut)),
+    var(--cut) 100%,
+    calc(100% - var(--cut)) 100%,
+    100% calc(100% - var(--cut)),
+    100% 0,
+    calc(100% - var(--border-width)) 0,
+    calc(100% - var(--border-width)) calc(100% - var(--border-width) - var(--cut-in)),
+    calc(100% - var(--border-width) - var(--cut-in)) calc(100% - var(--border-width)),
+    calc(var(--border-width) + var(--cut-in)) calc(100% - var(--border-width)),
+    var(--border-width) calc(100% - var(--border-width) - var(--cut-in)),
+    var(--border-width) 0
+  );
+
+  --ring-panel: shape(
+    evenodd from 0% 0%,
+    line to var(--notch-x) 0%,
+    line to calc(var(--notch-x) + var(--notch-depth)) var(--notch-depth),
+    line to calc(100% - var(--notch-x) - var(--notch-depth)) var(--notch-depth),
+    line to calc(100% - var(--notch-x)) 0%,
+    line to 100% 0%,
+    line to 100% 100%,
+    line to 0% 100%,
+    close,
+    move to var(--border-width) var(--border-width),
+    line to calc(var(--border-width) + var(--notch-x-in)) var(--border-width),
+    line to calc(var(--border-width) + var(--notch-x-in) + var(--notch-depth)) calc(var(--border-width) + var(--notch-depth)),
+    line to calc(100% - var(--border-width) - var(--notch-x-in) - var(--notch-depth)) calc(var(--border-width) + var(--notch-depth)),
+    line to calc(100% - var(--border-width) - var(--notch-x-in)) var(--border-width),
+    line to calc(100% - var(--border-width)) var(--border-width),
+    line to calc(100% - var(--border-width)) calc(100% - var(--border-width)),
+    line to var(--border-width) calc(100% - var(--border-width)),
+    close
+  );
+
+  --ring-badge: shape(
+    evenodd from 0% 50%,
+    line to var(--stat-cut) 0%,
+    line to calc(100% - var(--stat-cut)) 0%,
+    line to 100% 50%,
+    line to calc(100% - var(--stat-cut)) 100%,
+    line to var(--stat-cut) 100%,
+    close,
+    move to calc(var(--border-width) + var(--stat-vertex-in)) 50%,
+    line to calc(var(--border-width) + var(--stat-cut-in)) var(--border-width),
+    line to calc(100% - var(--border-width) - var(--stat-cut-in)) var(--border-width),
+    line to calc(100% - var(--border-width) - var(--stat-vertex-in)) 50%,
+    line to calc(100% - var(--border-width) - var(--stat-cut-in)) calc(100% - var(--border-width)),
+    line to calc(var(--border-width) + var(--stat-cut-in)) calc(100% - var(--border-width)),
+    close
+  );
+
+  /* Icons: Phosphor Icons (MIT, Copyright (c) 2020 Phosphor Icons) */
+  --icon-sword: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='black' d='M216,28H152a12,12,0,0,0-9.33,4.45L79.5,110.51l-4.66-4.65a20,20,0,0,0-28.29,0L29.86,122.55a20,20,0,0,0,0,28.29h0L45,166,23.86,187.17a20,20,0,0,0,0,28.28l16.69,16.69a20,20,0,0,0,28.28,0L90,211l15.17,15.16a20,20,0,0,0,28.29,0l16.69-16.69a20,20,0,0,0,0-28.3l-4.65-4.65,78.06-63.17A12,12,0,0,0,228,104V40A12,12,0,0,0,216,28ZM54.69,212.34l-11-11L62,183l11,11Zm64.61-6L49.65,136.7l11.05-11,69.65,69.65ZM204,98.27l-75.58,61.17L121,152l47.51-47.5a12,12,0,0,0-17-17L104,135l-7.45-7.44L157.73,52H204Z'/%3E%3C/svg%3E");
+  --icon-shield: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='black' d='M208,36H48A20,20,0,0,0,28,56v56c0,54.29,26.32,87.22,48.4,105.29,23.71,19.39,47.44,26,48.44,26.29a12.1,12.1,0,0,0,6.32,0c1-.28,24.73-6.9,48.44-26.29,22.08-18.07,48.4-51,48.4-105.29V56A20,20,0,0,0,208,36Zm-4,76c0,1.34,0,2.68-.06,4H140V60h64ZM52,60h64v56H52.06c0-1.32-.06-2.66-.06-4Zm3,80h61v74.29a127,127,0,0,1-25.09-16.14C72.22,182.61,60.2,163.13,55,140Zm110.1,58.15A127,127,0,0,1,140,214.29V140h61C195.8,163.13,183.78,182.61,165.09,198.15Z'/%3E%3C/svg%3E");
+}
+
+/* No backdrop blur available: more opaque panels, no blur */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --panel-bg: hsla(0, 0%, 10%, 0.9);
+    --panel-blur: none;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  color: var(--text-color);
+  background-color: black; /* base color: also visible while overscrolling */
+}
+
+/* Page background: a fixed element instead of background-attachment: fixed
+   (iOS ignores that one, and elsewhere it can force a repaint on every scroll frame) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(135deg, var(--neon-indigo), black 24%, black 76%, var(--neon-indigo));
+}
+
+.font-header {
+  font-family: "Geist Pixel", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  /* font-variation-settings: "ELSH" 0; */
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Grid: fixed-size cards, as many columns as the container allows */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, var(--card-width));
+  justify-content: center;
+  gap: 2.5rem;
+  padding: 3rem 1.5rem;
+}
+
+/* ==========================================================================
+   Generic framed shape (cross-browser: clip-path + two layers)
+   ::before = panel: the full outer shape (translucent + optional blur), clipped with clip-path
+   ::after  = ring:  the border (gradient or color), outer shape minus inner shape, ABOVE the panel
+   The element itself is NOT clipped, so children (e.g. stat badges) can
+   overflow the shape, and filter: drop-shadow() follows the visible shape.
+
+   Variables to set on the element (defaults below: nothing is drawn):
+   --frame-shape   outer shape (panel layer)
+   --frame-ring    ring shape (border layer)
+   --frame-fill    border color or gradient
+   --frame-bg      panel background (color)
+   --frame-blur    backdrop-filter value
+   The defaults are set on .framed itself (not only as var() fallbacks), so a
+   nested .framed never inherits the values of its parent.
+   ========================================================================== */
+.framed {
+  --frame-shape: none;
+  --frame-ring: none;
+  --frame-fill: transparent;
+  --frame-bg: transparent;
+  --frame-blur: none;
+
+  position: relative;
+  isolation: isolate;
+}
+
+.framed::before,
+.framed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.framed::before {
+  background: var(--frame-bg);
+  clip-path: var(--frame-shape);
+  -webkit-backdrop-filter: var(--frame-blur);
+  backdrop-filter: var(--frame-blur);
+}
+
+.framed::after {
+  background: var(--frame-fill);
+  clip-path: var(--frame-ring);
+}
+
+/* No shape() support (before Chrome 135 / Safari 18.4 / Firefox 148): no border, panels keep their shape */
+@supports not (clip-path: shape(from 0% 0%, line to 100% 0%, close)) {
+  .framed::after {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Card
+   --accent         solid color (first stop of the type gradient)
+   --type-gradient  border gradient
+   --glow           filter around the card (drop-shadow follows the clipped shape)
+   Defaults = no type / standard rarity (white border, no glow).
+   ========================================================================== */
+.card {
+  --accent: var(--white);
+  --type-gradient: linear-gradient(var(--accent), var(--accent));
+  --glow: none;
+
+  --frame-shape: var(--shape-card);
+  --frame-ring: var(--ring-card);
+  --frame-fill: var(--type-gradient);
+
+  width: var(--card-width);
+  height: var(--card-height);
+  padding: 0 var(--card-padding-inline) var(--card-padding-inline);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+
+  filter: var(--glow);
+}
+
+/* The art is the <img>, so the card needs no panel layer (the ring is ::after) */
+.card::before {
+  content: none;
+}
+
+/* Rarity */
+.card[data-rarity="rare"] {
+  --glow: drop-shadow(0 0 8px var(--neon-cyan-transparent)) drop-shadow(0 0 15px var(--neon-pink-transparent));
+}
+
+/* Types: --accent is always the first stop of the gradient */
+.card[data-type="lava"] {
+  --accent: hsl(0deg 100% 60%);
+  --type-gradient: linear-gradient(45deg, var(--accent) 0%, hsl(4deg 100% 60%) 29%, hsl(8deg 100% 60%) 43%, hsl(12deg 100% 60%) 57%, hsl(16deg 100% 60%) 71%, hsl(20deg 100% 60%) 100%);
+}
+
+.card[data-type="electro"] {
+  --accent: hsl(50deg 100% 60%);
+  --type-gradient: linear-gradient(45deg, var(--accent) 0%, hsl(52deg 100% 60%) 29%, hsl(54deg 100% 60%) 43%, hsl(56deg 100% 60%) 57%, hsl(58deg 100% 60%) 71%, hsl(60deg 100% 60%) 100%);
+}
+
+.card[data-type="radio"] {
+  --accent: hsl(70deg 100% 60%);
+  --type-gradient: linear-gradient(45deg, var(--accent) 0%, hsl(74deg 100% 60%) 29%, hsl(78deg 100% 60%) 43%, hsl(82deg 100% 60%) 57%, hsl(86deg 100% 60%) 71%, hsl(90deg 100% 60%) 100%);
+}
+
+.card[data-type="ice"] {
+  --accent: hsl(160deg 100% 60%);
+  --type-gradient: linear-gradient(45deg, var(--accent) 0%, hsl(164deg 100% 60%) 29%, hsl(168deg 100% 60%) 43%, hsl(172deg 100% 60%) 57%, hsl(176deg 100% 60%) 71%, hsl(180deg 100% 60%) 100%);
+}
+
+.card[data-type="metal"] {
+  --accent: hsl(162deg 5% 60%);
+  --type-gradient: linear-gradient(45deg, var(--accent) 0%, hsl(160deg 5% 64%) 29%, hsl(160deg 5% 88%) 43%, hsl(180deg 10% 90%) 57%, hsl(180deg 10% 70%) 71%, hsl(180deg 10% 50%) 100%);
+}
+
+.card[data-type="matte"] {
+  --accent: hsl(0deg 5% 60%);
+  --type-gradient: linear-gradient(45deg, var(--accent) 0%, hsl(0deg 5% 20%) 29%, hsl(0deg 5% 10%) 43%, hsl(24deg 10% 10%) 57%, hsl(20deg 10% 30%) 71%, hsl(22deg 10% 50%) 100%);
+}
+
+.card[data-type="gem"] {
+  --accent: hsl(250deg 100% 80%);
+  --type-gradient: linear-gradient(45deg, var(--accent) 0%, hsl(264deg 100% 60%) 29%, hsl(274deg 100% 60%) 43%, hsl(283deg 100% 60%) 57%, hsl(292deg 100% 60%) 71%, hsl(300deg 100% 60%) 100%);
+}
+
+.card[data-type="gas"] {
+  --accent: hsl(50deg 40% 60%);
+  --type-gradient: linear-gradient(45deg, var(--accent) 0%, hsl(50deg 46% 66%) 29%, hsl(49deg 51% 76%) 43%, hsl(52deg 48% 94%) 57%, hsl(50deg 51% 84%) 71%, hsl(50deg 50% 60%) 100%);
+}
+
+/* ---------- Art (full card, clipped to the outer shape; the ring is painted above it) ---------- */
+.card__art {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: var(--shape-card);
+}
+
+/* ---------- Name notch (no top border: it hangs from the card border) ---------- */
+.card__name {
+  --frame-shape: var(--shape-name);
+  --frame-ring: var(--ring-name);
+  --frame-fill: var(--accent);
+  --frame-bg: var(--panel-bg);
+  --frame-blur: var(--panel-blur);
+
+  align-self: center;
+  min-width: 50%;
+  margin-top: var(--border-width);
+  padding: 4px 20px 6px;
+  text-align: center;
+}
+
+.card__title {
+  margin: 0;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+
+/* ---------- Description box ---------- */
+.card__description {
+  --frame-shape: var(--shape-panel);
+  --frame-ring: var(--ring-panel);
+  --frame-fill: var(--type-gradient);
+  --frame-bg: var(--panel-bg);
+  --frame-blur: var(--panel-blur);
+
+  height: 150px;
+  padding: 2rem 1rem 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card__text {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+}
+
+.card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card__type {
+  color: var(--accent);
+}
+
+.card__rarity {
+  color: var(--text-color);
+}
+
+/* ---------- Stats (overlap the top edge, hexagonal badges) ---------- */
+.card__stat {
+  --stat-color: var(--white);
+  --stat-bg: var(--panel-bg);
+  --frame-shape: var(--shape-badge);
+  --frame-ring: var(--ring-badge);
+  --frame-fill: var(--stat-color);
+  --frame-bg: var(--stat-bg);
+  --frame-blur: none; /* the glow below is a filter: it makes the badge its own backdrop root */
+
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  min-width: 3em;
+  height: var(--stat-height);
+  padding: 0 20px;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 1.3rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--white);
+
+  filter: drop-shadow(0 0 5px var(--stat-color));
+}
+
+.card__stat--defense {
+  --stat-color: var(--neon-cyan);
+  --stat-bg: var(--neon-cyan-transparent-bg);
+  --stat-icon: var(--icon-shield);
+  left: 0;
+}
+
+.card__stat--attack {
+  --stat-color: var(--neon-pink);
+  --stat-bg: var(--neon-pink-transparent-bg);
+  --stat-icon: var(--icon-sword);
+  right: 0;
+}
+
+.card__stat-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125em;
+}
+
+.card__stat--attack .card__stat-value {
+  flex-direction: row-reverse;
+}
+
+.card__stat-value::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: var(--stat-icon) center / contain no-repeat;
+  mask: var(--stat-icon) center / contain no-repeat;
+}
+
+/* ==========================================================================
+   REFERENCE (not active): native version with corner-shape + border-shape
+   Kept here for when browser support catches up.
+   Support at the time of writing: Chrome/Edge only
+   (corner-shape 139+, border-shape 147+, background-clip: border-area uncertain).
+   Notes:
+   - border-shape is incompatible with border-radius/corner-shape on the SAME element.
+   - border-shape draws the border with border-color only (solid): the gradient
+     needs background-clip: border-area.
+   - backdrop-filter does not follow border-shape: the blur can leak outside
+     the shape (the reason for the clip-path approach above).
+
+   .card {
+     position: relative;
+     isolation: isolate;
+     overflow: hidden;
+     border: var(--border-width) solid transparent;
+     border-radius: var(--border-radius-sm);
+     corner-shape: bevel;
+     background: var(--type-gradient) border-box;
+     box-shadow: var(--glow);   (glow as box-shadow: 0 0 20px var(--white-soft))
+   }
+
+   .card__art { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; }
+
+   .card__name {
+     margin-top: calc(var(--border-width) * -1);
+     border: var(--border-width) solid var(--accent);
+     border-radius: 0 0 var(--border-radius-sm) var(--border-radius-sm);
+     corner-shape: bevel;
+     background: var(--panel-bg);
+     backdrop-filter: var(--panel-blur);
+     box-shadow: 0 0 10px var(--accent-glow);
+   }
+
+   .card__description {
+     --dip: 18px;
+     --notch-outer: 24%;
+     --notch-inner: 30%;
+     margin-bottom: calc(var(--border-width) * -1);
+     border: var(--border-width) solid var(--accent);
+     border-shape: polygon(0 0, var(--notch-outer) 0, var(--notch-inner) var(--dip),
+       calc(100% - var(--notch-inner)) var(--dip), calc(100% - var(--notch-outer)) 0, 100% 0, 100% 100%, 0 100%);
+     background: var(--panel-bg) border-box;
+     backdrop-filter: var(--panel-blur);
+   }
+
+   @supports (background-clip: border-area) {
+     .card__description {
+       border-color: transparent;
+       background: var(--type-gradient) border-area, var(--panel-bg) padding-box;
+     }
+   }
+
+   .card__stat {
+     border: var(--border-width) solid var(--stat-color);
+     border-radius: var(--border-radius-sm);
+     corner-shape: bevel;
+     background: var(--stat-bg);
+     backdrop-filter: var(--panel-blur);
+     box-shadow: 0 0 10px var(--stat-color);
+   }
+   ========================================================================== */
