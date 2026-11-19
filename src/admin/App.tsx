@@ -1,4 +1,7 @@
-/** Root of the /admin app. Routes are added in issue #6, part 2. */
+import { RouterProvider } from 'react-router'
+import { router } from './routes/router'
+
+/** Root of the /admin app. */
 export default function App() {
-  return <h1>Admin</h1>
+  return <RouterProvider router={router} />
 }
