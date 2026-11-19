@@ -1,4 +1,4 @@
-import { readdirSync, statSync } from 'node:fs'
+import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
@@ -38,10 +38,27 @@ function spaFallback(bases: string[]): Plugin {
   }
 }
 
+/**
+ * Build and dev: replaces `<!-- partial:name -->` in the static pages with `src/partials/name.html`,
+ * and marks the menu link of the current page with aria-current="page".
+ */
+function htmlPartials(): Plugin {
+  return {
+    name: 'html-partials',
+    transformIndexHtml(html, ctx) {
+      const page = ctx.path.replace(/index\.html$/, '')
+      return html.replace(/<!--\s*partial:([\w-]+)\s*-->/g, (_match, name: string) => {
+        const partial = readFileSync(resolve(root, 'src/partials', `${name}.html`), 'utf8')
+        return partial.replace(`<li><a href="${page}">`, `<li><a href="${page}" aria-current="page">`)
+      })
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   appType: 'mpa',
-  plugins: [react(), spaFallback(['/play', '/admin'])],
+  plugins: [react(), htmlPartials(), spaFallback(['/play', '/admin'])],
   resolve: {
     alias: { '@': resolve(root, 'src') },
   },
