@@ -1,0 +1,38 @@
+/**
+ * Paths of the /play app, relative to the router basename.
+ * Use these helpers instead of writing paths by hand, so a renamed route changes in one place.
+ */
+export const paths = {
+  hub: '/',
+  login: '/login',
+  register: '/register',
+  forgotPassword: '/forgot-password',
+  resetPassword: '/reset-password',
+  verifyEmail: '/verify-email',
+  shop: '/shop',
+  shopHistory: '/shop/history',
+  shopOpening: (openingId: string | number) => `/shop/openings/${openingId}`,
+  ship: '/ship',
+  collection: '/ship/collection',
+  collectionCard: (cardId: string | number) => `/ship/collection/${cardId}`,
+  decks: '/ship/decks',
+  deckNew: '/ship/decks/new',
+  deck: (deckId: string | number) => `/ship/decks/${deckId}`,
+  trades: '/ship/trades',
+  tradeNew: (username?: string) => (username ? `/ship/trades/new?to=${encodeURIComponent(username)}` : '/ship/trades/new'),
+  trade: (tradeId: string | number) => `/ship/trades/${tradeId}`,
+  arena: '/arena',
+  arenaQuick: '/arena/quick',
+  arenaRanked: '/arena/ranked',
+  arenaFriend: '/arena/friend',
+  challenges: '/arena/challenges',
+  battle: (battleId: string | number) => `/arena/battles/${battleId}`,
+  replay: (battleId: string | number) => `/arena/battles/${battleId}/replay`,
+  battleHistory: '/arena/history',
+  leaderboard: '/arena/leaderboard',
+  profile: '/profile',
+  friends: '/profile/friends',
+  community: '/community',
+  summoner: (username: string) => `/summoners/${encodeURIComponent(username)}`,
+  settings: '/settings',
+} as const
