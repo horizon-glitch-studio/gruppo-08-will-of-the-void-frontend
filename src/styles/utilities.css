@@ -1,1 +1,40 @@
-/* utilities.css: see issue #7 */
+/* Utility classes. Add one only when at least two places need it. */
+
+/* Hidden on screen, still read by screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* "Skip to content" link: hidden until it gets keyboard focus */
+.skip-link {
+  position: absolute;
+  inset-block-start: var(--space-s);
+  inset-inline-start: var(--space-s);
+  z-index: var(--z-toast);
+  padding: var(--space-2xs) var(--space-s);
+  background: var(--color-surface-raised);
+  translate: 0 -200%;
+}
+
+.skip-link:focus-visible {
+  translate: 0;
+}
+
+/* Page content: centered, with side margins */
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--space-s);
+}
+
+@media (min-width: 40rem) {
+  .container {
+    padding-inline: var(--space-l);
+  }
+}

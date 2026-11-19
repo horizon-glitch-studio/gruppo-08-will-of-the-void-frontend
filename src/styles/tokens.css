@@ -1,1 +1,154 @@
-/* tokens.css: see issue #7 */
+/*
+ * Design tokens.
+ * Level 1, palette: raw colors. Do not use them in components.
+ * Level 2, roles: what a color is for. Components use only these.
+ *
+ * Palette names: the name is the hue, the number is the lightness
+ * (50 = 98%, 200 = 80%, 300 = 70%, 400 = 60%, then darker shades for surfaces). One exception: indigo-300.
+ *
+ * Breakpoints (mobile first, custom properties cannot be used in media queries):
+ *   @media (min-width: 40rem)  tablet, 640px at default text size
+ *   @media (min-width: 64rem)  desktop, 1024px at default text size
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* ---------- Level 1: palette ---------- */
+
+  /* Magenta, hue 300 */
+  --magenta-200: hsl(300deg 100% 80%); /* #ff99ff */
+  --magenta-300: hsl(300deg 100% 70%); /* #ff66ff */
+  --magenta-400: hsl(300deg 100% 60%); /* #ff33ff */
+
+  /* Purple, hue 275 */
+  --purple-300: hsl(275deg 100% 70%); /* #bf66ff */
+  --purple-400: hsl(275deg 100% 60%); /* #aa33ff */
+
+  /* Indigo, hue 250 */
+  --indigo-50: hsl(250deg 100% 98%); /* #f6f5ff */
+  --indigo-200: hsl(250deg 100% 80%); /* #aa99ff */
+  --indigo-300: hsl(250deg 100% 74%); /* #907aff, exception to the lightness rule: 70% is not readable enough as text */
+  --indigo-400: hsl(250deg 100% 60%); /* #5533ff */
+  --indigo-500: hsl(250deg 66% 50%); /* #472bd4 */
+  --indigo-600: hsl(250deg 66% 35%); /* #321e94 */
+  --indigo-700: hsl(250deg 45% 25%); /* #2d235c */
+  --indigo-800: hsl(250deg 50% 15%); /* #191339 */
+  --indigo-900: hsl(250deg 55% 10%); /* #100b28 */
+  --indigo-950: hsl(250deg 60% 6%); /* #090618 */
+
+  /* Blue, hue 215 */
+  --blue-300: hsl(215deg 100% 70%); /* #66a6ff */
+
+  /* Cyan, hue 180 */
+  --cyan-400: hsl(180deg 100% 60%); /* #33ffff */
+
+  /* ---------- Level 2: roles ---------- */
+
+  /* Surfaces */
+  --color-bg: var(--indigo-950);
+  --color-surface: var(--indigo-900);
+  --color-surface-raised: var(--indigo-800);
+  --color-border: var(--indigo-700);
+  --color-border-strong: var(--indigo-300); /* form fields: at least 3:1 on every surface */
+
+  /* Text */
+  --color-text: var(--indigo-50);
+  --color-text-muted: var(--indigo-200);
+  --color-link: var(--magenta-300);
+  --color-link-hover: var(--magenta-200);
+
+  /* Interaction */
+  --color-accent: var(--magenta-400);
+  --color-focus: var(--indigo-50);
+
+  /* Game areas and currencies: readable as text on every surface */
+  --color-shards: var(--indigo-300);
+  --color-energy: var(--indigo-50);
+  --color-shop: var(--blue-300);
+  --color-arena: var(--purple-300);
+  --color-ship: var(--magenta-300);
+
+  /* Factions accent. Gradients stay with the card styles */
+  --color-lava: hsl(20deg 100% 60%); /* #ff7733 */
+  --color-electro: hsl(60deg 100% 60%); /* #ffff33 */
+  --color-radio: hsl(90deg 100% 60%); /* #99ff33 */
+  --color-ice: var(--cyan-400);
+  --color-metal: hsl(215deg 10% 65%); /* #9da4af */
+  --color-matte: hsl(250deg 40% 65%); /* #8e82c9 */
+  --color-gem: var(--magenta-200);
+  --color-noble-gas: hsl(45deg 100% 80%); /* #ffe699 */
+
+  /* Feedback (forms, toasts) */
+  --color-danger: hsl(350deg 100% 70%); /* #ff6680 */
+  --color-success: hsl(150deg 100% 70%); /* #66ffb3 */
+
+  /* Glow */
+  --glow-accent: 0 0 8px color-mix(in srgb, var(--magenta-400) 75%, transparent), 0 0 16px color-mix(in srgb, var(--magenta-400) 40%, transparent);
+  --glow-focus: 0 0 8px color-mix(in srgb, var(--indigo-50) 60%, transparent);
+
+  /* ---------- Typography ---------- */
+
+  --font-sans: 'Exo Variable', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Cinzel Variable', Georgia, 'Times New Roman', serif; /* h1 and h2 only, uppercase */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-black: 900;
+
+  /* Fixed sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-h4: 1.25rem;
+
+  /* Headings grow with the screen width, between a minimum and a maximum */
+  --text-h3: clamp(1.375rem, 1.2rem + 0.75vw, 1.75rem);
+  --text-h2: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+  --text-h1: clamp(2.25rem, 1.6rem + 3vw, 3.75rem);
+
+  --leading-tight: 1.15;
+  --leading-normal: 1.5;
+
+  /* ---------- Spacing ---------- */
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* ---------- Shape ---------- */
+
+  --radius-s: 0.25rem;
+  --radius-m: 0.5rem;
+  --radius-full: 999px;
+  --border-width: 2px;
+
+  /* ---------- Layout ---------- */
+
+  --content-max: 72rem; /* Max width of the page content. On wider screens the content stays centered and the background keeps the full width. Used by .container. */
+  --measure: 65ch; /* Max line length of running text (lore, rulebook): about 65 characters, within the 45–75 range for comfortable reading. ch = width of the "0" in the current font. */
+  --header-height: 3.5rem; /* Height of the top bar. Keep it equal to the real header height: :target uses it so anchored sections are not hidden under the sticky header. */
+
+  /* ---------- Motion ---------- */
+
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+
+  /* ---------- Layers ---------- */
+
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-toast: 400;
+}

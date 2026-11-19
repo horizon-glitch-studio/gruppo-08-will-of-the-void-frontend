@@ -1,1 +1,11 @@
-/* fonts.css: see issue #7 */
+/*
+ * Fonts, self-hosted with Fontsource.
+ * Both are variable fonts, normal style only.
+ * Each subset has a unicode-range: the browser downloads only the files for the characters on the page.
+ */
+
+/* Exo: body text and UI, weights 100–900 */
+@import '@fontsource-variable/exo/wght.css';
+
+/* Cinzel: h1 and h2, capitals only, weights 400–900 */
+@import '@fontsource-variable/cinzel/wght.css';
