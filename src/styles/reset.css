@@ -1,1 +1,93 @@
-/* reset.css: see issue #7 */
+/* Reset: predictable defaults and cross-browser fixes. Element styles live in base.css. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  text-size-adjust: none;
+}
+
+body {
+  min-height: 100svh;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+table {
+  border-collapse: collapse;
+  border-color: currentcolor;
+}
+
+/* Buttons can be styled on iOS and Safari */
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  appearance: button;
+}
+
+/* Search fields look like the other text fields in Safari */
+[type='search'] {
+  appearance: textfield;
+  outline-offset: -2px;
+}
+
+/* <summary> shows its marker in Chrome and Safari (<details>) */
+summary {
+  display: list-item;
+}
+
+/* The hidden attribute always hides, even when a class sets display */
+[hidden]:not([hidden='until-found']) {
+  display: none !important;
+}
