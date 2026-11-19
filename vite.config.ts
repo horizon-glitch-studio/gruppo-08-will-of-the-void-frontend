@@ -55,10 +55,32 @@ function htmlPartials(): Plugin {
   }
 }
 
+/** Font files loaded on every page: preloaded so the text does not switch font after the first paint. */
+const PRELOAD_FONTS = ['exo-latin-wght-normal', 'cinzel-latin-wght-normal']
+
+/**
+ * Build only: adds <link rel="preload"> for the main font files to every page.
+ * The file names have a hash, so they are read from the bundle.
+ */
+function preloadFonts(): Plugin {
+  return {
+    name: 'preload-fonts',
+    apply: 'build',
+    transformIndexHtml(_html, ctx) {
+      const files = Object.keys(ctx.bundle ?? {}).filter((file) => file.endsWith('.woff2') && PRELOAD_FONTS.some((font) => file.includes(font)))
+      return files.map((file) => ({
+        tag: 'link',
+        attrs: { rel: 'preload', href: `/${file}`, as: 'font', type: 'font/woff2', crossorigin: '' },
+        injectTo: 'head-prepend' as const,
+      }))
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   appType: 'mpa',
-  plugins: [react(), htmlPartials(), spaFallback(['/play', '/admin'])],
+  plugins: [react(), htmlPartials(), preloadFonts(), spaFallback(['/play', '/admin'])],
   resolve: {
     alias: { '@': resolve(root, 'src') },
   },
