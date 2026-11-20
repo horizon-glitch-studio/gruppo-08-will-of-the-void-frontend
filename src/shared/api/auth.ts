@@ -27,7 +27,15 @@ interface Registered {
 export const authService = {
   async login(identifier: string, password: string, requiredRole?: PlayerRole) {
     const result = await apiRequest<LoginResult>('/auth/login', { method: 'POST', json: { identifier, password } })
-    if (!requiredRole || result.player.role === requiredRole) setSession(result)
+    if (requiredRole && result.player.role !== requiredRole) {
+      await apiRequest<void>('/auth/logout', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${result.accessToken}` },
+        json: { refreshToken: result.refreshToken },
+      })
+    } else {
+      setSession(result)
+    }
     return result
   },
   logout: revokeSession,
