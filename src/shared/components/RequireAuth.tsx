@@ -4,6 +4,7 @@ import type { PlayerRole } from '@/shared/api/auth'
 import { ApiError, getSessionVersion, setSession, subscribeToSession } from '@/shared/api/client'
 import { apiErrorMessage } from '@/shared/api/error-message'
 import { usersService, type CurrentUser } from '@/shared/api/users'
+import { ErrorBox } from './ErrorBox'
 
 /** Blocks protected routes until the API validates the active session and role. */
 export function RequireAuth({ requiredRole }: { requiredRole?: PlayerRole }) {
@@ -35,10 +36,7 @@ export function RequireAuth({ requiredRole }: { requiredRole?: PlayerRole }) {
   if ('error' in result) {
     return (
       <main>
-        <p role="alert">{apiErrorMessage(result.error)}</p>
-        <button type="button" onClick={() => setAttempt((value) => value + 1)}>
-          Try again
-        </button>
+        <ErrorBox message={apiErrorMessage(result.error)} onRetry={() => setAttempt((value) => value + 1)} />
       </main>
     )
   }

@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useSearchParams } from 'react-router'
 import { cardsService } from '@/shared/api/cards'
+import { ErrorBox } from '@/shared/components/ErrorBox'
 import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { collectionService } from '../api/collection'
 
@@ -28,14 +29,7 @@ export function ShipCollectionPage() {
       <title>Collection – Will of the Void</title>
       <h1>Collection</h1>
       {status === 'loading' && <output>Loading…</output>}
-      {status === 'error' && (
-        <>
-          <p role="alert">{errorMessage}</p>
-          <button type="button" onClick={reload}>
-            Try again
-          </button>
-        </>
-      )}
+      {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && (
         <>
           <p>
