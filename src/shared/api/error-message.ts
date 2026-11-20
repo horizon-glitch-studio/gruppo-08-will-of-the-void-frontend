@@ -28,14 +28,16 @@ const fieldMessages: Record<string, string> = {
 }
 
 /** Returns displayable field feedback for structured validation errors. */
-export function apiFieldMessages(error: unknown): string[] {
-  if (!(error instanceof ApiError) || !Array.isArray(error.fieldErrors)) return []
-  return error.fieldErrors.flatMap((item: unknown) => {
-    if (!item || typeof item !== 'object' || !('field' in item) || !('code' in item)) return []
-    if (typeof item.field !== 'string' || typeof item.code !== 'string') return []
-    const message = Object.hasOwn(fieldMessages, item.code) ? fieldMessages[item.code] : 'Check this value.'
-    return [`${item.field} — ${message}`]
-  })
+export function apiFieldMessages(error: unknown): Record<string, string> {
+  if (!(error instanceof ApiError) || !Array.isArray(error.fieldErrors)) return {}
+  return Object.fromEntries(
+    error.fieldErrors.flatMap((item: unknown) => {
+      if (!item || typeof item !== 'object' || !('field' in item) || !('code' in item)) return []
+      if (typeof item.field !== 'string' || typeof item.code !== 'string') return []
+      const message = Object.hasOwn(fieldMessages, item.code) ? fieldMessages[item.code] : 'Check this value.'
+      return [[item.field, message]]
+    }),
+  )
 }
 
 /** Maps stable API codes to user-facing text. */

@@ -1,13 +1,26 @@
-import { ApiPage } from '@/shared/components/ApiPage'
+import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { arenaService } from '../api/arena'
 
 const load = (signal: AbortSignal) => arenaService.history({ status: 'PLAYED', size: 1 }, signal)
 
 /** Arena screen. */
 export function ArenaPage() {
+  const { status, data, errorMessage, reload } = useApiQuery(load)
+
   return (
-    <ApiPage title="Arena" load={load}>
-      {(battles) => <p>Completed battles: {battles.totalItems}</p>}
-    </ApiPage>
+    <section>
+      <title>Arena – Will of the Void</title>
+      <h1>Arena</h1>
+      {status === 'loading' && <output>Loading…</output>}
+      {status === 'error' && (
+        <>
+          <p role="alert">{errorMessage}</p>
+          <button type="button" onClick={reload}>
+            Try again
+          </button>
+        </>
+      )}
+      {status === 'success' && <p>Completed battles: {data.totalItems}</p>}
+    </section>
   )
 }

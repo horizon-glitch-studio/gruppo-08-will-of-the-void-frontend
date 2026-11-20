@@ -23,7 +23,7 @@ export function ApiForm({ children, label, submit, success }: ApiFormProps) {
       await submit(data)
       setState({ pending: false, message: success })
     } catch (error) {
-      setState({ pending: false, error: apiErrorMessage(error), fields: apiFieldMessages(error) })
+      setState({ pending: false, error: apiErrorMessage(error), fields: Object.values(apiFieldMessages(error)) })
     } finally {
       busy.current = false
     }

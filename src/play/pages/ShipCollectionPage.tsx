@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useSearchParams } from 'react-router'
 import { cardsService } from '@/shared/api/cards'
-import { ApiPage } from '@/shared/components/ApiPage'
+import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { collectionService } from '../api/collection'
 
 /** Collection screen. */
@@ -21,16 +21,29 @@ export function ShipCollectionPage() {
     [archive],
   )
 
+  const { status, data, errorMessage, reload } = useApiQuery(load)
+
   return (
-    <ApiPage title="Collection" load={load}>
-      {({ total, deckSize }) => (
+    <section>
+      <title>Collection – Will of the Void</title>
+      <h1>Collection</h1>
+      {status === 'loading' && <output>Loading…</output>}
+      {status === 'error' && (
         <>
-          <p>
-            {archive ? 'Archived cards' : 'Owned card types'}: {total}
-          </p>
-          {deckSize !== undefined && <p>Deck size: {deckSize}</p>}
+          <p role="alert">{errorMessage}</p>
+          <button type="button" onClick={reload}>
+            Try again
+          </button>
         </>
       )}
-    </ApiPage>
+      {status === 'success' && (
+        <>
+          <p>
+            {archive ? 'Archived cards' : 'Owned card types'}: {data.total}
+          </p>
+          {data.deckSize !== undefined && <p>Deck size: {data.deckSize}</p>}
+        </>
+      )}
+    </section>
   )
 }

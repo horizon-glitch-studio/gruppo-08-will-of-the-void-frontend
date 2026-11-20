@@ -1,15 +1,28 @@
 import { usersService } from '@/shared/api/users'
-import { ApiPage } from '@/shared/components/ApiPage'
+import { useApiQuery } from '@/shared/hooks/useApiQuery'
 
 /** Profile screen. */
 export function ProfilePage() {
+  const { status, data, errorMessage, reload } = useApiQuery(usersService.getMe)
+
   return (
-    <ApiPage title="Profile" load={usersService.getMe}>
-      {(profile) => (
+    <section>
+      <title>Profile – Will of the Void</title>
+      <h1>Profile</h1>
+      {status === 'loading' && <output>Loading…</output>}
+      {status === 'error' && (
+        <>
+          <p role="alert">{errorMessage}</p>
+          <button type="button" onClick={reload}>
+            Try again
+          </button>
+        </>
+      )}
+      {status === 'success' && (
         <p>
-          {profile.username} · {profile.trophies} trophies
+          {data.username} · {data.trophies} trophies
         </p>
       )}
-    </ApiPage>
+    </section>
   )
 }

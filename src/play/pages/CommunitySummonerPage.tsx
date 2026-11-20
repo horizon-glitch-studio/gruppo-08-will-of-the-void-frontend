@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useParams } from 'react-router'
-import { ApiPage } from '@/shared/components/ApiPage'
+import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { communityService } from '../api/community'
 
 /** Summoner screen. */
@@ -8,13 +8,26 @@ export function CommunitySummonerPage() {
   const { username = '' } = useParams()
   const load = useCallback((signal: AbortSignal) => communityService.getSummoner(username, signal), [username])
 
+  const { status, data, errorMessage, reload } = useApiQuery(load)
+
   return (
-    <ApiPage title="Summoner" load={load}>
-      {(profile) => (
+    <section>
+      <title>Summoner – Will of the Void</title>
+      <h1>Summoner</h1>
+      {status === 'loading' && <output>Loading…</output>}
+      {status === 'error' && (
+        <>
+          <p role="alert">{errorMessage}</p>
+          <button type="button" onClick={reload}>
+            Try again
+          </button>
+        </>
+      )}
+      {status === 'success' && (
         <p>
-          {profile.username} · {profile.trophies} trophies
+          {data.username} · {data.trophies} trophies
         </p>
       )}
-    </ApiPage>
+    </section>
   )
 }
