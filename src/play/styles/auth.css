@@ -1,0 +1,106 @@
+.auth-screen {
+  --auth-surface: #eaeaea;
+  --auth-text: #303030;
+  --auth-muted: #595959;
+  --auth-input-border: #bdbdbd;
+  --auth-button-border: #7a7a7a;
+  --auth-error: #9a2538;
+  --auth-radius: 1.25rem;
+  --color-focus: var(--auth-text);
+  color-scheme: light;
+  min-block-size: 100svh;
+  padding: var(--space-s);
+  background: var(--auth-surface);
+  color: var(--auth-text);
+}
+
+.auth-screen h1 {
+  margin-block: var(--space-2xs);
+  font: var(--weight-medium) 1.5rem / 1 var(--font-sans);
+  text-wrap: initial;
+}
+
+.auth-brand {
+  color: var(--auth-muted);
+  font-size: var(--text-xs);
+  text-align: end;
+  text-transform: uppercase;
+}
+
+.auth-stack {
+  display: grid;
+  gap: var(--space-s);
+}
+
+.auth-links {
+  margin-block-start: var(--space-s);
+}
+
+.auth-field {
+  display: grid;
+  gap: var(--space-2xs);
+  font-size: var(--text-xs);
+  line-height: 1.25;
+}
+
+.auth-field :is(input, select) {
+  min-inline-size: 0;
+  inline-size: 100%;
+  min-block-size: 3rem;
+  padding: var(--space-2xs) var(--space-s);
+  border: 1px solid var(--auth-input-border);
+  border-radius: var(--auth-radius);
+  background: var(--auth-surface);
+  font-size: var(--text-sm);
+}
+
+.auth-field input::placeholder {
+  color: var(--auth-muted);
+}
+
+.auth-field [aria-invalid='true'] {
+  border-color: var(--auth-error);
+}
+
+.auth-error {
+  color: var(--auth-error);
+}
+
+.auth-button {
+  display: grid;
+  place-items: center;
+  min-block-size: 2.75rem;
+  padding: var(--space-2xs) var(--space-s);
+  border: 1px solid var(--auth-button-border);
+  border-radius: var(--auth-radius);
+  background: var(--auth-surface);
+  color: var(--auth-text);
+  font-size: var(--text-sm);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.auth-button:hover {
+  color: var(--auth-text);
+  text-decoration: underline;
+}
+
+.auth-button-primary,
+.auth-button-primary:hover {
+  border-color: var(--auth-text);
+  background: var(--auth-text);
+  color: var(--auth-surface);
+}
+
+.auth-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+@media (min-width: 64rem) {
+  .auth-screen {
+    padding-inline: max(var(--space-s), calc((100% - 30rem) / 2));
+    padding-block: var(--space-2xl);
+  }
+}
