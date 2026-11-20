@@ -1,40 +1,46 @@
-import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router'
-import { authService, type PlayerRole } from '@/shared/api/auth'
-import { ApiForm } from './ApiForm'
+import { useId, type FormEvent } from 'react'
 
-/** Signs in against the backend and returns the user to the requested route. */
-export function LoginForm({ requiredRole }: { requiredRole?: PlayerRole }) {
-  const { state } = useLocation()
-  const navigate = useNavigate()
-  const [roleDenied, setRoleDenied] = useState(false)
+interface LoginFormProps {
+  login: (identifier: string, password: string) => Promise<void>
+  pending: boolean
+  errorMessage?: string
+  fieldErrors: Record<string, string>
+  roleDenied: boolean
+}
+
+/** Displays the sign-in form and its validation feedback. */
+export function LoginForm({ login, pending, errorMessage, fieldErrors, roleDenied }: LoginFormProps) {
+  const id = useId()
+  const identifierErrorId = `${id}-identifier-error`
+  const passwordErrorId = `${id}-password-error`
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+    void login(String(data.get('identifier')), String(data.get('password')))
+  }
 
   return (
-    <ApiForm
-      label="Log in"
-      submit={async (data) => {
-        setRoleDenied(false)
-        const result = await authService.login(String(data.get('identifier')), String(data.get('password')), requiredRole)
-        if (requiredRole && result.player.role !== requiredRole) {
-          setRoleDenied(true)
-          return
-        }
-        const returnTo: unknown = state?.returnTo
-        const target = typeof returnTo === 'string' && /^\/(?![/\\])/.test(returnTo) ? returnTo : '/'
-        await navigate(target, { replace: true })
-      }}
-    >
+    <form onSubmit={submit}>
       <p>
         <label>
-          Username or email <input name="identifier" autoComplete="username" required />
+          Username or email{' '}
+          <input name="identifier" autoComplete="username" required aria-invalid={!!fieldErrors.identifier} aria-describedby={fieldErrors.identifier ? identifierErrorId : undefined} />
         </label>
       </p>
+      {fieldErrors.identifier && <p id={identifierErrorId}>{fieldErrors.identifier}</p>}
       <p>
         <label>
-          Password <input name="password" type="password" autoComplete="current-password" required />
+          Password{' '}
+          <input name="password" type="password" autoComplete="current-password" required aria-invalid={!!fieldErrors.password} aria-describedby={fieldErrors.password ? passwordErrorId : undefined} />
         </label>
       </p>
+      {fieldErrors.password && <p id={passwordErrorId}>{fieldErrors.password}</p>}
+      <button type="submit" disabled={pending}>
+        {pending ? 'Please wait…' : 'Log in'}
+      </button>
+      {errorMessage && <p role="alert">{errorMessage}</p>}
       {roleDenied && <p role="alert">An administrator account is required.</p>}
-    </ApiForm>
+    </form>
   )
 }
