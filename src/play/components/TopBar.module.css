@@ -1,0 +1,104 @@
+/* Fill of the top bar frame: lighter than the page, like the bottom navigation */
+.bar > header {
+  --_fill: var(--color-surface-raised);
+}
+
+.bar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  padding: var(--space-2xs) var(--space-s) 0;
+  background: var(--color-bg);
+}
+
+/* Thin neon lines around and between the stats, as in the mockup */
+.stats {
+  --_line: color-mix(in srgb, var(--color-text-muted) 30%, transparent);
+
+  display: flex;
+  align-self: stretch;
+  border-inline: 1px solid var(--_line);
+}
+
+.stats > * {
+  display: grid;
+  align-content: center;
+  padding-inline: var(--space-xs);
+}
+
+.stats > * + * {
+  border-inline-start: 1px solid var(--_line);
+}
+
+@media (min-width: 40rem) {
+  .stats > * {
+    padding-inline: var(--space-m);
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+/* Stats and account button on the right, always on one line */
+.end {
+  flex-wrap: nowrap;
+  margin-inline-start: auto;
+}
+
+/* Very narrow phones (320 px): less space around the stats */
+@media (max-width: 24rem) {
+  .bar {
+    padding-inline: var(--space-2xs);
+  }
+
+  .end {
+    --gap: var(--space-xs);
+  }
+
+  .stats > * {
+    padding-inline: var(--space-2xs);
+  }
+}
+
+.iconButton {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3xs);
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* Badge over the corner of the account icon */
+.badge {
+  position: absolute;
+  inset-block-start: -0.25rem;
+  inset-inline-end: -0.25rem;
+}
+
+/* Wordmark: desktop only, centered between menu and stats */
+.logo {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  .logo {
+    display: block;
+    margin-inline: auto;
+  }
+
+  .end {
+    margin-inline-start: 0;
+  }
+}
+
+.wordmark {
+  height: 2.25rem;
+  aspect-ratio: 2944 / 512;
+  mask-image: url('../../assets/brand/wordmark-horizontal.svg');
+}

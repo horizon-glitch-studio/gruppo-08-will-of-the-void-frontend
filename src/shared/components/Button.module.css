@@ -1,0 +1,46 @@
+/* Button and link drawn as a neon Panel. Layout comes from the Panel, this file adds only the button states. */
+.button {
+  --_text: var(--color-text);
+
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--_text);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+  transition: --_glow var(--duration-fast) var(--ease-out);
+}
+
+/* :hover also beats the link colors of base.css */
+.button:hover {
+  --_glow: 18px;
+
+  color: var(--_text);
+}
+
+.button:focus-visible {
+  outline-offset: 4px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Icon and label on one line */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+/* Filled with the tone color, dark text */
+.button[data-variant='primary'] {
+  --_fill: var(--_color);
+  --_text: var(--color-bg);
+}
+
+.button[data-size='lg'] {
+  font-size: var(--text-h4);
+}

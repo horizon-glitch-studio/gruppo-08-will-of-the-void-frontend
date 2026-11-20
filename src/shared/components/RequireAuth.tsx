@@ -1,12 +1,16 @@
-import { useEffect, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router'
 import type { PlayerRole } from '@/shared/api/auth'
 import { ApiError, getSessionVersion, setSession, subscribeToSession } from '@/shared/api/client'
 import { apiErrorMessage } from '@/shared/api/error-message'
 import { usersService, type CurrentUser } from '@/shared/api/users'
+import { CurrentUserContext } from '@/shared/hooks/useCurrentUser'
 import { ErrorBox } from './ErrorBox'
 
-/** Blocks protected routes until the API validates the active session and role. */
+/**
+ * Blocks protected routes until the API validates the active session and role.
+ * Then provides the current player to the routes inside it (useCurrentUser).
+ */
 export function RequireAuth({ requiredRole }: { requiredRole?: PlayerRole }) {
   const session = useSyncExternalStore(subscribeToSession, getSessionVersion)
   const { pathname, search, hash } = useLocation()
@@ -29,6 +33,14 @@ export function RequireAuth({ requiredRole }: { requiredRole?: PlayerRole }) {
     return () => controller.abort()
   }, [session, attempt])
 
+  // Updates the player in place, without showing the session check again
+  const reload = useCallback(async () => {
+    const user = await usersService.getMe()
+    setResult((current) => (current && 'user' in current ? { ...current, user } : current))
+  }, [])
+
+  const currentUser = useMemo(() => (result && 'user' in result ? { user: result.user, reload } : null), [result, reload])
+
   const login = <Navigate to="/login" state={{ returnTo: `${pathname}${search}${hash}` }} replace />
 
   if (session === null) return login
@@ -42,5 +54,9 @@ export function RequireAuth({ requiredRole }: { requiredRole?: PlayerRole }) {
   }
   if (requiredRole && result.user.role !== requiredRole) return login
 
-  return <Outlet key={session} />
+  return (
+    <CurrentUserContext value={currentUser}>
+      <Outlet key={session} />
+    </CurrentUserContext>
+  )
 }

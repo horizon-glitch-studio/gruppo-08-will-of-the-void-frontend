@@ -1,0 +1,29 @@
+.stat {
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: var(--space-3xs);
+  align-items: center;
+}
+
+.label {
+  grid-column: 2;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: 1;
+}
+
+.icon {
+  grid-row: 1 / span 2;
+  display: flex;
+}
+
+/* The icon keeps its size when the row is tight */
+.icon > svg {
+  flex-shrink: 0;
+}
+
+.value {
+  grid-column: 2;
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}

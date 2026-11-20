@@ -1,0 +1,52 @@
+.nav {
+  position: sticky;
+  inset-block-end: 0;
+  z-index: var(--z-header);
+  padding-block-end: env(safe-area-inset-bottom, 0);
+  background: var(--color-surface-raised);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.link {
+  --_color: var(--color-text-muted);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs);
+  padding-block: var(--space-2xs);
+  color: var(--_color);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--color-text);
+}
+
+/* Current area: its own color and a neon glow on the icon */
+.link[aria-current='page'] {
+  color: var(--_tone);
+}
+
+.link[aria-current='page'] svg {
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--_tone) 60%, transparent));
+}
+
+.link[data-tone='shop'] {
+  --_tone: var(--color-shop);
+}
+
+.link[data-tone='arena'] {
+  --_tone: var(--color-arena);
+}
+
+.link[data-tone='ship'] {
+  --_tone: var(--color-ship);
+}

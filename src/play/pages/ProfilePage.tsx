@@ -8,8 +8,6 @@ export function ProfilePage() {
 
   return (
     <section>
-      <title>Profile – Will of the Void</title>
-      <h1>Profile</h1>
       {status === 'loading' && <output>Loading…</output>}
       {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && (

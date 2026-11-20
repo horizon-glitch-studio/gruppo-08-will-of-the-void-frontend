@@ -26,8 +26,6 @@ export function ShipCollectionPage() {
 
   return (
     <section>
-      <title>Collection – Will of the Void</title>
-      <h1>Collection</h1>
       {status === 'loading' && <output>Loading…</output>}
       {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && (
