@@ -54,11 +54,7 @@ The backend can be cloned and started inside the same codespace, in `/workspaces
 
 ## Test accounts
 
-There is no registration page yet. Create an account with the API:
-
-```
-curl -X POST http://localhost:8080/api/v1/auth/register -H 'Content-Type: application/json' -d '{"username":"tester","email":"tester@example.com","password":"Password123","timezone":"Europe/Rome"}'
-```
+Create a test account at http://localhost:5173/play/register, then sign in at http://localhost:5173/play/login.
 
 No email is sent in local development. To mark the email as verified (needed for trades):
 

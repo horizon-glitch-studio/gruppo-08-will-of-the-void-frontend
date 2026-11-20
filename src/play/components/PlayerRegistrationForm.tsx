@@ -1,19 +1,12 @@
 import { useEffect, useId, useRef, type FormEvent } from 'react'
 import { Link, useSearchParams } from 'react-router'
+import type { Registration } from '@/shared/api/auth'
 import { paths } from '../routes/paths'
 import { AuthField } from './AuthField'
 import '../styles/auth.css'
 
-interface RegistrationFields {
-  username: string
-  email: string
-  password: string
-  timezone: string
-  inviteCode?: string
-}
-
 interface PlayerRegistrationFormProps {
-  register: (fields: RegistrationFields) => Promise<void>
+  register: (fields: Registration) => Promise<void>
   pending: boolean
   errorMessage?: string
   fieldErrors: Record<string, string>
