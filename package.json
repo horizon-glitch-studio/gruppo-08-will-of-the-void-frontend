@@ -11,11 +11,14 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc -b",
-    "precommit": "prettier --write . && sed -i -E '/^\\|/{s/ {2,}/ /g; s/-{3,}/---/g}' DEPENDENCIES.md docs/*.md && npm run lint && npm run typecheck"
+    "precommit": "prettier --write . && sed -i -E '/^\\|/{s/ {2,}/ /g; s/-{3,}/---/g}' DEPENDENCIES.md docs/*.md && npm run lint && npm run typecheck",
+    "images": "node scripts/images.mjs",
+    "favicons": "node scripts/favicons.mjs"
   },
   "dependencies": {
     "@fontsource-variable/cinzel": "^5.3.0",
     "@fontsource-variable/exo": "^5.3.0",
+    "@phosphor-icons/react": "^2.1.10",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "react-router": "^8.5.2"
@@ -27,6 +30,7 @@
     "@vitejs/plugin-react": "^6.1.2",
     "oxlint": "^1.90.0",
     "prettier": "^3.10.1",
+    "sharp": "^0.35.5",
     "typescript": "~7.0.2",
     "vite": "^8.3.6"
   }
