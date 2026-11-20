@@ -1,9 +1,15 @@
-/** Admin log in screen of the backoffice. */
+import { LoginForm } from '@/shared/components/LoginForm'
+import { useLogin } from '@/shared/hooks/useLogin'
+
+/** Administrator login screen. */
 export function AuthLoginPage() {
+  const login = useLogin('ADMIN')
+
   return (
-    <section>
-      <title>Admin log in – Will of the Void admin</title>
+    <main>
+      <title>Admin log in – Will of the Void</title>
       <h1>Admin log in</h1>
-    </section>
+      <LoginForm {...login} />
+    </main>
   )
 }
