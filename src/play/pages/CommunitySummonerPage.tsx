@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { useParams } from 'react-router'
+import { ErrorBox } from '@/shared/components/ErrorBox'
 import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { communityService } from '../api/community'
 
@@ -15,14 +16,7 @@ export function CommunitySummonerPage() {
       <title>Summoner – Will of the Void</title>
       <h1>Summoner</h1>
       {status === 'loading' && <output>Loading…</output>}
-      {status === 'error' && (
-        <>
-          <p role="alert">{errorMessage}</p>
-          <button type="button" onClick={reload}>
-            Try again
-          </button>
-        </>
-      )}
+      {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && (
         <p>
           {data.username} · {data.trophies} trophies

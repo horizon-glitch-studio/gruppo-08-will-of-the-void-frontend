@@ -1,4 +1,5 @@
 import { useId, type FormEvent } from 'react'
+import { ErrorBox } from './ErrorBox'
 
 interface LoginFormProps {
   login: (identifier: string, password: string) => Promise<void>
@@ -39,8 +40,8 @@ export function LoginForm({ login, pending, errorMessage, fieldErrors, roleDenie
       <button type="submit" disabled={pending}>
         {pending ? 'Please wait…' : 'Log in'}
       </button>
-      {errorMessage && <p role="alert">{errorMessage}</p>}
-      {roleDenied && <p role="alert">An administrator account is required.</p>}
+      {errorMessage && <ErrorBox message={errorMessage} />}
+      {roleDenied && <ErrorBox message="An administrator account is required." />}
     </form>
   )
 }
