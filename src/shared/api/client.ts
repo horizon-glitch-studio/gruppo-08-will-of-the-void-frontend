@@ -103,7 +103,7 @@ if (typeof window !== 'undefined') {
 export function setSession(value: Tokens | null) {
   storeSession(
     value && {
-      id: crypto.randomUUID(),
+      id: crypto.getRandomValues(new Uint32Array(4)).join('-'),
       tokens: {
         tokenType: value.tokenType,
         accessToken: value.accessToken,
@@ -157,48 +157,52 @@ async function send<T>(path: ApiPath, options: RequestOptions, accessToken?: str
   return body === '' ? (undefined as T) : JSON.parse(body)
 }
 
+async function rotateTokens(current: Tokens, version: number) {
+  syncSession()
+  const active = session
+  if (!active || version !== sessionVersion) throw invalidSession()
+  if (active.tokens.refreshToken !== current.refreshToken) return active.tokens
+
+  try {
+    const updated = await send<Tokens>('/auth/refresh', { method: 'POST', json: { refreshToken: current.refreshToken } })
+    syncSession()
+    if (version !== sessionVersion) throw invalidSession()
+    storeSession({ id: active.id, tokens: updated })
+    return updated
+  } catch (error) {
+    syncSession()
+    if (!isInvalidToken(error) || version !== sessionVersion) throw error
+    if (session && session.tokens.refreshToken !== current.refreshToken) return session.tokens
+    setSession(null)
+    throw error
+  }
+}
+
+function withSessionLock<T>(action: () => Promise<T>) {
+  const locks = globalThis.navigator?.locks
+  return locks ? locks.request(storageKey, action) : action()
+}
+
 function refreshSession(current: Tokens, version: number) {
   if (pendingRefresh) return pendingRefresh
 
-  async function refresh() {
-    syncSession()
-    const active = session
-    if (!active || version !== sessionVersion) throw invalidSession()
-    if (active.tokens.refreshToken !== current.refreshToken) return active.tokens
-
-    try {
-      const updated = await send<Tokens>('/auth/refresh', { method: 'POST', json: { refreshToken: current.refreshToken } })
-      syncSession()
-      if (version !== sessionVersion) throw invalidSession()
-      storeSession({ id: active.id, tokens: updated })
-      return updated
-    } catch (error) {
-      syncSession()
-      if (!isInvalidToken(error) || version !== sessionVersion) throw error
-      if (session && session.tokens.refreshToken !== current.refreshToken) return session.tokens
-      setSession(null)
-      throw error
-    }
-  }
-
   // A refresh token can only be rotated once, including across tabs.
-  const locks = globalThis.navigator?.locks
-  const request = (locks ? locks.request(storageKey, refresh) : refresh()).finally(() => {
+  const request = withSessionLock(() => rotateTokens(current, version)).finally(() => {
     if (pendingRefresh === request) pendingRefresh = undefined
   })
-
   pendingRefresh = request
   return request
 }
 
-async function sendAuthenticated<T>(path: ApiPath, makeOptions: (current: Tokens) => RequestOptions): Promise<T> {
+async function sendAuthenticated<T>(path: ApiPath, makeOptions: (current: Tokens) => RequestOptions, refresh = refreshSession): Promise<T> {
   syncSession()
   const version = sessionVersion
-  const current = pendingRefresh ? await pendingRefresh : session?.tokens
+  const current = refresh === refreshSession && pendingRefresh ? await pendingRefresh : session?.tokens
   if (!current || version !== sessionVersion) throw invalidSession()
 
   const sendWithSession = async (active: Tokens, options: RequestOptions) => {
     const response = await send<T>(path, options, active.accessToken)
+    syncSession()
     if (version !== sessionVersion) throw invalidSession()
     return response
   }
@@ -211,7 +215,7 @@ async function sendAuthenticated<T>(path: ApiPath, makeOptions: (current: Tokens
   }
 
   options.signal?.throwIfAborted()
-  const updated = await refreshSession(current, version)
+  const updated = await refresh(current, version)
   if (version !== sessionVersion) throw invalidSession()
 
   try {
@@ -234,10 +238,16 @@ export async function revokeSession() {
   if (!session) return
   const version = sessionVersion
 
-  try {
-    await sendAuthenticated<void>('/auth/logout', (current) => ({ method: 'POST', json: { refreshToken: current.refreshToken } }))
-  } finally {
+  await withSessionLock(async () => {
     syncSession()
-    if (version === sessionVersion) setSession(null)
-  }
+    if (version !== sessionVersion) return
+
+    try {
+      // Holding the lock lets logout revoke the latest token and prevents a concurrent rotation.
+      await sendAuthenticated<void>('/auth/logout', (current) => ({ method: 'POST', json: { refreshToken: current.refreshToken } }), rotateTokens)
+    } finally {
+      syncSession()
+      if (version === sessionVersion) setSession(null)
+    }
+  })
 }
