@@ -1,6 +1,6 @@
-import { useId, type ComponentPropsWithoutRef } from 'react'
+import { useId, type ComponentPropsWithRef } from 'react'
 
-interface AuthFieldProps extends ComponentPropsWithoutRef<'input'> {
+interface AuthFieldProps extends ComponentPropsWithRef<'input'> {
   label: string
   error?: string
 }

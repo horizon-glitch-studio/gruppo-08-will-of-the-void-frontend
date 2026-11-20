@@ -104,3 +104,19 @@
     padding-block: var(--space-2xl);
   }
 }
+
+.auth-flow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+}
+
+.auth-legal {
+  font-size: var(--text-xs);
+}
+
+.auth-legal a,
+.auth-legal a:hover {
+  color: inherit;
+}
