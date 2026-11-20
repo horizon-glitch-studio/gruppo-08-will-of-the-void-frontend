@@ -47,48 +47,77 @@ type RequestOptions = RequestInit & { authenticated?: boolean; json?: unknown }
 const storageKey = 'wotv.session'
 const listeners = new Set<() => void>()
 
-function restoreSession(): Tokens | null {
+interface StoredSession {
+  id: string
+  tokens: Tokens
+}
+
+function readSession(): StoredSession | null | undefined {
   try {
-    const saved = JSON.parse(sessionStorage.getItem(storageKey) ?? 'null')
-    return typeof saved?.accessToken === 'string' && typeof saved.refreshToken === 'string' ? saved : null
+    const saved = JSON.parse(localStorage.getItem(storageKey) ?? 'null')
+    return typeof saved?.id === 'string' && typeof saved.tokens?.accessToken === 'string' && typeof saved.tokens.refreshToken === 'string' ? saved : null
   } catch {
-    return null
+    return undefined
   }
 }
 
-let tokens = restoreSession()
+let session = readSession() ?? null
 let sessionVersion = 0
 let pendingRefresh: Promise<Tokens> | undefined
+let storageAvailable = true
 
-function storeSession(value: Tokens | null) {
-  tokens = value
-  try {
-    if (value) sessionStorage.setItem(storageKey, JSON.stringify(value))
-    else sessionStorage.removeItem(storageKey)
-  } catch {
-    // The current page can still use the in-memory session if browser storage is unavailable.
-  }
+function updateSession(value: StoredSession | null) {
+  const changed = session?.id !== value?.id
+  session = value
+  if (!changed) return
+
+  sessionVersion++
+  pendingRefresh = undefined
   for (const listener of listeners) listener()
+}
+
+function storeSession(value: StoredSession | null) {
+  try {
+    if (value) localStorage.setItem(storageKey, JSON.stringify(value))
+    else localStorage.removeItem(storageKey)
+    storageAvailable = true
+  } catch {
+    storageAvailable = false
+  }
+  updateSession(value)
+}
+
+function syncSession() {
+  if (!storageAvailable) return
+  const saved = readSession()
+  if (saved !== undefined && (saved?.id !== session?.id || saved?.tokens.refreshToken !== session?.tokens.refreshToken)) updateSession(saved)
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('storage', (event) => {
+    if (event.storageArea === window.localStorage && (event.key === storageKey || event.key === null)) syncSession()
+  })
 }
 
 /** Replaces or clears the current session and invalidates any previous refresh. */
 export function setSession(value: Tokens | null) {
-  sessionVersion++
-  pendingRefresh = undefined
   storeSession(
     value && {
-      tokenType: value.tokenType,
-      accessToken: value.accessToken,
-      accessTokenExpiresIn: value.accessTokenExpiresIn,
-      refreshToken: value.refreshToken,
-      refreshTokenExpiresIn: value.refreshTokenExpiresIn,
+      id: crypto.randomUUID(),
+      tokens: {
+        tokenType: value.tokenType,
+        accessToken: value.accessToken,
+        accessTokenExpiresIn: value.accessTokenExpiresIn,
+        refreshToken: value.refreshToken,
+        refreshTokenExpiresIn: value.refreshTokenExpiresIn,
+      },
     },
   )
 }
 
 /** Returns whether there is a session to validate with the API. */
 export function getSessionVersion() {
-  return tokens ? sessionVersion : null
+  return session ? sessionVersion : null
 }
 
 /** Subscribes to sign-in and sign-out changes. */
@@ -131,27 +160,41 @@ async function send<T>(path: ApiPath, options: RequestOptions, accessToken?: str
 function refreshSession(current: Tokens, version: number) {
   if (pendingRefresh) return pendingRefresh
 
-  const request = send<Tokens>('/auth/refresh', { method: 'POST', json: { refreshToken: current.refreshToken } })
-    .then((updated) => {
+  async function refresh() {
+    syncSession()
+    const active = session
+    if (!active || version !== sessionVersion) throw invalidSession()
+    if (active.tokens.refreshToken !== current.refreshToken) return active.tokens
+
+    try {
+      const updated = await send<Tokens>('/auth/refresh', { method: 'POST', json: { refreshToken: current.refreshToken } })
+      syncSession()
       if (version !== sessionVersion) throw invalidSession()
-      storeSession(updated)
+      storeSession({ id: active.id, tokens: updated })
       return updated
-    })
-    .catch((error: unknown) => {
-      if (version === sessionVersion && isInvalidToken(error)) setSession(null)
+    } catch (error) {
+      syncSession()
+      if (!isInvalidToken(error) || version !== sessionVersion) throw error
+      if (session && session.tokens.refreshToken !== current.refreshToken) return session.tokens
+      setSession(null)
       throw error
-    })
-    .finally(() => {
-      if (pendingRefresh === request) pendingRefresh = undefined
-    })
+    }
+  }
+
+  // A refresh token can only be rotated once, including across tabs.
+  const locks = globalThis.navigator?.locks
+  const request = (locks ? locks.request(storageKey, refresh) : refresh()).finally(() => {
+    if (pendingRefresh === request) pendingRefresh = undefined
+  })
 
   pendingRefresh = request
   return request
 }
 
 async function sendAuthenticated<T>(path: ApiPath, makeOptions: (current: Tokens) => RequestOptions): Promise<T> {
+  syncSession()
   const version = sessionVersion
-  const current = pendingRefresh ? await pendingRefresh : tokens
+  const current = pendingRefresh ? await pendingRefresh : session?.tokens
   if (!current || version !== sessionVersion) throw invalidSession()
 
   const sendWithSession = async (active: Tokens, options: RequestOptions) => {
@@ -168,13 +211,14 @@ async function sendAuthenticated<T>(path: ApiPath, makeOptions: (current: Tokens
   }
 
   options.signal?.throwIfAborted()
-  const updated = tokens !== current && tokens ? tokens : await refreshSession(current, version)
+  const updated = await refreshSession(current, version)
   if (version !== sessionVersion) throw invalidSession()
 
   try {
     return await sendWithSession(updated, makeOptions(updated))
   } catch (error) {
-    if (version === sessionVersion && tokens === updated && isInvalidToken(error)) setSession(null)
+    syncSession()
+    if (version === sessionVersion && session?.tokens.refreshToken === updated.refreshToken && isInvalidToken(error)) setSession(null)
     throw error
   }
 }
@@ -186,12 +230,14 @@ export function apiRequest<T>(path: ApiPath, options: RequestOptions = {}): Prom
 
 /** Revokes the active refresh token and clears the local session. */
 export async function revokeSession() {
-  if (!tokens) return
+  syncSession()
+  if (!session) return
   const version = sessionVersion
 
   try {
     await sendAuthenticated<void>('/auth/logout', (current) => ({ method: 'POST', json: { refreshToken: current.refreshToken } }))
   } finally {
+    syncSession()
     if (version === sessionVersion) setSession(null)
   }
 }
