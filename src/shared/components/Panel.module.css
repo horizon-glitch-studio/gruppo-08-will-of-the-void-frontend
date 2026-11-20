@@ -1,0 +1,73 @@
+/*
+ * Neon frame with cut corners or pointed sides.
+ * .panel carries the glow (filter): it is not clipped, so the glow stays visible.
+ * .shape is clipped to the outline: its background is the border, ::before is the fill inside it.
+ */
+.panel {
+  --_color: var(--color-accent);
+  --_fill: var(--color-surface);
+  --_border: var(--border-width);
+  --_cut: 1rem;
+
+  --_glow: 10px;
+
+  display: block;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--_color) 80%, transparent)) drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color) 35%, transparent));
+}
+
+.shape {
+  display: block;
+  position: relative;
+  padding: var(--space-s) calc(var(--_cut) + var(--space-s));
+  background: var(--_color);
+  clip-path: var(--_outline);
+}
+
+.shape::before {
+  content: '';
+  position: absolute;
+  inset: var(--_border);
+  z-index: -1;
+  background: var(--_fill);
+  clip-path: var(--_outline);
+}
+
+.content {
+  display: block;
+  position: relative;
+}
+
+/* Pointed left and right sides, as the hub buttons */
+.panel[data-shape='pointed'] {
+  --_outline: polygon(var(--_cut) 0, calc(100% - var(--_cut)) 0, 100% 50%, calc(100% - var(--_cut)) 100%, var(--_cut) 100%, 0 50%);
+}
+
+/* Four cut corners, as the top bar */
+.panel[data-shape='chamfered'] {
+  --_outline: polygon(
+    var(--_cut) 0,
+    calc(100% - var(--_cut)) 0,
+    100% var(--_cut),
+    100% calc(100% - var(--_cut)),
+    calc(100% - var(--_cut)) 100%,
+    var(--_cut) 100%,
+    0 calc(100% - var(--_cut)),
+    0 var(--_cut)
+  );
+}
+
+.panel[data-shape='chamfered'] .shape {
+  padding: var(--space-s);
+}
+
+.panel[data-tone='shop'] {
+  --_color: var(--color-shop);
+}
+
+.panel[data-tone='ship'] {
+  --_color: var(--color-ship);
+}
+
+.panel[data-tone='arena'] {
+  --_color: var(--color-arena);
+}
