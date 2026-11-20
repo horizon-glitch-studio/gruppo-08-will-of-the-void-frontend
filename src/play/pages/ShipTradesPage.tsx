@@ -1,6 +1,13 @@
-import { PagePlaceholder } from '../components/PagePlaceholder'
+import { ApiPage } from '@/shared/components/ApiPage'
+import { tradesService } from '../api/trades'
 
-/** List of the player's trades, sent and received. */
+const load = (signal: AbortSignal) => tradesService.list({ size: 1 }, signal)
+
+/** Trades screen. */
 export function ShipTradesPage() {
-  return <PagePlaceholder title="Trades" />
+  return (
+    <ApiPage title="Trades" load={load}>
+      {(trades) => <p>Trades: {trades.totalItems}</p>}
+    </ApiPage>
+  )
 }

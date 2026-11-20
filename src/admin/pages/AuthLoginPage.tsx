@@ -1,9 +1,12 @@
-/** Admin log in screen of the backoffice. */
+import { LoginForm } from '@/shared/components/LoginForm'
+
+/** Administrator login screen. */
 export function AuthLoginPage() {
   return (
-    <section>
-      <title>Admin log in – Will of the Void admin</title>
+    <main>
+      <title>Admin log in – Will of the Void</title>
       <h1>Admin log in</h1>
-    </section>
+      <LoginForm requiredRole="ADMIN" />
+    </main>
   )
 }

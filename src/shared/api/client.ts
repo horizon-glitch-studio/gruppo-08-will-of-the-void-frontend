@@ -1,0 +1,197 @@
+type ApiErrorBody = {
+  code?: unknown
+  fieldErrors?: unknown
+  details?: unknown
+}
+
+/** HTTP error returned by the backend. */
+export class ApiError extends Error {
+  readonly status: number
+  readonly code: string | undefined
+  readonly fieldErrors: unknown
+  readonly details: unknown
+
+  constructor(status: number, body?: ApiErrorBody) {
+    super(`API request failed with status ${status}`)
+    this.name = 'ApiError'
+    this.status = status
+    this.code = typeof body?.code === 'string' ? body.code : undefined
+    this.fieldErrors = body?.fieldErrors
+    this.details = body?.details
+  }
+}
+
+/** Reads the backend error fields when the response contains a JSON object. */
+async function readErrorBody(response: Response): Promise<ApiErrorBody | undefined> {
+  const text = await response.text()
+
+  try {
+    const body: unknown = JSON.parse(text)
+    return body !== null && typeof body === 'object' && !Array.isArray(body) ? (body as ApiErrorBody) : undefined
+  } catch {
+    return undefined
+  }
+}
+
+export interface Tokens {
+  tokenType: string
+  accessToken: string
+  accessTokenExpiresIn: number
+  refreshToken: string
+  refreshTokenExpiresIn: number
+}
+
+type ApiPath = `/${string}`
+type RequestOptions = RequestInit & { authenticated?: boolean; json?: unknown }
+
+const storageKey = 'wotv.session'
+const listeners = new Set<() => void>()
+
+function restoreSession(): Tokens | null {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(storageKey) ?? 'null')
+    return typeof saved?.accessToken === 'string' && typeof saved.refreshToken === 'string' ? saved : null
+  } catch {
+    return null
+  }
+}
+
+let tokens = restoreSession()
+let sessionVersion = 0
+let pendingRefresh: Promise<Tokens> | undefined
+
+function storeSession(value: Tokens | null) {
+  tokens = value
+  try {
+    if (value) sessionStorage.setItem(storageKey, JSON.stringify(value))
+    else sessionStorage.removeItem(storageKey)
+  } catch {
+    // The current page can still use the in-memory session if browser storage is unavailable.
+  }
+  for (const listener of listeners) listener()
+}
+
+/** Replaces or clears the current session and invalidates any previous refresh. */
+export function setSession(value: Tokens | null) {
+  sessionVersion++
+  pendingRefresh = undefined
+  storeSession(
+    value && {
+      tokenType: value.tokenType,
+      accessToken: value.accessToken,
+      accessTokenExpiresIn: value.accessTokenExpiresIn,
+      refreshToken: value.refreshToken,
+      refreshTokenExpiresIn: value.refreshTokenExpiresIn,
+    },
+  )
+}
+
+/** Returns whether there is a session to validate with the API. */
+export function getSessionVersion() {
+  return tokens ? sessionVersion : null
+}
+
+/** Subscribes to sign-in and sign-out changes. */
+export function subscribeToSession(listener: () => void) {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
+  }
+}
+
+function invalidSession() {
+  return new ApiError(401, { code: 'TOKEN_INVALID' })
+}
+
+function isInvalidToken(error: unknown) {
+  return error instanceof ApiError && error.status === 401 && error.code === 'TOKEN_INVALID'
+}
+
+async function send<T>(path: ApiPath, options: RequestOptions, accessToken?: string): Promise<T> {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL?.trim().replace(/\/+$/, '')
+  if (!baseUrl) throw new Error('VITE_API_BASE_URL is missing')
+
+  const { authenticated: _authenticated, json, ...init } = options
+  const headers = new Headers(init.headers)
+  if (!headers.has('Accept')) headers.set('Accept', 'application/json')
+  if (accessToken) headers.set('Authorization', `Bearer ${accessToken}`)
+
+  if (json !== undefined) {
+    headers.set('Content-Type', 'application/json')
+    init.body = JSON.stringify(json)
+  }
+
+  const response = await fetch(`${baseUrl}${path}`, { ...init, headers })
+  if (!response.ok) throw new ApiError(response.status, await readErrorBody(response))
+
+  const body = await response.text()
+  return body === '' ? (undefined as T) : JSON.parse(body)
+}
+
+function refreshSession(current: Tokens, version: number) {
+  if (pendingRefresh) return pendingRefresh
+
+  const request = send<Tokens>('/auth/refresh', { method: 'POST', json: { refreshToken: current.refreshToken } })
+    .then((updated) => {
+      if (version !== sessionVersion) throw invalidSession()
+      storeSession(updated)
+      return updated
+    })
+    .catch((error: unknown) => {
+      if (version === sessionVersion && isInvalidToken(error)) setSession(null)
+      throw error
+    })
+    .finally(() => {
+      if (pendingRefresh === request) pendingRefresh = undefined
+    })
+
+  pendingRefresh = request
+  return request
+}
+
+async function sendAuthenticated<T>(path: ApiPath, makeOptions: (current: Tokens) => RequestOptions): Promise<T> {
+  const version = sessionVersion
+  const current = pendingRefresh ? await pendingRefresh : tokens
+  if (!current || version !== sessionVersion) throw invalidSession()
+
+  const sendWithSession = async (active: Tokens, options: RequestOptions) => {
+    const response = await send<T>(path, options, active.accessToken)
+    if (version !== sessionVersion) throw invalidSession()
+    return response
+  }
+
+  const options = makeOptions(current)
+  try {
+    return await sendWithSession(current, options)
+  } catch (error) {
+    if (!isInvalidToken(error) || version !== sessionVersion) throw error
+  }
+
+  options.signal?.throwIfAborted()
+  const updated = tokens !== current && tokens ? tokens : await refreshSession(current, version)
+  if (version !== sessionVersion) throw invalidSession()
+
+  try {
+    return await sendWithSession(updated, makeOptions(updated))
+  } catch (error) {
+    if (version === sessionVersion && tokens === updated && isInvalidToken(error)) setSession(null)
+    throw error
+  }
+}
+
+/** Sends a JSON API request. Protected requests retry once after a single shared token refresh. */
+export function apiRequest<T>(path: ApiPath, options: RequestOptions = {}): Promise<T> {
+  return options.authenticated ? sendAuthenticated<T>(path, () => options) : send<T>(path, options)
+}
+
+/** Revokes the active refresh token and clears the local session. */
+export async function revokeSession() {
+  if (!tokens) return
+  const version = sessionVersion
+
+  try {
+    await sendAuthenticated<void>('/auth/logout', (current) => ({ method: 'POST', json: { refreshToken: current.refreshToken } }))
+  } finally {
+    if (version === sessionVersion) setSession(null)
+  }
+}

@@ -1,6 +1,15 @@
-import { PagePlaceholder } from '../components/PagePlaceholder'
+import { usersService } from '@/shared/api/users'
+import { ApiPage } from '@/shared/components/ApiPage'
 
 /** Profile screen. */
 export function ProfilePage() {
-  return <PagePlaceholder title="Profile" />
+  return (
+    <ApiPage title="Profile" load={usersService.getMe}>
+      {(profile) => (
+        <p>
+          {profile.username} · {profile.trophies} trophies
+        </p>
+      )}
+    </ApiPage>
+  )
 }

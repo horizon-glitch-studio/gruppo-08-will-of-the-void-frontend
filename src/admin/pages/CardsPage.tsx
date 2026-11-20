@@ -1,9 +1,18 @@
+import { authService } from '@/shared/api/auth'
+import { ApiForm } from '@/shared/components/ApiForm'
+import { ApiPage } from '@/shared/components/ApiPage'
+import { adminCardsService } from '../api/cards'
+
 /** Cards screen of the backoffice. */
 export function CardsPage() {
   return (
-    <section>
-      <title>Cards – Will of the Void admin</title>
-      <h1>Cards</h1>
-    </section>
+    <ApiPage title="Cards" load={adminCardsService.list}>
+      {(cards) => (
+        <>
+          <p>Catalog preview: {cards.map(({ name }) => name).join(', ')}</p>
+          <ApiForm label="Log out" submit={authService.logout} />
+        </>
+      )}
+    </ApiPage>
   )
 }

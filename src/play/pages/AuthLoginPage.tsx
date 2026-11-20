@@ -1,6 +1,12 @@
-import { PagePlaceholder } from '../components/PagePlaceholder'
+import { LoginForm } from '@/shared/components/LoginForm'
 
 /** Log in screen. */
 export function AuthLoginPage() {
-  return <PagePlaceholder title="Log in" />
+  return (
+    <section>
+      <title>Log in – Will of the Void</title>
+      <h1>Log in</h1>
+      <LoginForm />
+    </section>
+  )
 }
