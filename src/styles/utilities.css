@@ -75,6 +75,12 @@
   --gap: var(--space-xl);
 }
 
+/* List without bullets and indentation, for menus and navigation */
+.list-plain {
+  padding: 0;
+  list-style: none;
+}
+
 /* Page content: centered, with side margins */
 .container {
   width: 100%;

@@ -9,10 +9,10 @@
   --_border: var(--border-width);
   --_cut: 1rem;
 
-  --_glow: 10px;
+  --_glow: 12px;
 
   display: block;
-  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--_color) 80%, transparent)) drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color) 35%, transparent));
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--_color) 90%, transparent)) drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color) 35%, transparent));
 }
 
 .shape {

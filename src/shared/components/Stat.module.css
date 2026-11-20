@@ -17,6 +17,11 @@
   display: flex;
 }
 
+/* The icon keeps its size when the row is tight */
+.icon > svg {
+  flex-shrink: 0;
+}
+
 .value {
   grid-column: 2;
   font-weight: var(--weight-semibold);

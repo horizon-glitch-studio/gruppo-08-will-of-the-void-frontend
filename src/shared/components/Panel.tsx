@@ -13,21 +13,23 @@ export type PanelProps<E extends ElementType> = {
   as?: E
   shape?: PanelShape
   tone?: Tone
+  /** Inner wrappers as span instead of div: needed when the Panel is a button or a link. */
+  inline?: boolean
   className?: string
   children: ReactNode
 } & Omit<ComponentPropsWithoutRef<E>, 'as' | 'children' | 'className'>
 
 /**
  * Neon frame with cut corners or pointed sides, used for bars, boxes and big buttons.
- * The inner wrappers are spans, so a Panel can also be a button or a link.
  */
-export function Panel<E extends ElementType = 'div'>({ as, shape = 'chamfered', tone = 'accent', className, children, ...props }: PanelProps<E>) {
+export function Panel<E extends ElementType = 'div'>({ as, shape = 'chamfered', tone = 'accent', inline = false, className, children, ...props }: PanelProps<E>) {
   const Element: ElementType = as ?? 'div'
+  const Wrapper = inline ? 'span' : 'div'
   return (
     <Element className={className ? `${styles.panel} ${className}` : styles.panel} data-shape={shape} data-tone={tone} {...props}>
-      <span className={styles.shape}>
-        <span className={styles.content}>{children}</span>
-      </span>
+      <Wrapper className={styles.shape}>
+        <Wrapper className={styles.content}>{children}</Wrapper>
+      </Wrapper>
     </Element>
   )
 }
