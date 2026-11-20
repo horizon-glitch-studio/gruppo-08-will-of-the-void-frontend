@@ -1,6 +1,49 @@
-import { PagePlaceholder } from '../components/PagePlaceholder'
+import { useCallback } from 'react'
+import { useSearchParams } from 'react-router'
+import { cardsService } from '@/shared/api/cards'
+import { useApiQuery } from '@/shared/hooks/useApiQuery'
+import { collectionService } from '../api/collection'
 
 /** Collection screen. */
 export function ShipCollectionPage() {
-  return <PagePlaceholder title="Collection" />
+  const [params] = useSearchParams()
+  const archive = params.get('tab') === 'archive'
+  const load = useCallback(
+    async (signal: AbortSignal) => {
+      if (archive) {
+        const page = await collectionService.archive({ size: 1 }, signal)
+        return { total: page.totalItems }
+      }
+
+      const [page, gameData] = await Promise.all([collectionService.list({ size: 1 }, signal), cardsService.getGameData(signal)])
+      return { total: page.totalItems, deckSize: gameData.deckRules.deckSize }
+    },
+    [archive],
+  )
+
+  const { status, data, errorMessage, reload } = useApiQuery(load)
+
+  return (
+    <section>
+      <title>Collection – Will of the Void</title>
+      <h1>Collection</h1>
+      {status === 'loading' && <output>Loading…</output>}
+      {status === 'error' && (
+        <>
+          <p role="alert">{errorMessage}</p>
+          <button type="button" onClick={reload}>
+            Try again
+          </button>
+        </>
+      )}
+      {status === 'success' && (
+        <>
+          <p>
+            {archive ? 'Archived cards' : 'Owned card types'}: {data.total}
+          </p>
+          {data.deckSize !== undefined && <p>Deck size: {data.deckSize}</p>}
+        </>
+      )}
+    </section>
+  )
 }
