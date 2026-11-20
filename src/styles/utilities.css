@@ -38,3 +38,45 @@
     padding-inline: var(--space-l);
   }
 }
+
+/*
+ * Logo: the brand SVG used as a mask and filled with the text color.
+ * The file is downloaded once and cached.
+ * The accessible name goes on the link around it (aria-label).
+ * For a colored variant, change `color` on the .logo element.
+ */
+.logo {
+  display: block;
+  color: var(--color-text);
+  background: currentColor;
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+/* Navigation: detailed symbol on mobile, horizontal wordmark from 40rem */
+.logo-nav {
+  height: 4rem;
+  aspect-ratio: 1;
+  mask-image: url('../assets/brand/symbol-simple.svg');
+}
+
+@media (min-width: 40rem) {
+  .logo-nav {
+    height: 4rem;
+    aspect-ratio: 2944 / 512;
+    mask-image: url('../assets/brand/wordmark-horizontal.svg');
+  }
+}
+
+/* Footer: stacked wordmark */
+.logo-stacked {
+  height: 6rem;
+  aspect-ratio: 639 / 512;
+  mask-image: url('../assets/brand/wordmark-stacked.svg');
+}
+
+/* Neon glow around a logo. Goes on the link that contains it: the mask on .logo would cut the glow off */
+.logo-glow {
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--color-accent) 90%, transparent)) drop-shadow(0 0 6px color-mix(in srgb, var(--color-accent) 50%, transparent));
+}

@@ -10,6 +10,7 @@ Exact versions are in `package.json` and `package-lock.json`.
 | react-dom | Renders React in the browser | Required by React. |
 | @fontsource-variable/exo | Exo font, body text and UI | Self-hosted: the font is served with the site, no request to Google servers. Variable font: one file for all weights. |
 | @fontsource-variable/cinzel | Cinzel font, h1 and h2 | Same as Exo. Same designer as Exo, close to the logo lettering. |
+| @phosphor-icons/react | UI icons and faction symbols | One consistent icon set, MIT license. Import the names with the Icon suffix (FireIcon): the ones without it are deprecated. |
 | react-router | Routing of `/play` and `/admin` | Every screen has its own URL, so it can be linked, reloaded and reached with the browser's back button. |
 
 ## Development
@@ -22,3 +23,5 @@ Exact versions are in `package.json` and `package-lock.json`.
 | @types/react, @types/react-dom, @types/node | Type definitions | Types for React and for Node APIs used in `vite.config.ts`. |
 | oxlint | Linter | Rules for React hooks, TypeScript, imports, accessibility (jsx-a11y) and JSDoc. Supports TypeScript 7. |
 | prettier | Formatter | One code style for the whole team, checked in CI. |
+| sharp | Image processing | Generates the lore images (WebP crops and widths) and the favicons from the brand files: scripts/images.mjs, scripts/favicons.mjs. |
+
