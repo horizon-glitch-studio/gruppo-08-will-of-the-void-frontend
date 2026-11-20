@@ -13,8 +13,6 @@ export function CommunitySummonerPage() {
 
   return (
     <section>
-      <title>Summoner – Will of the Void</title>
-      <h1>Summoner</h1>
       {status === 'loading' && <output>Loading…</output>}
       {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && (

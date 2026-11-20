@@ -33,9 +33,11 @@ import { ShipTradesPage } from '../pages/ShipTradesPage'
 import { ShopHistoryPage } from '../pages/ShopHistoryPage'
 import { ShopPackOpeningPage } from '../pages/ShopPackOpeningPage'
 import { ShopPage } from '../pages/ShopPage'
+import { meta } from './meta'
 
 /**
  * Router of the /play app. Paths are relative to the basename /play.
+ * Each platform screen sets `handle` to its PageMeta: title, back link and hub flag come from there.
  */
 export const router = createBrowserRouter(
   [
@@ -57,53 +59,53 @@ export const router = createBrowserRouter(
         {
           element: <PlatformLayout />,
           children: [
-            { index: true, element: <HubPage /> },
+            { index: true, element: <HubPage />, handle: meta.hub },
             {
               path: 'shop',
               children: [
-                { index: true, element: <ShopPage /> },
-                { path: 'openings/:openingId', element: <ShopPackOpeningPage /> },
-                { path: 'history', element: <ShopHistoryPage /> },
+                { index: true, element: <ShopPage />, handle: meta.shop },
+                { path: 'openings/:openingId', element: <ShopPackOpeningPage />, handle: meta.packOpening },
+                { path: 'history', element: <ShopHistoryPage />, handle: meta.shopHistory },
               ],
             },
             {
               path: 'ship',
               children: [
                 { index: true, element: <Navigate to="collection" replace /> },
-                { path: 'collection', element: <ShipCollectionPage /> },
-                { path: 'collection/:cardId', element: <ShipCollectionCardPage /> },
-                { path: 'decks', element: <ShipDecksPage /> },
-                { path: 'decks/new', element: <ShipDeckEditorPage /> },
-                { path: 'decks/:deckId', element: <ShipDeckEditorPage /> },
-                { path: 'trades', element: <ShipTradesPage /> },
-                { path: 'trades/new', element: <ShipTradeNewPage /> },
-                { path: 'trades/:tradeId', element: <ShipTradeDetailPage /> },
+                { path: 'collection', element: <ShipCollectionPage />, handle: meta.collection },
+                { path: 'collection/:cardId', element: <ShipCollectionCardPage />, handle: meta.collectionCard },
+                { path: 'decks', element: <ShipDecksPage />, handle: meta.decks },
+                { path: 'decks/new', element: <ShipDeckEditorPage />, handle: meta.deckNew },
+                { path: 'decks/:deckId', element: <ShipDeckEditorPage />, handle: meta.deckEditor },
+                { path: 'trades', element: <ShipTradesPage />, handle: meta.trades },
+                { path: 'trades/new', element: <ShipTradeNewPage />, handle: meta.tradeNew },
+                { path: 'trades/:tradeId', element: <ShipTradeDetailPage />, handle: meta.trade },
               ],
             },
             {
               path: 'arena',
               children: [
-                { index: true, element: <ArenaPage /> },
-                { path: 'quick', element: <ArenaQuickPage /> },
-                { path: 'ranked', element: <ArenaRankedPage /> },
-                { path: 'friend', element: <ArenaFriendPage /> },
-                { path: 'challenges', element: <ArenaChallengesPage /> },
-                { path: 'battles/:battleId', element: <ArenaBattlePage /> },
-                { path: 'battles/:battleId/replay', element: <ArenaReplayPage /> },
-                { path: 'history', element: <ArenaHistoryPage /> },
-                { path: 'leaderboard', element: <ArenaLeaderboardPage /> },
+                { index: true, element: <ArenaPage />, handle: meta.arena },
+                { path: 'quick', element: <ArenaQuickPage />, handle: meta.arenaQuick },
+                { path: 'ranked', element: <ArenaRankedPage />, handle: meta.arenaRanked },
+                { path: 'friend', element: <ArenaFriendPage />, handle: meta.arenaFriend },
+                { path: 'challenges', element: <ArenaChallengesPage />, handle: meta.challenges },
+                { path: 'battles/:battleId', element: <ArenaBattlePage />, handle: meta.battle },
+                { path: 'battles/:battleId/replay', element: <ArenaReplayPage />, handle: meta.replay },
+                { path: 'history', element: <ArenaHistoryPage />, handle: meta.battleHistory },
+                { path: 'leaderboard', element: <ArenaLeaderboardPage />, handle: meta.leaderboard },
               ],
             },
-            { path: 'profile', element: <ProfilePage /> },
-            { path: 'profile/friends', element: <ProfileFriendsPage /> },
-            { path: 'community', element: <CommunityPage /> },
-            { path: 'summoners/:username', element: <CommunitySummonerPage /> },
-            { path: 'settings', element: <SettingsPage /> },
+            { path: 'profile', element: <ProfilePage />, handle: meta.profile },
+            { path: 'profile/friends', element: <ProfileFriendsPage />, handle: meta.friends },
+            { path: 'community', element: <CommunityPage />, handle: meta.community },
+            { path: 'summoners/:username', element: <CommunitySummonerPage />, handle: meta.summoner },
+            { path: 'settings', element: <SettingsPage />, handle: meta.settings },
+            { path: '*', element: <NotFoundPage />, handle: meta.notFound },
           ],
         },
       ],
     },
-    { path: '*', element: <NotFoundPage /> },
   ],
   { basename: '/play' },
 )

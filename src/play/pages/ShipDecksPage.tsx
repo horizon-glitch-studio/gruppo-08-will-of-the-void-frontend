@@ -8,8 +8,6 @@ export function ShipDecksPage() {
 
   return (
     <section>
-      <title>Decks – Will of the Void</title>
-      <h1>Decks</h1>
       {status === 'loading' && <output>Loading…</output>}
       {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && <p>Saved decks: {data.length}</p>}

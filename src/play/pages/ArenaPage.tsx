@@ -10,8 +10,6 @@ export function ArenaPage() {
 
   return (
     <section>
-      <title>Arena – Will of the Void</title>
-      <h1>Arena</h1>
       {status === 'loading' && <output>Loading…</output>}
       {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && <p>Completed battles: {data.totalItems}</p>}
