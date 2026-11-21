@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { Button, ButtonLink } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { Field } from '@/shared/components/Field'
+import { useFormErrorFocus } from '@/shared/hooks/useFormErrorFocus'
 import { paths } from '../routes/paths'
 import { AuthScreen } from './AuthScreen'
 import styles from './AuthScreen.module.css'
@@ -16,6 +17,7 @@ interface PlayerLoginFormProps {
 
 /** Renders the player login form and account-access links. */
 export function PlayerLoginForm({ login, pending, errorMessage, fieldErrors }: PlayerLoginFormProps) {
+  const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
@@ -24,7 +26,7 @@ export function PlayerLoginForm({ login, pending, errorMessage, fieldErrors }: P
 
   return (
     <AuthScreen title="Back to the Void">
-      <form className="column gap-s" onSubmit={submit}>
+      <form ref={formRef} className="column gap-s" onSubmit={submit}>
         <Field name="identifier" label="Summoner name or email" placeholder="name@example.com" autoComplete="username" autoCapitalize="none" required error={fieldErrors.identifier} />
         <Field name="password" label="Password" placeholder="Enter your password" type="password" autoComplete="current-password" required error={fieldErrors.password} />
         {errorMessage && <ErrorBox message={errorMessage} />}

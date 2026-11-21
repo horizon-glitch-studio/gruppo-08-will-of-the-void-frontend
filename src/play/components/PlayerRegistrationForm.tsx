@@ -4,6 +4,7 @@ import type { Registration } from '@/shared/api/auth'
 import { Button, ButtonLink } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { Field } from '@/shared/components/Field'
+import { useFormErrorFocus } from '@/shared/hooks/useFormErrorFocus'
 import { paths } from '../routes/paths'
 import { AuthScreen } from './AuthScreen'
 import screenStyles from './AuthScreen.module.css'
@@ -21,6 +22,7 @@ const timeZones = [...new Set(['UTC', detectedTimeZone, ...(Intl.supportedValues
 
 /** Renders the player registration form and its success confirmation. */
 export function PlayerRegistrationForm({ register, pending, errorMessage, fieldErrors, success }: PlayerRegistrationFormProps) {
+  const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
   const [searchParams] = useSearchParams()
   const inviteInput = useRef<HTMLInputElement>(null)
   const enteringInvite = searchParams.has('invite')
@@ -48,7 +50,7 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
       {success ? (
         <output>Check your inbox for the verification email. You can log in now.</output>
       ) : (
-        <form className="column gap-s" onSubmit={submit}>
+        <form ref={formRef} className="column gap-s" onSubmit={submit}>
           <Field
             name="username"
             label="Summoner name"
