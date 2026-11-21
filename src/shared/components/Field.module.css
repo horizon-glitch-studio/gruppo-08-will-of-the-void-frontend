@@ -1,8 +1,0 @@
-.field {
-  min-inline-size: 0;
-  font-size: var(--text-xs);
-}
-
-.error {
-  color: var(--color-danger);
-}

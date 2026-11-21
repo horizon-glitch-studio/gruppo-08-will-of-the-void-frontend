@@ -1,5 +1,4 @@
 import { useId, type ComponentPropsWithRef } from 'react'
-import styles from './Field.module.css'
 
 type FieldProps = { label: string; error?: string } & (({ as?: 'input' } & ComponentPropsWithRef<'input'>) | ({ as: 'select' } & ComponentPropsWithRef<'select'>))
 
@@ -24,11 +23,11 @@ export function Field({ label, error, ...props }: FieldProps) {
   }
 
   return (
-    <div className={`column gap-2xs ${styles.field}`}>
+    <div className="column gap-2xs">
       <label htmlFor={id}>{label}</label>
       {control}
       {error && (
-        <p className={styles.error} id={errorId}>
+        <p className="field-error" id={errorId}>
           {error}
         </p>
       )}

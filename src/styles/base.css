@@ -8,37 +8,59 @@ body {
   line-height: var(--leading-normal);
 }
 
-/* Headings: h1 and h2 in Cinzel, uppercase; from h3 in Exo */
+/*
+ * Headings: h1 and h2 in Cinzel, uppercase; from h3 in Exo.
+ * The .h1–.h4 classes give the look of a heading level to any tag, so the tag can follow the page structure:
+ * <h2 class="h3"> is a second-level heading that looks like a third-level one.
+ * .h3 and .h4 also reset the font and the uppercase, in case they sit on an h1 or h2.
+ */
 h1,
 h2,
 h3,
-h4 {
+h4,
+.h1,
+.h2,
+.h3,
+.h4 {
   line-height: var(--leading-tight);
 }
 
 h1,
-h2 {
+h2,
+.h1,
+.h2 {
   font-family: var(--font-display);
   font-weight: var(--weight-black);
   text-transform: uppercase;
 }
 
-h1 {
+h1,
+.h1 {
   font-size: var(--text-h1);
 }
 
-h2 {
+h2,
+.h2 {
   font-size: var(--text-h2);
 }
 
-h3 {
-  font-size: var(--text-h3);
+h3,
+.h3,
+h4,
+.h4 {
+  font-family: var(--font-sans);
   font-weight: var(--weight-semibold);
+  text-transform: none;
 }
 
-h4 {
+h3,
+.h3 {
+  font-size: var(--text-h3);
+}
+
+h4,
+.h4 {
   font-size: var(--text-h4);
-  font-weight: var(--weight-semibold);
 }
 
 a {
@@ -80,4 +102,11 @@ a:hover {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Separator between groups of content: always the full width, even inside centered flex columns */
+hr {
+  inline-size: 100%;
+  border: 0;
+  border-block-start: 1px solid var(--color-border);
 }

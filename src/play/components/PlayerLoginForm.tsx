@@ -25,7 +25,7 @@ export function PlayerLoginForm({ login, pending, errorMessage, fieldErrors }: P
   }
 
   return (
-    <AuthScreen title="Back to the Void">
+    <AuthScreen title="Log in" subtitle="Welcome back to the Void.">
       <form ref={formRef} className="column gap-s" onSubmit={submit}>
         <Field name="identifier" label="Summoner name or email" placeholder="name@example.com" autoComplete="username" autoCapitalize="none" required error={fieldErrors.identifier} />
         <Field name="password" label="Password" placeholder="Enter your password" type="password" autoComplete="current-password" required error={fieldErrors.password} />
@@ -36,6 +36,8 @@ export function PlayerLoginForm({ login, pending, errorMessage, fieldErrors }: P
       </form>
       <nav className={`column gap-s ${styles.actions}`} aria-label="Account access">
         <Link to={paths.forgotPassword}>Forgot password?</Link>
+        <hr />
+        <h2 className="h3">First time here?</h2>
         <ButtonLink to={paths.register} variant="secondary">
           Create account
         </ButtonLink>

@@ -1,27 +1,27 @@
+/*
+ * Account access screen: one column at most 30rem wide, centered in the free space.
+ * The width must be set: a grid item with auto margins would otherwise shrink to its content.
+ * The padding only keeps it off the edges on phones.
+ */
 .screen {
-  padding: var(--space-s);
+  inline-size: 100%;
+  max-inline-size: 30rem;
+  margin: auto;
+  padding: var(--space-m) var(--space-s);
 }
 
-.title {
-  font-size: var(--text-h3);
+/* Line of flavor under the title: not a heading */
+.subtitle {
+  color: var(--color-text-muted);
 }
 
+/* Secondary actions: links, buttons and their lead-in text, centered */
 .actions {
   align-items: center;
   text-align: center;
 }
 
+/* Submit button: its own width, centered */
 .submit {
   align-self: center;
-}
-
-.screen small {
-  font-size: var(--text-xs);
-}
-
-@media (min-width: 64rem) {
-  .screen {
-    padding-inline: max(var(--space-s), calc((100% - 30rem) / 2));
-    padding-block: var(--space-2xl);
-  }
 }

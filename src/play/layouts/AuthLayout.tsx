@@ -10,7 +10,7 @@ export function AuthLayout() {
         Skip to content
       </a>
       <GuestTopBar />
-      <main id="main">
+      <main id="main" className={styles.main}>
         <Outlet />
       </main>
     </div>

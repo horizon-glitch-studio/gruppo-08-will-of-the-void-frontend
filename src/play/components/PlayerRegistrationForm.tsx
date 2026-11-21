@@ -1,3 +1,4 @@
+import { CaretLeftIcon } from '@phosphor-icons/react'
 import { useEffect, useRef, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router'
 import type { Registration } from '@/shared/api/auth'
@@ -46,7 +47,14 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
   }
 
   return (
-    <AuthScreen title={success ? 'Account created' : 'Create your account'} backLink={<ButtonLink to={paths.login}>Back to Log in</ButtonLink>}>
+    <AuthScreen
+      title={success ? 'Account created' : 'Create account'}
+      backLink={
+        <ButtonLink to={paths.login} icon={<CaretLeftIcon size={20} weight="bold" />}>
+          Back to log in
+        </ButtonLink>
+      }
+    >
       {success ? (
         <output>Check your inbox for the verification email. You can log in now.</output>
       ) : (
