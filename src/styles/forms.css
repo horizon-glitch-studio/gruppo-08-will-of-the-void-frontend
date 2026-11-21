@@ -128,3 +128,10 @@
     transition: none;
   }
 }
+
+/* ---------- Field messages ---------- */
+
+/* Error under a field: <p class="field-error" id="…">, linked from the field with aria-describedby. 7:1 on the background */
+.field-error {
+  color: var(--color-danger);
+}

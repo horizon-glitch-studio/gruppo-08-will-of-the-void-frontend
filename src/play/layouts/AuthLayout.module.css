@@ -1,6 +1,12 @@
 /* Top bar, then the screen, which takes the free height */
 .layout {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   min-height: 100dvh;
+}
+
+/* The screen centers itself in the free height (margin: auto in AuthScreen); taller screens start at the top and scroll */
+.main {
+  display: grid;
 }

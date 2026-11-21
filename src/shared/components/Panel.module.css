@@ -1,3 +1,16 @@
+/* Registered so buttons can fade the glow on hover instead of jumping */
+@property --_glow {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 12px;
+}
+
+@property --_glow-strength {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 35%;
+}
+
 /*
  * Neon frame with cut corners or pointed sides.
  * Border and glow go from --_color to --_color-end: the accent is a violet to purple gradient, the game areas use one color.
@@ -12,10 +25,11 @@
   --_cut: 1rem;
 
   --_glow: 12px;
+  --_glow-strength: 35%;
 
   display: block;
   /* Tight glow in the start color, wide glow in the end color */
-  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--_color) 90%, transparent)) drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color-end) 35%, transparent));
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--_color) 90%, transparent)) drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color-end) var(--_glow-strength), transparent));
 }
 
 .shape {
