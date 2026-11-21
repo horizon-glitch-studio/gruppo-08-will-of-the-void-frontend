@@ -1,0 +1,27 @@
+.screen {
+  padding: var(--space-s);
+}
+
+.title {
+  font-size: var(--text-h3);
+}
+
+.actions {
+  align-items: center;
+  text-align: center;
+}
+
+.submit {
+  align-self: center;
+}
+
+.screen small {
+  font-size: var(--text-xs);
+}
+
+@media (min-width: 64rem) {
+  .screen {
+    padding-inline: max(var(--space-s), calc((100% - 30rem) / 2));
+    padding-block: var(--space-2xl);
+  }
+}
