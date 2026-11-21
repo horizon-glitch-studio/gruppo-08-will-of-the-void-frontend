@@ -134,5 +134,5 @@
 
 /* Neon glow around a logo. Goes on the link that contains it: the mask on .logo would cut the glow off */
 .logo-glow {
-  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--color-accent) 90%, transparent)) drop-shadow(0 0 6px color-mix(in srgb, var(--color-accent) 50%, transparent));
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--color-logo-glow) 90%, transparent)) drop-shadow(0 0 6px color-mix(in srgb, var(--color-logo-glow) 50%, transparent));
 }

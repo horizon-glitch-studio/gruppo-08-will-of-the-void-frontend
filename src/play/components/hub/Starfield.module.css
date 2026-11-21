@@ -1,0 +1,63 @@
+/* Fixed behind the whole page: the top bar covers it with its own background */
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Nebula: three color clouds along the star band */
+  background:
+    radial-gradient(ellipse 45% 30% at 20% 65%, color-mix(in srgb, var(--color-space-purple) 22%, transparent), transparent 70%),
+    radial-gradient(ellipse 40% 25% at 55% 50%, color-mix(in srgb, var(--color-space-violet) 18%, transparent), transparent 70%),
+    radial-gradient(ellipse 45% 30% at 85% 35%, color-mix(in srgb, var(--color-space-indigo) 22%, transparent), transparent 70%);
+}
+
+.stars {
+  width: 100%;
+  height: 100%;
+}
+
+/* Each star: its tone colors the halo of white stars and the whole of colored stars */
+.stars [data-tone='indigo'] {
+  --_tone: var(--color-space-indigo);
+}
+
+.stars [data-tone='violet'] {
+  --_tone: var(--color-space-violet);
+}
+
+.stars [data-tone='purple'] {
+  --_tone: var(--color-space-purple);
+}
+
+.core {
+  fill: var(--_tone);
+}
+
+[data-kind='white'] .core {
+  fill: var(--color-star);
+}
+
+.haloStop {
+  stop-color: var(--_tone);
+  stop-opacity: 0.7;
+}
+
+.haloEnd {
+  stop-opacity: 0;
+}
+
+.twinkle {
+  animation: twinkle 6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.15;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .twinkle {
+    animation: none;
+  }
+}

@@ -1,10 +1,12 @@
 /*
  * Neon frame with cut corners or pointed sides.
+ * Border and glow go from --_color to --_color-end: the accent is a violet to purple gradient, the game areas use one color.
  * .panel carries the glow (filter): it is not clipped, so the glow stays visible.
  * .shape is clipped to the outline: its background is the border, ::before is the fill inside it.
  */
 .panel {
   --_color: var(--color-accent);
+  --_color-end: var(--color-accent-end);
   --_fill: var(--color-surface);
   --_border: var(--border-width);
   --_cut: 1rem;
@@ -12,14 +14,15 @@
   --_glow: 12px;
 
   display: block;
-  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--_color) 90%, transparent)) drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color) 35%, transparent));
+  /* Tight glow in the start color, wide glow in the end color */
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--_color) 90%, transparent)) drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color-end) 35%, transparent));
 }
 
 .shape {
   display: block;
   position: relative;
   padding: var(--space-s) calc(var(--_cut) + var(--space-s));
-  background: var(--_color);
+  background: linear-gradient(to right, var(--_color), var(--_color-end));
   clip-path: var(--_outline);
 }
 
@@ -62,12 +65,15 @@
 
 .panel[data-tone='shop'] {
   --_color: var(--color-shop);
+  --_color-end: var(--color-shop);
 }
 
 .panel[data-tone='ship'] {
   --_color: var(--color-ship);
+  --_color-end: var(--color-ship);
 }
 
 .panel[data-tone='arena'] {
   --_color: var(--color-arena);
+  --_color-end: var(--color-arena);
 }

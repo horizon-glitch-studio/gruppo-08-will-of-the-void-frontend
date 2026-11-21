@@ -1,0 +1,44 @@
+/*
+ * Mobile: Shop, Void, Ship from top to bottom, spread over the screen height.
+ * Wide screens and phones held sideways: side by side.
+ *
+ * The Void shrinks on short screens, so the three links always fit without scrolling:
+ * --_reserved is the height of everything else (top bar, page padding, buttons, gaps), measured in the browser.
+ * Below 12rem it stops shrinking: better to scroll than to get a tiny Void.
+ */
+.hub {
+  --_reserved: 21rem;
+  --void-size: min(100%, 22rem, max(12rem, 100svh - var(--_reserved)));
+
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  align-content: space-evenly;
+  gap: var(--space-m);
+}
+
+@media (min-width: 40rem) {
+  .hub {
+    --void-size: min(100%, 26rem, max(12rem, 100svh - var(--_reserved)));
+  }
+}
+
+@media (min-width: 64rem), (orientation: landscape) and (max-height: 32rem) {
+  .hub {
+    --_reserved: 9.5rem;
+    --void-size: min(30rem, max(12rem, 100svh - var(--_reserved)));
+
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    align-content: center;
+    gap: var(--space-l);
+  }
+
+  .shop {
+    justify-self: end;
+  }
+
+  .ship {
+    justify-self: start;
+  }
+}
