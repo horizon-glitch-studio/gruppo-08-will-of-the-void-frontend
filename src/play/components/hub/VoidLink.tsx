@@ -10,17 +10,17 @@ import styles from './VoidLink.module.css'
  */
 interface Planet {
   orbit: 'inner' | 'middle' | 'outer'
-  color: 'indigo' | 'violet' | 'purple' | 'white'
+  color: 'indigo' | 'violet' | 'purple'
   size: 's' | 'm' | 'l'
   phase: number
   ring?: boolean
 }
 
 const planets: Planet[] = [
-  { orbit: 'inner', color: 'white', size: 'l', phase: 0.15 },
-  { orbit: 'middle', color: 'violet', size: 's', phase: 0.65 },
+  { orbit: 'inner', color: 'indigo', size: 'l', phase: 0.15 },
+  { orbit: 'middle', color: 'violet', size: 'm', phase: 0.65 },
   { orbit: 'middle', color: 'purple', size: 'm', phase: 0.35, ring: true },
-  { orbit: 'outer', color: 'indigo', size: 'm', phase: 0.05 },
+  { orbit: 'outer', color: 'indigo', size: 's', phase: 0.05 },
   { orbit: 'outer', color: 'violet', size: 's', phase: 0.55, ring: true },
   { orbit: 'outer', color: 'purple', size: 's', phase: 0.8 },
 ]
@@ -50,6 +50,7 @@ export function VoidLink() {
           ))}
         </div>
         <Link to={paths.arena} className={styles.void}>
+          <span className={styles.disk} aria-hidden="true" />
           <span className={styles.label}>
             <SwordIcon size={28} weight="bold" aria-hidden="true" />
             <span className={styles.text}>Arena</span>

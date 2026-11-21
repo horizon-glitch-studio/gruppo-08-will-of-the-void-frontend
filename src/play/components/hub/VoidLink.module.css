@@ -6,7 +6,6 @@
 /* The page that shows the Void sets its size with --void-size (the hub fits it to the screen height) */
 .scene {
   position: relative;
-  container-type: inline-size;
   width: var(--void-size, min(100%, 22rem));
   aspect-ratio: 1;
 }
@@ -109,17 +108,20 @@
   }
 }
 
-/* The path starts at the right end and runs clockwise: the first half passes in front, the second behind */
+/*
+ * The path starts at the right end and runs clockwise: the first half passes in front, the second behind.
+ * Size changes use transform, not the scale property: scale applies after the offset and would scale the distance from the center too, moving the planet off its orbit.
+ */
 @keyframes orbit {
   0% {
     offset-distance: 0%;
     z-index: 3;
-    scale: 1;
+    transform: scale(1);
     opacity: 1;
   }
 
   25% {
-    scale: 1.15;
+    transform: scale(1.15);
     opacity: 1;
   }
 
@@ -132,14 +134,14 @@
   }
 
   75% {
-    scale: 0.8;
+    transform: scale(0.8);
     opacity: 0.6;
   }
 
   100% {
     offset-distance: 100%;
     z-index: 1;
-    scale: 1;
+    transform: scale(1);
     opacity: 1;
   }
 }
@@ -183,6 +185,9 @@
 }
 
 /*
+ * The link holds two layers: the disk under the planets passing in front (z-index 2), the label over them (z-index 4), so planets never cover the text.
+ * The link itself sets no z-index, so both layers take part in the depth of .tilt.
+ *
  * Black disk with a white rim, then two glows in magenta and cyan that turn slowly:
  * a 6px band from 90% to transparent, and a soft halo at 35% (24px, 36px on hover).
  * Each glow is a conic gradient masked to a ring: it starts at the rim and fades outward.
@@ -194,16 +199,24 @@
 
   position: absolute;
   inset: 30%;
-  z-index: 2;
   border-radius: 50%;
-  background: var(--color-bg);
   color: var(--color-text);
   text-decoration: none;
   transition: --_halo var(--duration-base) var(--ease-out);
 }
 
-.void::before,
-.void::after {
+/* The outline is the white rim: it is drawn after the glows, so they never cover it */
+.disk {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  background: var(--color-bg);
+  outline: 2px solid color-mix(in srgb, var(--color-void-rim) 90%, transparent);
+}
+
+.disk::before,
+.disk::after {
   --_width: 6px;
   --_strength: 90%;
 
@@ -232,7 +245,7 @@
   animation: spin 60s linear infinite;
 }
 
-.void::after {
+.disk::after {
   --_width: var(--_halo);
   --_strength: 35%;
 }
@@ -254,27 +267,19 @@
   outline-offset: 8px;
 }
 
-/* White rim, and the label straight again against the tilt */
+/* Straight again against the tilt. Icon above the text: it fits the round shape at any size */
 .label {
   position: absolute;
   inset: 0;
+  z-index: 4;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-2xs);
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-void-rim) 90%, transparent);
+  gap: var(--space-3xs);
   rotate: 14deg;
   font-size: var(--text-h4);
   font-weight: var(--weight-semibold);
-}
-
-/* Small scene: icon above the text, or the label overflows the disk */
-@container (max-width: 18rem) {
-  .label {
-    flex-direction: column;
-    gap: var(--space-3xs);
-  }
 }
 
 /* Same label as the Shop and Ship buttons */
@@ -284,8 +289,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .void,
-  .void::before,
-  .void::after {
+  .disk::before,
+  .disk::after {
     animation: none;
     transition: none;
   }
