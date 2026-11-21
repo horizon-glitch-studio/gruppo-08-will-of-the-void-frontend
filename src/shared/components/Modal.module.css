@@ -1,0 +1,66 @@
+/* Native <dialog> without its default box: the Panel inside is the frame */
+.modal {
+  width: min(32rem, 100% - 2 * var(--space-s));
+  max-height: calc(100dvh - 2 * var(--space-s));
+  margin: auto; /* centered: the reset removes the default margin of <dialog> */
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  overflow: visible;
+  opacity: 0;
+  translate: 0 var(--space-s);
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    translate var(--duration-base) var(--ease-out),
+    display var(--duration-base) allow-discrete,
+    overlay var(--duration-base) allow-discrete;
+}
+
+.modal[open] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Where the fade starts when the modal opens */
+@starting-style {
+  .modal[open] {
+    opacity: 0;
+    translate: 0 var(--space-s);
+  }
+}
+
+.modal::backdrop {
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+}
+
+.panel {
+  --_fill: var(--color-surface-raised);
+}
+
+.header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-block-end: var(--space-s);
+}
+
+.title {
+  font-size: var(--text-h3);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  padding: var(--space-2xs);
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal {
+    transition: none;
+  }
+}

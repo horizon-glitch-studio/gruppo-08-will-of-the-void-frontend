@@ -8,3 +8,8 @@
 .main {
   padding-block: var(--space-m);
 }
+
+/* The hub needs every pixel on short screens */
+.main[data-hub] {
+  padding-block: var(--space-s);
+}

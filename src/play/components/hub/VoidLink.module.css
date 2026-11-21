@@ -3,16 +3,23 @@
  * .tilt turns the whole system, so the flat orbits read as seen at an angle.
  * Depth: the back half of each orbit and the planets behind the Void sit under it (z-index 1), the front ones over it (z-index 3).
  */
-/* The page that shows the Void sets its size with --void-size (the hub fits it to the screen height) */
+/*
+ * The scene is twice as wide as it is tall: disk and orbits fill only the middle of a square, so a square scene left empty space above and below.
+ * The page that shows the Void sets its width with --void-size.
+ */
 .scene {
   position: relative;
   width: var(--void-size, min(100%, 22rem));
-  aspect-ratio: 1;
+  aspect-ratio: 2;
 }
 
+/* A square centered on the scene: the orbit sizes are % of this square. The disk is 40% of it, so 80% of the scene height */
 .tilt {
   position: absolute;
-  inset: 0;
+  inset-inline: 0;
+  top: 50%;
+  aspect-ratio: 1;
+  translate: 0 -50%;
   rotate: -14deg;
 }
 

@@ -28,9 +28,9 @@
   cursor: not-allowed;
 }
 
-/* Icon and label on one line */
+/* Icon and label on one line. flex, not inline-flex: an inline box sits on a text line, which leaves room for descenders under it */
 .label {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--space-2xs);
 }

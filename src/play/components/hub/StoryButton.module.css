@@ -1,0 +1,40 @@
+/* A Panel used as a button: reset the native button look, keep the neon frame */
+.button {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--color-text);
+  text-align: start;
+  cursor: pointer;
+  transition: --_glow var(--duration-fast) var(--ease-out);
+}
+
+.button:hover {
+  --_glow: 18px;
+}
+
+.button:focus-visible {
+  outline-offset: 4px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}

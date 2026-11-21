@@ -1,42 +1,57 @@
 /*
- * The hub fills the free height under the top bar.
- * Its layout depends on its own shape, not on the screen: at least 5:4 (width:height) puts Shop, Void and Ship side by side, otherwise one above the other.
+ * The hub fills the free height under the top bar: Shop, Void and Ship as one block centered in the space above, the story panel at the bottom.
+ * The block's layout depends on the shape of its space, not on the screen: at least 5:4 (width:height) puts Shop, Void and Ship side by side, otherwise one above the other.
  * The row needs more room than the column, because the buttons are wide and short: hence 5:4 and not 1:1.
- * The buttons always keep their full size; the Void takes the space left, as the biggest square that fits, between --_void-min and 30rem.
  */
 .hub {
-  /* Smallest Void whose label still fits inside the disk (measured: icon and text need about 90px of disk, the disk is 40% of the scene) */
-  --_void-min: 14rem;
-
-  container: hub / size;
   flex: 1;
-  min-height: var(--_void-min); /* on shorter screens the page scrolls instead of squeezing the Void */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-m);
 }
 
+/* Space for Shop, Void and Ship: everything the story panel leaves. A size container, so the Void can measure it */
+.group {
+  container: group / size;
+  flex: 1;
+  align-self: stretch;
+}
+
+/*
+ * The Void is as wide as it can be (up to 30rem) while the block still fits the height.
+ * In a column it subtracts the two buttons and the gaps; the button height comes from the tokens it uses (28px icon plus the panel padding), not measured by hand.
+ */
 .layout {
+  --_gap: clamp(var(--space-s), 4cqmin, var(--space-l));
+  --_button-height: calc(28px + 2 * var(--space-s));
+  /* Smallest Void whose label still fits inside the disk (measured: icon and text need about 90px of disk) */
+  --_void-min: 14rem;
+  --void-size: max(var(--_void-min), min(100%, 30rem, 2 * (100cqh - 2 * var(--_button-height) - 2 * var(--_gap))));
+
   display: grid;
-  grid-template-rows: auto minmax(var(--_void-min), 1fr) auto;
   justify-items: center;
   align-items: center;
-  gap: clamp(var(--space-s), 4cqmin, var(--space-l));
+  align-content: center;
+  gap: var(--_gap);
   height: 100%;
 }
 
-/* Space for the Void: a size container, so the Void can measure it */
+/* The Void's space takes the full width of its column, so the Void can size itself from it */
 .center {
-  --void-size: max(var(--_void-min), min(100cqw, 100cqh, 30rem));
-
-  container-type: size;
   display: grid;
   place-items: center;
   width: 100%;
-  height: 100%;
 }
 
-@container hub (aspect-ratio >= 5 / 4) {
+@container group (aspect-ratio >= 5 / 4) {
   .layout {
-    grid-template-rows: minmax(var(--_void-min), 1fr);
     grid-template-columns: minmax(max-content, 1fr) minmax(var(--_void-min), 30rem) minmax(max-content, 1fr);
+  }
+
+  /* Row: the Void can be as tall as the whole space */
+  .center {
+    --void-size: max(var(--_void-min), min(100%, 30rem, 2 * 100cqh));
   }
 
   .shop {
