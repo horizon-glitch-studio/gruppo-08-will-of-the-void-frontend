@@ -1,23 +1,16 @@
 import { useParams } from 'react-router'
 
-/** Props of {@link PagePlaceholder}. */
-interface PagePlaceholderProps {
-  /** Page name, shown as heading and in the browser tab. */
-  title: string
-}
-
 /**
  * Temporary page body used until the real screen is built.
- * Shows the route parameters so routes can be checked by hand.
+ * Title and heading come from the layout. Shows the route parameters so routes can be checked by hand.
  */
-export function PagePlaceholder({ title }: PagePlaceholderProps) {
+export function PagePlaceholder() {
   const params = useParams()
   const entries = Object.entries(params)
 
   return (
-    <section>
-      <title>{`${title} – Will of the Void`}</title>
-      <h1>{title}</h1>
+    <section className="column gap-xs">
+      <p>This screen is not built yet.</p>
       {entries.length > 0 && (
         <dl>
           {entries.map(([key, value]) => (

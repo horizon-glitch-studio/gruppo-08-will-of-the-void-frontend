@@ -1,3 +1,4 @@
+import { ErrorBox } from '@/shared/components/ErrorBox'
 import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { tradesService } from '../api/trades'
 
@@ -9,17 +10,8 @@ export function ShipTradesPage() {
 
   return (
     <section>
-      <title>Trades – Will of the Void</title>
-      <h1>Trades</h1>
       {status === 'loading' && <output>Loading…</output>}
-      {status === 'error' && (
-        <>
-          <p role="alert">{errorMessage}</p>
-          <button type="button" onClick={reload}>
-            Try again
-          </button>
-        </>
-      )}
+      {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && <p>Trades: {data.totalItems}</p>}
     </section>
   )

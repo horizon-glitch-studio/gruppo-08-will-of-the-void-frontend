@@ -1,3 +1,4 @@
+import { ErrorBox } from '@/shared/components/ErrorBox'
 import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { shopService } from '../api/shop'
 
@@ -7,17 +8,8 @@ export function ShopPage() {
 
   return (
     <section>
-      <title>Shop – Will of the Void</title>
-      <h1>Shop</h1>
       {status === 'loading' && <output>Loading…</output>}
-      {status === 'error' && (
-        <>
-          <p role="alert">{errorMessage}</p>
-          <button type="button" onClick={reload}>
-            Try again
-          </button>
-        </>
-      )}
+      {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
       {status === 'success' && <p>Available packs: {data.length}</p>}
     </section>
   )

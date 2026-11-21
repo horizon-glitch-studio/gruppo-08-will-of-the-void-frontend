@@ -2,6 +2,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
+import { siteLinks } from './src/shared/site-links.ts'
 
 const root = import.meta.dirname
 const SKIP = new Set(['node_modules', 'dist', 'public', 'src', 'docs', '.git', '.vscode', 'card-prototype'])
@@ -38,19 +39,30 @@ function spaFallback(bases: string[]): Plugin {
   }
 }
 
+/** Partials generated from data instead of read from src/partials. */
+const generatedPartials: Record<string, () => string> = {
+  'site-links': () => `<ul>\n${siteLinks.map(({ href, label }) => `  <li><a href="${href}">${label}</a></li>`).join('\n')}\n</ul>`,
+}
+
+/** Replaces every `<!-- partial:name -->` in the HTML, partials inside partials included. */
+function insertPartials(html: string, depth = 0): string {
+  if (depth > 5) throw new Error('html-partials: partials nested too deep')
+  return html.replace(/<!--\s*partial:([\w-]+)\s*-->/g, (_match, name: string) => {
+    const partial = generatedPartials[name]?.() ?? readFileSync(resolve(root, 'src/partials', `${name}.html`), 'utf8')
+    return insertPartials(partial, depth + 1)
+  })
+}
+
 /**
- * Build and dev: replaces `<!-- partial:name -->` in the static pages with `src/partials/name.html`,
- * and marks the menu link of the current page with aria-current="page".
+ * Build and dev: replaces `<!-- partial:name -->` in the static pages with `src/partials/name.html`
+ * or with a generated partial, and marks the menu link of the current page with aria-current="page".
  */
 function htmlPartials(): Plugin {
   return {
     name: 'html-partials',
     transformIndexHtml(html, ctx) {
       const page = ctx.path.replace(/index\.html$/, '')
-      return html.replace(/<!--\s*partial:([\w-]+)\s*-->/g, (_match, name: string) => {
-        const partial = readFileSync(resolve(root, 'src/partials', `${name}.html`), 'utf8')
-        return partial.replace(`<li><a href="${page}">`, `<li><a href="${page}" aria-current="page">`)
-      })
+      return insertPartials(html).replace(`<li><a href="${page}">`, `<li><a href="${page}" aria-current="page">`)
     },
   }
 }
