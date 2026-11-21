@@ -1,0 +1,145 @@
+/*
+ * The Void with its orbits.
+ * The scene is twice as wide as tall. The page that shows the Void sets its width with --void-size.
+ * Layers, bottom to top: orbits and planets behind (SVG), the disk, orbits and planets in front (SVG), the label.
+ */
+.scene {
+  position: relative;
+  isolation: isolate;
+  width: var(--void-size, min(100%, 22rem));
+  aspect-ratio: 2;
+}
+
+/* ---------- Orbits and planets ---------- */
+
+.layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.layer[data-layer='back'] {
+  z-index: 1;
+}
+
+.layer[data-layer='front'] {
+  z-index: 3;
+}
+
+.orbit {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-text-muted) 30%, transparent);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.planet {
+  --_color: var(--color-star);
+
+  fill: var(--_color);
+}
+
+.planet[data-color='indigo'] {
+  --_color: var(--color-space-indigo);
+}
+
+.planet[data-color='violet'] {
+  --_color: var(--color-space-violet);
+}
+
+.planet[data-color='purple'] {
+  --_color: var(--color-space-purple);
+}
+
+/* Saturn-like ring */
+.ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--_color) 70%, transparent);
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---------- The Void ---------- */
+
+/* The link: the round area of the disk, 40% of the scene width (80% of its height) */
+.void {
+  position: absolute;
+  inset: 10% 30%;
+  border-radius: 50%;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.void:hover,
+.void:focus-visible {
+  color: var(--color-text);
+}
+
+.void:focus-visible {
+  outline-offset: 8px;
+}
+
+/*
+ * Black disk with a white rim (outline) and a glow (box-shadow) that turns slowly: magenta on one side, cyan on the other,
+ * blending only where they meet. Each color is shifted to its side, so it stays hidden behind the disk on the opposite one.
+ * Two rings of glow: a tight band near the rim, and a soft halo (wider on hover).
+ */
+.disk {
+  --_warm: var(--color-void-warm);
+  --_cold: var(--color-void-cold);
+  --_halo: 24px;
+
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  background: var(--color-bg);
+  outline: 2px solid color-mix(in srgb, var(--color-void-rim) 90%, transparent);
+  box-shadow:
+    -4px 0 4px 2px color-mix(in srgb, var(--_warm) 90%, transparent),
+    4px 0 4px 2px color-mix(in srgb, var(--_cold) 90%, transparent),
+    -8px 0 var(--_halo) 4px color-mix(in srgb, var(--_warm) 35%, transparent),
+    8px 0 var(--_halo) 4px color-mix(in srgb, var(--_cold) 35%, transparent);
+  animation: spin 60s linear infinite;
+  transition: box-shadow var(--duration-base) var(--ease-out);
+}
+
+.void:hover .disk,
+.void:focus-visible .disk {
+  --_halo: 36px;
+}
+
+@keyframes spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+/* Icon above the text: it fits the round shape at any size */
+.label {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3xs);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-semibold);
+}
+
+/* Same label as the Shop and Ship buttons */
+.text {
+  text-box: trim-both cap alphabetic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disk {
+    animation: none;
+    transition: none;
+  }
+}

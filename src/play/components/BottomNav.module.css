@@ -30,12 +30,13 @@
   color: var(--color-text);
 }
 
-/* Current area: its own color and a neon glow on the icon */
+/* Current area: white label, icon in the area color with a neon glow (the area colors are not all readable as small text) */
 .link[aria-current='page'] {
-  color: var(--_tone);
+  color: var(--color-text);
 }
 
 .link[aria-current='page'] svg {
+  color: var(--_tone);
   filter: drop-shadow(0 0 3px color-mix(in srgb, var(--_tone) 60%, transparent));
 }
 

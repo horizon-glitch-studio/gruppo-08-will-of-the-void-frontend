@@ -1,0 +1,9 @@
+{
+  "name": "Will of the Void frontend",
+  // Opens the ports of Vite and of the backend every time the codespace starts
+  "forwardPorts": [5173, 8080],
+  "portsAttributes": {
+    "5173": { "label": "Frontend", "requireLocalPort": true },
+    "8080": { "label": "Backend API", "requireLocalPort": true }
+  }
+}

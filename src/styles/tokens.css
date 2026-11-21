@@ -25,6 +25,10 @@
   --purple-300: hsl(275deg 100% 70%); /* #bf66ff */
   --purple-400: hsl(275deg 100% 60%); /* #aa33ff */
 
+  /* Violet, hue 263 */
+  --violet-300: hsl(263deg 100% 70%); /* #a166ff */
+  --violet-400: hsl(263deg 100% 60%); /* #8133ff */
+
   /* Indigo, hue 250 */
   --indigo-50: hsl(250deg 100% 98%); /* #f6f5ff */
   --indigo-200: hsl(250deg 100% 80%); /* #aa99ff */
@@ -36,9 +40,6 @@
   --indigo-800: hsl(250deg 50% 15%); /* #191339 */
   --indigo-900: hsl(250deg 55% 10%); /* #100b28 */
   --indigo-950: hsl(250deg 60% 6%); /* #090618 */
-
-  /* Blue, hue 215 */
-  --blue-300: hsl(215deg 100% 70%); /* #66a6ff */
 
   /* Cyan, hue 180 */
   --cyan-400: hsl(180deg 100% 60%); /* #33ffff */
@@ -55,19 +56,28 @@
   /* Text */
   --color-text: var(--indigo-50);
   --color-text-muted: var(--indigo-200);
-  --color-link: var(--magenta-300);
-  --color-link-hover: var(--magenta-200);
+  --color-link: var(--purple-300);
+  --color-link-hover: var(--violet-300);
+  --color-selection: var(--indigo-400);
 
   /* Interaction */
-  --color-accent: var(--magenta-400);
+  --color-accent: var(--purple-400); /* panels, frames, filled buttons outside the game areas */
+  --color-accent-end: var(--violet-400); /* end of the accent gradient */
+  --color-notification: var(--indigo-500); /* badges with a count */
+  --color-logo-glow: var(--indigo-400);
   --color-focus: var(--indigo-50);
+
+  /* Form fields (forms.css). Focus in violet, so active fields differ from the purple buttons */
+  --color-field-border: var(--indigo-50); /* as bright as the text: a dimmer border reads as disabled */
+  --color-field-focus: var(--violet-400);
+  --color-field-checked: var(--indigo-400); /* checked boxes, radios and switches: white marks stay readable on it, 6.4:1 */
 
   /* Game areas and currencies: readable as text on every surface */
   --color-shards: var(--indigo-300);
   --color-energy: var(--indigo-50);
-  --color-shop: var(--blue-300);
-  --color-arena: var(--purple-300);
-  --color-ship: var(--magenta-300);
+  --color-shop: var(--cyan-400);
+  --color-arena: var(--purple-400); /* 4.4:1 on the background: icons and glows, not small text */
+  --color-ship: var(--magenta-400);
 
   /* Factions accent. Gradients stay with the card styles */
   --color-lava: hsl(20deg 100% 60%); /* #ff7733 */
@@ -79,12 +89,21 @@
   --color-gem: var(--magenta-200);
   --color-noble-gas: hsl(45deg 100% 80%); /* #ffe699 */
 
+  /* Space scene of the hub: stars, nebula, planets and the Void */
+  --color-star: var(--indigo-50);
+  --color-space-indigo: var(--indigo-400);
+  --color-space-violet: var(--violet-400);
+  --color-space-purple: var(--purple-400);
+  --color-void-rim: var(--indigo-50);
+  --color-void-warm: var(--magenta-400);
+  --color-void-cold: var(--cyan-400);
+
   /* Feedback (forms, toasts) */
   --color-danger: hsl(350deg 100% 70%); /* #ff6680 */
   --color-success: hsl(150deg 100% 70%); /* #66ffb3 */
 
   /* Glow */
-  --glow-accent: 0 0 8px color-mix(in srgb, var(--magenta-400) 75%, transparent), 0 0 16px color-mix(in srgb, var(--magenta-400) 40%, transparent);
+  --glow-accent: 0 0 8px color-mix(in srgb, var(--color-accent) 75%, transparent), 0 0 16px color-mix(in srgb, var(--color-accent-end) 40%, transparent);
   --glow-focus: 0 0 8px color-mix(in srgb, var(--indigo-50) 60%, transparent);
 
   /* ---------- Typography ---------- */
@@ -131,6 +150,7 @@
   --radius-m: 0.5rem;
   --radius-full: 999px;
   --border-width: 2px;
+  --border-width-field: 1px; /* form fields (forms.css) */
 
   /* ---------- Layout ---------- */
 

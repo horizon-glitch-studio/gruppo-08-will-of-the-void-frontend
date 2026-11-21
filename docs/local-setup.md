@@ -94,7 +94,7 @@ docker exec -it wotv_postgres psql -U wotv_user -d wotv -c "UPDATE player SET ro
 
 1. The address bar says `localhost:5173`, not `127.0.0.1:5173`. They look the same, but the backend only accepts `localhost`.
 2. The `.env` file of the frontend has the line above. If you just created or changed it, stop `npm run dev` (Ctrl+C) and start it again: it reads `.env` only when it starts.
-3. In VS Code, open the Ports panel: 5173 and 8080 must be forwarded to `localhost:5173` and `localhost:8080`. If 5173 is busy on your computer, VS Code picks another number and the backend refuses it: close whatever uses 5173 and try again.
+3. In VS Code, open the Ports panel: 5173 and 8080 must be forwarded to `localhost:5173` and `localhost:8080`. If 8080 is missing, click Forward a Port and type 8080: VS Code doesn't always notice the backend, because it runs inside Docker. If a port is busy on your computer, VS Code shows an error: close whatever uses that port and try again.
 
 **I ran the first-time steps twice.** Usually nothing bad happens:
 
