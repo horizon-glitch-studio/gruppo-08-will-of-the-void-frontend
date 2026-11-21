@@ -1,5 +1,7 @@
-import { useId, type FormEvent } from 'react'
+import type { FormEvent } from 'react'
+import { useFormErrorFocus } from '../hooks/useFormErrorFocus'
 import { ErrorBox } from './ErrorBox'
+import { Field } from './Field'
 
 interface LoginFormProps {
   login: (identifier: string, password: string) => Promise<void>
@@ -11,9 +13,8 @@ interface LoginFormProps {
 
 /** Displays the sign-in form and its validation feedback. */
 export function LoginForm({ login, pending, errorMessage, fieldErrors, roleDenied }: LoginFormProps) {
-  const id = useId()
-  const identifierErrorId = `${id}-identifier-error`
-  const passwordErrorId = `${id}-password-error`
+  const roleError = roleDenied ? 'An administrator account is required.' : undefined
+  const formRef = useFormErrorFocus({ pending, errorMessage: errorMessage ?? roleError, fieldErrors })
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -22,26 +23,16 @@ export function LoginForm({ login, pending, errorMessage, fieldErrors, roleDenie
   }
 
   return (
-    <form onSubmit={submit}>
-      <p>
-        <label>
-          Username or email{' '}
-          <input name="identifier" autoComplete="username" required aria-invalid={!!fieldErrors.identifier} aria-describedby={fieldErrors.identifier ? identifierErrorId : undefined} />
-        </label>
-      </p>
-      {fieldErrors.identifier && <p id={identifierErrorId}>{fieldErrors.identifier}</p>}
-      <p>
-        <label>
-          Password{' '}
-          <input name="password" type="password" autoComplete="current-password" required aria-invalid={!!fieldErrors.password} aria-describedby={fieldErrors.password ? passwordErrorId : undefined} />
-        </label>
-      </p>
-      {fieldErrors.password && <p id={passwordErrorId}>{fieldErrors.password}</p>}
-      <button type="submit" disabled={pending}>
-        {pending ? 'Please wait…' : 'Log in'}
-      </button>
+    <form ref={formRef} className="column gap-s" onSubmit={submit}>
+      <Field name="identifier" label="Username or email" autoComplete="username" required error={fieldErrors.identifier} />
+      <Field name="password" label="Password" type="password" autoComplete="current-password" required error={fieldErrors.password} />
+      <div>
+        <button type="submit" disabled={pending}>
+          {pending ? 'Please wait…' : 'Log in'}
+        </button>
+      </div>
       {errorMessage && <ErrorBox message={errorMessage} />}
-      {roleDenied && <ErrorBox message="An administrator account is required." />}
+      {roleError && <ErrorBox message={roleError} />}
     </form>
   )
 }

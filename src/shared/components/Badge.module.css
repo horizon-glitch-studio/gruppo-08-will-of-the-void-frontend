@@ -5,8 +5,8 @@
   height: 1.25rem;
   padding-inline: var(--space-3xs);
   border-radius: var(--radius-full);
-  background: var(--color-accent);
-  color: var(--color-bg);
+  background: var(--color-notification);
+  color: var(--color-text);
   font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   line-height: 1;

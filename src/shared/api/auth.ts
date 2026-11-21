@@ -8,7 +8,7 @@ interface LoginResult extends Tokens {
   comebackBonus: { granted: boolean; amount: number }
 }
 
-interface Registration {
+export interface Registration {
   username: string
   email: string
   password: string

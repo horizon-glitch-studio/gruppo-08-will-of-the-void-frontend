@@ -1,0 +1,78 @@
+/*
+ * The hub fills the free height under the top bar: Shop, Void and Ship as one block centered in the space above, the story panel at the bottom.
+ * The block's layout depends on its space, not on the screen. The Void scene is twice as wide as tall, so:
+ * - a row needs width (the Void plus about 330px for the buttons and gaps), and hardly any height;
+ * - a column needs height (half the Void plus about 150px for the buttons and gaps).
+ * So the row needs enough width (44rem: two buttons, two gaps and a Void of about 24rem) on a space at least as wide as tall,
+ * or a very flat space, where a column could never fit. A tall space keeps the column: there the Void comes out bigger.
+ *
+ * If the block does not fit even with the Void at its minimum, only its space scrolls: the top bar and the story panel stay.
+ * A scrolling box clips everything at its padding edge, glows included, on both axes (overflow cannot be auto on one axis and visible on the other).
+ * So the block has no page padding around it: its own 16px padding (as the top bar) leaves room for the glows inside it.
+ * The Void's decoration (SVG orbits, box-shadow glow) never counts as overflow, so a scrollbar appears only when the content really does not fit.
+ * Safe alignment keeps everything reachable; Chrome also starts the scroll centered on the Void (scroll-initial-target, not in Firefox and Safari yet).
+ */
+.hub {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Space for Shop, Void and Ship: everything the story panel leaves. A size container, so the Void can measure it */
+.group {
+  container: group / size;
+  flex: 1;
+  align-self: stretch;
+}
+
+/*
+ * The Void is as wide as it can be (up to 30rem) while the block still fits the height.
+ * In a column it subtracts the two buttons and the gaps; the button height comes from the tokens it uses (28px icon plus the panel padding), not measured by hand.
+ */
+.layout {
+  --_gap: clamp(var(--space-s), 4cqmin, var(--space-l));
+  --_button-height: calc(28px + 2 * var(--space-s));
+  /* Smallest Void whose label still fits inside the disk (measured: icon and text need about 90px of disk) */
+  --_void-min: 14rem;
+  --_padding: var(--space-s);
+  --void-size: max(var(--_void-min), min(100%, 30rem, 2 * (100cqh - 2 * var(--_padding) - 2 * var(--_button-height) - 2 * var(--_gap))));
+
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  align-content: safe center;
+  gap: var(--_gap);
+  height: 100%;
+  padding: var(--_padding);
+  overflow: auto;
+}
+
+/* The Void's space takes the full width of its column, so the Void can size itself from it */
+.center {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  scroll-snap-align: center;
+  scroll-initial-target: nearest;
+}
+
+@container group ((width >= 44rem) and (aspect-ratio >= 1)) or (aspect-ratio >= 2) {
+  .layout {
+    grid-template-columns: minmax(max-content, 1fr) minmax(var(--_void-min), 30rem) minmax(max-content, 1fr);
+    justify-content: safe center;
+  }
+
+  /* Row: the Void can be as tall as the whole space */
+  .center {
+    --void-size: max(var(--_void-min), min(100%, 30rem, 2 * (100cqh - 2 * var(--_padding))));
+  }
+
+  .shop {
+    justify-self: end;
+  }
+
+  .ship {
+    justify-self: start;
+  }
+}
