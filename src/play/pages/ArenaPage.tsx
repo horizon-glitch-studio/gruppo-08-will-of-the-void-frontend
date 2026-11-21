@@ -7,8 +7,8 @@ import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { useCurrentUser } from '@/shared/hooks/useCurrentUser'
 import { paths } from '../routes/paths'
 
-function remaining(until: Date) {
-  const minutes = Math.max(0, Math.ceil((until.getTime() - Date.now()) / 60000))
+function remaining(until: Date, now: number) {
+  const minutes = Math.max(0, Math.ceil((until.getTime() - now) / 60000))
   return `${Math.floor(minutes / 60)}h ${minutes % 60}m`
 }
 
@@ -17,6 +17,7 @@ export function ArenaPage() {
   const { user } = useCurrentUser()
   const { status, data: decks, errorMessage, reload } = useApiQuery(decksService.list)
   const [chosenId, setChosenId] = useState<number>()
+  const [now] = useState(Date.now)
 
   if (status === 'loading') return <output>Loading…</output>
   if (status === 'error') return <ErrorBox message={errorMessage} onRetry={reload} />
@@ -26,7 +27,7 @@ export function ArenaPage() {
   const defense = decks.find((item) => item.isDefenseDeck)
   const rankedReady = defense?.status === 'VALID'
   const shieldUntil = user.protectedUntil ? new Date(user.protectedUntil) : null
-  const shielded = shieldUntil !== null && shieldUntil.getTime() > Date.now()
+  const shielded = shieldUntil !== null && shieldUntil.getTime() > now
   const state = deck ? { deckId: deck.id } : undefined
 
   return (
@@ -88,13 +89,13 @@ export function ArenaPage() {
             <Button tone="arena" disabled>
               Find Ranked opponents
             </Button>
-            <p role="status">Your Ship needs a defense. Set a valid defense deck before attacking or being attacked in Ranked. A departed Wanderer or traded copy can invalidate your defense.</p>
+            <output>Your Ship needs a defense. Set a valid defense deck before attacking or being attacked in Ranked. A departed Wanderer or traded copy can invalidate your defense.</output>
             <ButtonLink to={paths.decks} tone="arena">
               Fix or replace defense
             </ButtonLink>
           </>
         )}
-        {shielded && shieldUntil && <p role="status">Ranked shield active: {remaining(shieldUntil)} remaining. Starting a Ranked attack ends this protection.</p>}
+        {shielded && shieldUntil && <output>Ranked shield active: {remaining(shieldUntil, now)} remaining. Starting a Ranked attack ends this protection.</output>}
       </Panel>
     </section>
   )
