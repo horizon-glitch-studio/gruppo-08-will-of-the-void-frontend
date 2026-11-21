@@ -67,6 +67,11 @@
   --color-logo-glow: var(--indigo-400);
   --color-focus: var(--indigo-50);
 
+  /* Form fields (forms.css). Focus in violet, so active fields differ from the purple buttons */
+  --color-field-border: var(--indigo-50); /* as bright as the text: a dimmer border reads as disabled */
+  --color-field-focus: var(--violet-400);
+  --color-field-checked: var(--indigo-400); /* checked boxes, radios and switches: white marks stay readable on it, 6.4:1 */
+
   /* Game areas and currencies: readable as text on every surface */
   --color-shards: var(--indigo-300);
   --color-energy: var(--indigo-50);
@@ -145,6 +150,7 @@
   --radius-m: 0.5rem;
   --radius-full: 999px;
   --border-width: 2px;
+  --border-width-field: 1px; /* form fields (forms.css) */
 
   /* ---------- Layout ---------- */
 
