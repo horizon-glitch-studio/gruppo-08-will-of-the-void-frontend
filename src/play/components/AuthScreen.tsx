@@ -11,10 +11,7 @@ interface AuthScreenProps {
 export function AuthScreen({ title, backLink, children }: AuthScreenProps) {
   return (
     <section className={`column gap-s ${styles.screen}`}>
-      <header className="row gap-s">
-        {backLink}
-        <p className={styles.brand}>Will of the Void</p>
-      </header>
+      {backLink && <header className="row">{backLink}</header>}
       <h1 className={styles.title}>{title}</h1>
       {children}
     </section>

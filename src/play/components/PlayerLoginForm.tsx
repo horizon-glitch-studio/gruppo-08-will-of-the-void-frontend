@@ -1,9 +1,11 @@
 import type { FormEvent } from 'react'
+import { Link } from 'react-router'
 import { Button, ButtonLink } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { paths } from '../routes/paths'
 import { AuthField } from './AuthField'
 import { AuthScreen } from './AuthScreen'
+import styles from './AuthScreen.module.css'
 
 interface PlayerLoginFormProps {
   login: (identifier: string, password: string) => Promise<void>
@@ -21,19 +23,21 @@ export function PlayerLoginForm({ login, pending, errorMessage, fieldErrors }: P
   }
 
   return (
-    <AuthScreen title="Welcome back to the Void">
+    <AuthScreen title="Back to the Void">
       <form className="column gap-s" onSubmit={submit}>
         <AuthField name="identifier" label="Summoner name or email" placeholder="name@example.com" autoComplete="username" autoCapitalize="none" required error={fieldErrors.identifier} />
         <AuthField name="password" label="Password" placeholder="Enter your password" type="password" autoComplete="current-password" required error={fieldErrors.password} />
         {errorMessage && <ErrorBox message={errorMessage} />}
-        <Button variant="primary" type="submit" disabled={pending}>
+        <Button className={styles.submit} variant="primary" type="submit" disabled={pending}>
           {pending ? 'Logging in…' : 'Log in'}
         </Button>
       </form>
-      <nav className="column gap-s" aria-label="Account access">
-        <ButtonLink to={paths.forgotPassword}>Forgot password?</ButtonLink>
-        <ButtonLink to={paths.register}>Create account</ButtonLink>
-        <ButtonLink to={`${paths.register}?invite=1`}>I have an invite code</ButtonLink>
+      <nav className={`column gap-s ${styles.actions}`} aria-label="Account access">
+        <Link to={paths.forgotPassword}>Forgot password?</Link>
+        <ButtonLink to={paths.register} variant="secondary">
+          Create account
+        </ButtonLink>
+        <Link to={`${paths.register}?invite=1`}>I have an invite code</Link>
       </nav>
     </AuthScreen>
   )

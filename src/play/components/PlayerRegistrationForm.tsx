@@ -7,6 +7,7 @@ import { paths } from '../routes/paths'
 import { AuthField } from './AuthField'
 import styles from './AuthField.module.css'
 import { AuthScreen } from './AuthScreen'
+import screenStyles from './AuthScreen.module.css'
 
 interface PlayerRegistrationFormProps {
   register: (fields: Registration) => Promise<void>
@@ -87,7 +88,7 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
             </small>
           </p>
           {errorMessage && <ErrorBox message={errorMessage} />}
-          <Button variant="primary" type="submit" disabled={pending}>
+          <Button className={screenStyles.submit} variant="primary" type="submit" disabled={pending}>
             {pending ? 'Creating account…' : 'Create account'}
           </Button>
         </form>
