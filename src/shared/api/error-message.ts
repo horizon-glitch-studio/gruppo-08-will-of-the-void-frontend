@@ -12,6 +12,8 @@ const messages: Record<string, string> = {
   MATCHMAKING_COOLDOWN: 'Wait before refreshing the opponent list.',
   DECK_INVALID: 'Choose a valid deck.',
   NOT_FRIENDS: 'Friend matches are available between friends.',
+  OPPONENT_ALREADY_ATTACKED: 'You already attacked this Summoner in this list.',
+  DEFENSE_DECK_INVALID: 'This deck is not valid, so it cannot defend your Ship.',
   REPLAY_EXPIRED: 'This replay has expired.',
   VALIDATION_FAILED: 'Check the information you entered.',
 }
