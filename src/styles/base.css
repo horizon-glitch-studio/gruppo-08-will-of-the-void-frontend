@@ -56,8 +56,8 @@ a:hover {
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-bg);
+  background: var(--color-selection);
+  color: var(--color-text);
 }
 
 /* Anchored sections are not hidden under the sticky header */

@@ -19,7 +19,7 @@ export function PlatformLayout() {
         Skip to content
       </a>
       <TopBar />
-      <main id="main" className={`container column gap-m ${styles.main}`}>
+      <main id="main" className={`container column gap-m ${styles.main}`} data-hub={isHub || undefined}>
         {meta && <PageHeader title={meta.title} back={back} hideTitle={isHub} />}
         <Outlet />
       </main>

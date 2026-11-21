@@ -14,7 +14,8 @@ interface PageHeaderProps {
 /** Back link to the parent screen, page heading and browser tab title. */
 export function PageHeader({ title, back, hideTitle = false }: PageHeaderProps) {
   return (
-    <header className={styles.header}>
+    // Nothing visible (no back link, hidden title): take the header out of the layout, so it adds no gap
+    <header className={hideTitle && !back ? 'visually-hidden' : styles.header}>
       <title>{`${title} – Will of the Void`}</title>
       {back && (
         <Link to={back.to} className={styles.back}>
