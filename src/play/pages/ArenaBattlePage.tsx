@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { arenaService } from '@/play/api/arena'
-import { Button, ButtonLink } from '@/shared/components/Button'
+import { ButtonLink } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { Panel } from '@/shared/components/Panel'
 import { Stat } from '@/shared/components/Stat'
@@ -11,6 +11,18 @@ import { paths } from '../routes/paths'
 
 const modeLabel = { FRIEND: 'Friend', QUICK: 'Quick', RANKED: 'Ranked' } as const
 const verdict = { WIN: 'The Void remembers your victory', LOSS: 'The Void remembers your defeat', DRAW: 'The Void remembers a draw' } as const
+
+/**
+ * Readable end reasons. The backend codes are not documented yet: the rules know two endings, the win threshold (MATCH-12) and deck exhaustion (MATCH-13 to 16).
+ * Add each code here once the backend confirms it; until then the code itself is shown in plain words (DECK_EXHAUSTED → "Deck exhausted").
+ */
+const endReasonLabel: Record<string, string> = {}
+
+function formatEndReason(reason: string | null) {
+  if (!reason) return '–'
+  const words = reason.toLowerCase().replaceAll('_', ' ')
+  return endReasonLabel[reason] ?? words.charAt(0).toUpperCase() + words.slice(1)
+}
 
 /** Battle result screen. */
 export function ArenaBattlePage() {
@@ -37,41 +49,39 @@ export function ArenaBattlePage() {
 
   return (
     <section aria-labelledby="battle-verdict" className="column gap-m">
-      <Panel as="div" tone="arena" className="column gap-s">
-        <h2 id="battle-verdict">{verdict[outcome]}</h2>
-        <dl className="column gap-2xs">
-          <dt>Opponent</dt>
-          <dd>{theirs.player.username}</dd>
-          <dt>Mode</dt>
-          <dd>{modeLabel[result.mode]}</dd>
-          <dt>Win reason</dt>
-          <dd>{result.endReason ?? '–'}</dd>
-          <dt>Trophies</dt>
-          <dd>{ranked && delta !== null ? (delta > 0 ? `+${delta}` : delta) : 'No change'}</dd>
-          <dt>Match rewards</dt>
-          <dd>{ranked ? 'Season participation recorded' : 'No Shards or Trophies'}</dd>
-        </dl>
-        <div className="row gap-m">
-          <Stat label="Your Energy" value={mine.energy} />
-          <Stat label="Opponent Energy" value={theirs.energy} />
+      <Panel as="div" tone="arena">
+        <div className="column gap-s">
+          <h2 id="battle-verdict" className="h3">
+            {verdict[outcome]}
+          </h2>
+          <dl className="column gap-2xs">
+            <dt>Opponent</dt>
+            <dd>{theirs.player.username}</dd>
+            <dt>Mode</dt>
+            <dd>{modeLabel[result.mode]}</dd>
+            <dt>Win reason</dt>
+            <dd>{formatEndReason(result.endReason)}</dd>
+            <dt>Trophies</dt>
+            <dd>{ranked && delta !== null ? (delta > 0 ? `+${delta}` : delta) : 'No change'}</dd>
+            <dt>Match rewards</dt>
+            <dd>{ranked ? 'Season participation recorded' : 'No Shards or Trophies'}</dd>
+          </dl>
+          <div className="row gap-m">
+            <Stat label="Your Energy" value={mine.energy} />
+            <Stat label="Opponent Energy" value={theirs.energy} />
+          </div>
+          <p>Both Summoners started at 0 Energy. The server shuffled and simulated the match without player decisions.</p>
         </div>
-        <p>Both Summoners started at 0 Energy. The server shuffled and simulated the match without player decisions.</p>
       </Panel>
       <div className="column gap-s">
         <ButtonLink to={paths.replay(battleId)} variant="primary" tone="arena">
           Watch replay
         </ButtonLink>
-        {ranked ? (
-          <>
-            <ButtonLink to={paths.leaderboard} tone="arena">
-              View leaderboard
-            </ButtonLink>
-            <p>Ranked has no rematch.</p>
-          </>
-        ) : (
-          <Button tone="arena" disabled>
-            Request rematch
-          </Button>
+        {/* Rematch: not available yet, so no button until it exists */}
+        {ranked && (
+          <ButtonLink to={paths.leaderboard} tone="arena">
+            View leaderboard
+          </ButtonLink>
         )}
         <ButtonLink to={paths.battleHistory} tone="arena">
           Match history
