@@ -9,7 +9,10 @@
   padding-block: var(--space-m);
 }
 
-/* The hub needs every pixel on short screens */
+/*
+ * The hub's scrolling block brings its own padding (a scroll container clips glows at its padding edge, so the padding must be inside it).
+ * The page keeps only the space under the story panel.
+ */
 .main[data-hub] {
-  padding-block: var(--space-s);
+  padding: 0 0 var(--space-s);
 }
