@@ -72,13 +72,7 @@ You should get a long JSON text. All the backend endpoints are listed, and can b
 
 ## Test accounts
 
-There is no sign-up page yet. Create an account with this command (change the name, email and password if you want):
-
-```
-curl -X POST http://localhost:8080/api/v1/auth/register -H 'Content-Type: application/json' -d '{"username":"tester","email":"tester@example.com","password":"Password123","timezone":"Europe/Rome"}'
-```
-
-Then log in at http://localhost:5173/play/login.
+Create a test account at http://localhost:5173/play/register, then sign in at http://localhost:5173/play/login.
 
 Two extra commands, if you need them. Replace `tester` with your username.
 

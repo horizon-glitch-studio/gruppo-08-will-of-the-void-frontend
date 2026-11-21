@@ -6,7 +6,7 @@
   color: var(--color-text);
   text-align: start;
   cursor: pointer;
-  transition: --_glow var(--duration-fast) var(--ease-out);
+  transition: --_glow var(--duration-base) var(--ease-out);
 }
 
 .button:hover {

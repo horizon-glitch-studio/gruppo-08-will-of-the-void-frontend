@@ -9,12 +9,14 @@
   font-weight: var(--weight-semibold);
   text-decoration: none;
   cursor: pointer;
-  transition: --_glow var(--duration-fast) var(--ease-out);
+  transition:
+    --_glow var(--duration-base) var(--ease-out),
+    --_glow-strength var(--duration-base) var(--ease-out);
 }
 
 /* :hover also beats the link colors of base.css */
 .button:hover {
-  --_glow: 18px;
+  --_glow-strength: 70%;
 
   color: var(--_text);
 }
@@ -32,6 +34,7 @@
 .label {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2xs);
 }
 
