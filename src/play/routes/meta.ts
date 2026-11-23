@@ -11,6 +11,8 @@ export interface PageMeta {
   parent?: PageMeta
   /** The hub: no visible heading, no back link, no bottom navigation. */
   isHub?: boolean
+  /** Full-screen content (the story): minimal top bar, no visible heading or back link (the page has its own) and no bottom navigation, to leave the height to the content. */
+  immersive?: boolean
 }
 
 const hub: PageMeta = { title: 'Hub', path: paths.hub, isHub: true }
@@ -52,5 +54,7 @@ export const meta = {
   community,
   summoner: { title: 'Summoner', parent: community },
   settings: { title: 'Settings', parent: hub },
+  story: { title: 'Story', parent: hub, immersive: true },
+  tutorial: { title: 'Tutorial', path: paths.tutorial, parent: hub },
   notFound: { title: 'Page not found', parent: hub },
 } satisfies Record<string, PageMeta>

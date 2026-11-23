@@ -13,7 +13,7 @@ import { SITE_MENU_ID, SiteMenu } from './SiteMenu'
 import styles from './TopBar.module.css'
 
 /** Frame shared by both top bars: site menu button, wordmark, and whatever goes on the right. */
-function TopBarFrame({ variant, logo, children }: { variant: 'player' | 'guest'; logo: ReactNode; children?: ReactNode }) {
+function TopBarFrame({ variant, logo, children }: { variant: 'player' | 'minimal' | 'guest'; logo: ReactNode; children?: ReactNode }) {
   return (
     <div className={styles.bar} data-variant={variant}>
       <Panel as="header">
@@ -30,15 +30,18 @@ function TopBarFrame({ variant, logo, children }: { variant: 'player' | 'guest';
   )
 }
 
-/** Top bar of the platform: site menu, logo (desktop), Shards, Trophies and account menu with unread notifications. */
-export function TopBar() {
+/**
+ * Top bar of the platform: site menu, logo (desktop), Shards, Trophies and account menu with unread notifications.
+ * minimal (the story): no Shards and Trophies, the wordmark always visible in the middle, as on the login screens.
+ */
+export function TopBar({ minimal = false }: { minimal?: boolean }) {
   const { user } = useCurrentUser()
   const unread = useApiQuery(communityService.unreadCount)
 
   return (
     <>
       <TopBarFrame
-        variant="player"
+        variant={minimal ? 'minimal' : 'player'}
         logo={
           <Link to={paths.hub} className={`logo-glow ${styles.logo}`} aria-label="Hub">
             <span className={`logo ${styles.wordmark}`} />
@@ -46,10 +49,12 @@ export function TopBar() {
         }
       >
         <div className={`row gap-m ${styles.end}`}>
-          <div className={styles.stats}>
-            <Stat label="Shards" value={user.shardBalance} icon={<CurrencyEthIcon size={24} weight="bold" />} />
-            <Stat label="Trophies" value={user.trophies} icon={<TrophyIcon size={24} weight="bold" />} />
-          </div>
+          {!minimal && (
+            <div className={styles.stats}>
+              <Stat label="Shards" value={user.shardBalance} icon={<CurrencyEthIcon size={24} weight="bold" />} />
+              <Stat label="Trophies" value={user.trophies} icon={<TrophyIcon size={24} weight="bold" />} />
+            </div>
+          )}
           <button type="button" popoverTarget={ACCOUNT_MENU_ID} className={styles.iconButton} aria-label="Account and notifications">
             <UserIcon size={28} weight="bold" aria-hidden="true" />
             {unread.status === 'success' && (

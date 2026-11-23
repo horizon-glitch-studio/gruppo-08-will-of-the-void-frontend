@@ -1,0 +1,217 @@
+/*
+ * Story chapter: links above, then the image and the text, never one over the other.
+ * The text takes the space it needs; the image takes the rest, in a box shaped like that space, from 3:4 to 4:3: as big as possible, never stretched, nothing scrolls.
+ * A longer text makes the image a little smaller: reading comes first.
+ */
+.story {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-height: 0;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-s);
+}
+
+/* Same look as the back link of the other screens */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  font-weight: var(--weight-semibold);
+}
+
+.stage {
+  /* The image never grows wider than --_image-max. Wide screens: the text column keeps at least --_text */
+  --_text: 20rem;
+  --_image-max: 60rem;
+
+  flex: 1;
+  min-height: 10rem;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: var(--space-s);
+}
+
+/* The space left by the text: a size container, so the image box can fit both its width and its height */
+.media {
+  container-type: size;
+  display: grid;
+  place-items: center;
+}
+
+.frame {
+  inline-size: min(100cqw, 100cqh * 4 / 3, var(--_image-max));
+  block-size: min(100cqh, 100cqw * 4 / 3, var(--_image-max) * 4 / 3);
+  overflow: hidden;
+}
+
+/* Phones: the image goes edge to edge, out of the page side padding */
+@media (max-width: 39.99rem) {
+  .stage {
+    margin-inline: calc(-1 * var(--space-s));
+  }
+
+  .voice {
+    margin-inline: var(--space-s);
+  }
+}
+
+.frame > picture {
+  display: block;
+  block-size: 100%;
+}
+
+.image {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.text {
+  justify-self: center;
+  inline-size: min(100%, var(--measure));
+  min-inline-size: 0;
+}
+
+.plain {
+  padding-inline: var(--space-s);
+}
+
+@media (min-width: 40rem) {
+  .plain {
+    padding-inline: 0;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.words {
+  font-size: var(--text-lg);
+}
+
+@media (min-width: 40rem) and (min-height: 40rem) {
+  .words {
+    font-size: var(--text-h4);
+  }
+}
+
+/* Previous, counter, next (or I'm ready on the last chapter) spread across the text block */
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+}
+
+/* Links: same colors as the other links */
+.step {
+  display: grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  aspect-ratio: 1;
+  color: var(--color-link);
+}
+
+.step:hover {
+  color: var(--color-link-hover);
+}
+
+.counter {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Wide window (5:4 or wider): image on the left, text on the right, side by side.
+ * The text column keeps --_text; the image takes the rest, up to 4:3 and --_image-max.
+ */
+@media (min-aspect-ratio: 5/4) {
+  .stage {
+    grid-template-rows: none;
+    grid-template-columns: minmax(0, var(--_image-max)) var(--_text);
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-l);
+  }
+
+  .media {
+    block-size: 100%;
+  }
+
+  .text {
+    inline-size: auto;
+  }
+}
+
+/*
+ * The voice of the Void (chapter 6): the only framed text. Accent glow as every panel, border in the colors of the Void, turning slowly.
+ * Each color holds 40% of the border, the change takes 10%: a clear switch, not a blend.
+ */
+@property --_turn {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0turn;
+}
+
+.voice > * {
+  background: conic-gradient(from var(--_turn), var(--color-void-warm) 0% 40%, var(--color-void-cold) 50% 90%, var(--color-void-warm) 100%);
+  animation: turn 30s linear infinite;
+}
+
+@keyframes turn {
+  to {
+    --_turn: 1turn;
+  }
+}
+
+/* Quotation marks in line with the text, one per side: they take no extra row */
+.quote {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-xs);
+}
+
+.mark {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  color: var(--color-text-muted);
+}
+
+.mark[data-side='close'] {
+  align-self: end;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .voice > * {
+    animation: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
+
+/* Very low screens (phones held sideways): smaller text, so the longest chapter fits beside the image */
+@media (max-height: 25rem) {
+  .words {
+    font-size: var(--text-base);
+  }
+
+  .body {
+    gap: var(--space-2xs);
+  }
+}
