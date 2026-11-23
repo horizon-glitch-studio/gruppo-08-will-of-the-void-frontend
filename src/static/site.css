@@ -626,7 +626,8 @@
     gap: var(--space-2xl);
   }
 
-  .chapter:nth-child(even of .chapter) .chapter-image {
+  /* Chapters alternate: data-flip puts the image on the right */
+  .chapter[data-flip] .chapter-image {
     order: 2;
   }
 }
@@ -654,9 +655,44 @@
   color: var(--color-text-muted);
 }
 
-/* Faction color as a top line: the name says the faction, the color only decorates */
-.lore-card[data-faction] {
-  border-block-start: 3px solid var(--_faction, var(--color-border));
+/* Image that exists only as a square and a 4:3 crop: square on narrow phones, 4:3 from 40rem */
+.chapter-image[data-crop='wide'] img {
+  aspect-ratio: 1;
+}
+
+@media (min-width: 40rem) {
+  .chapter-image[data-crop='wide'] img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Faction boxes: the look of the home tiles (icon and border in the faction color), with the origin of the faction; hover lights the border */
+.faction-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-s);
+  border: 1px solid color-mix(in srgb, var(--_faction) 60%, transparent);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.faction-card:hover {
+  border-color: var(--_faction);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--_faction) 40%, transparent);
+}
+
+.faction-card h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.faction-card p {
+  color: var(--color-text-muted);
 }
 
 /* ---------- About ---------- */
