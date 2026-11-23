@@ -1,10 +1,13 @@
-import { useId, type ComponentPropsWithRef } from 'react'
+import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react'
+import { useId, useState, type ComponentPropsWithRef } from 'react'
+import styles from './Field.module.css'
 
 type FieldProps = { label: string; error?: string } & (({ as?: 'input' } & ComponentPropsWithRef<'input'>) | ({ as: 'select' } & ComponentPropsWithRef<'select'>))
 
 /** Renders an input or select with its label and accessible validation feedback. */
 export function Field({ label, error, ...props }: FieldProps) {
   const generatedId = useId()
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const id = props.id ?? generatedId
   const errorId = error ? `${id}-error` : undefined
   const accessibility = {
@@ -19,7 +22,26 @@ export function Field({ label, error, ...props }: FieldProps) {
     control = <select {...select} {...accessibility} />
   } else {
     const { as: _as, ...input } = props
-    control = <input {...input} {...accessibility} />
+    if (input.type === 'password') {
+      const VisibilityIcon = passwordVisible ? EyeSlashIcon : EyeIcon
+      control = (
+        <div className={styles.password}>
+          <input {...input} {...accessibility} type={passwordVisible ? 'text' : 'password'} autoCapitalize="none" spellCheck={false} />
+          <button
+            type="button"
+            className={styles.toggle}
+            aria-label={passwordVisible ? 'Hide password' : 'Show password'}
+            aria-controls={id}
+            disabled={input.disabled}
+            onClick={() => setPasswordVisible(!passwordVisible)}
+          >
+            <VisibilityIcon size={20} aria-hidden="true" />
+          </button>
+        </div>
+      )
+    } else {
+      control = <input {...input} {...accessibility} />
+    }
   }
 
   return (

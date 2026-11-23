@@ -1,0 +1,34 @@
+.password {
+  position: relative;
+  min-inline-size: 0;
+}
+
+.password > input {
+  padding-inline-end: 3rem;
+}
+
+.password > input::-ms-reveal {
+  display: none;
+}
+
+.toggle {
+  position: absolute;
+  inset-block: 2px;
+  inset-inline-end: 2px;
+  display: grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--color-text);
+}
+
+.toggle:focus-visible {
+  outline-offset: -2px;
+}
