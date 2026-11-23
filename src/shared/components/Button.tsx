@@ -1,6 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router'
-import styles from './Button.module.css'
 import { Panel, type PanelShape, type Tone } from './Panel'
 
 /** Visual options shared by {@link Button} and {@link ButtonLink}. */
@@ -18,14 +17,14 @@ interface ButtonLookProps {
 }
 
 function buttonClass(className?: string) {
-  return className ? `${styles.button} ${className}` : styles.button
+  return className ? `button ${className}` : 'button'
 }
 
 function Label({ icon, children }: Pick<ButtonLookProps, 'icon' | 'children'>) {
   return (
-    <span className={styles.label}>
+    <span className="button-label">
       {icon && <span aria-hidden="true">{icon}</span>}
-      <span className={styles.text}>{children}</span>
+      <span className="button-text">{children}</span>
     </span>
   )
 }

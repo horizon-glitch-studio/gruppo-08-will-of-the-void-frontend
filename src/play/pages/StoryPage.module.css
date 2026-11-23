@@ -56,7 +56,10 @@
     margin-inline: calc(-1 * var(--space-s));
   }
 
-  .voice {
+  /* The framed text keeps the page side padding: full width minus the margins, not 100% plus them */
+  [data-tone='void'].text {
+    justify-self: stretch;
+    inline-size: auto;
     margin-inline: var(--space-s);
   }
 }
@@ -153,26 +156,7 @@
   }
 }
 
-/*
- * The voice of the Void (chapter 6): the only framed text. Accent glow as every panel, border in the colors of the Void, turning slowly.
- * Each color holds 40% of the border, the change takes 10%: a clear switch, not a blend.
- */
-@property --_turn {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0turn;
-}
-
-.voice > * {
-  background: conic-gradient(from var(--_turn), var(--color-void-warm) 0% 40%, var(--color-void-cold) 50% 90%, var(--color-void-warm) 100%);
-  animation: turn 30s linear infinite;
-}
-
-@keyframes turn {
-  to {
-    --_turn: 1turn;
-  }
-}
+/* The voice of the Void (chapter 6) is a Panel with the void tone (src/styles/components/panel.css) */
 
 /* Quotation marks in line with the text, one per side: they take no extra row */
 .quote {
@@ -194,10 +178,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .voice > * {
-    animation: none;
-  }
-
   ::view-transition-group(*),
   ::view-transition-old(*),
   ::view-transition-new(*) {

@@ -39,6 +39,25 @@ function spaFallback(bases: string[]): Plugin {
   }
 }
 
+/**
+ * Dev server only: an address that matches no page shows 404.html, as the production server must do.
+ * Runs after Vite has looked for a real page (post hook), and only for page addresses (no file extension).
+ */
+function notFoundPage(): Plugin {
+  return {
+    name: 'not-found-page',
+    configureServer(server) {
+      return () => {
+        server.middlewares.use((req, _res, next) => {
+          const url = req.url ?? '/'
+          if (req.method === 'GET' && req.headers.accept?.includes('text/html') && !url.split('?')[0].includes('.')) req.url = '/404.html'
+          next()
+        })
+      }
+    },
+  }
+}
+
 /** Partials generated from data instead of read from src/partials. */
 const generatedPartials: Record<string, () => string> = {
   'site-links': () => `<ul>\n${siteLinks.map(({ href, label }) => `  <li><a href="${href}">${label}</a></li>`).join('\n')}\n</ul>`,
@@ -55,14 +74,14 @@ function insertPartials(html: string, depth = 0): string {
 
 /**
  * Build and dev: replaces `<!-- partial:name -->` in the static pages with `src/partials/name.html`
- * or with a generated partial, and marks the menu link of the current page with aria-current="page".
+ * or with a generated partial, and marks the menu links of the current page (header and side menu) with aria-current="page".
  */
 function htmlPartials(): Plugin {
   return {
     name: 'html-partials',
     transformIndexHtml(html, ctx) {
       const page = ctx.path.replace(/index\.html$/, '')
-      return insertPartials(html).replace(`<li><a href="${page}">`, `<li><a href="${page}" aria-current="page">`)
+      return insertPartials(html).replaceAll(`<li><a href="${page}">`, `<li><a href="${page}" aria-current="page">`)
     },
   }
 }
@@ -92,7 +111,7 @@ function preloadFonts(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   appType: 'mpa',
-  plugins: [react(), htmlPartials(), preloadFonts(), spaFallback(['/play', '/admin'])],
+  plugins: [react(), htmlPartials(), preloadFonts(), spaFallback(['/play', '/admin']), notFoundPage()],
   resolve: {
     alias: { '@': resolve(root, 'src') },
   },

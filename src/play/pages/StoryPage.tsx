@@ -128,7 +128,13 @@ export function StoryPage() {
         </div>
 
         {/* Under the image, or beside it on wide screens. Plain text; only the voice of the Void gets a frame, so it stands out */}
-        {chapter.voice ? <Panel className={`${styles.text} ${styles.voice}`}>{body}</Panel> : <div className={`${styles.text} ${styles.plain}`}>{body}</div>}
+        {chapter.voice ? (
+          <Panel tone="void" className={styles.text}>
+            {body}
+          </Panel>
+        ) : (
+          <div className={`${styles.text} ${styles.plain}`}>{body}</div>
+        )}
       </div>
     </article>
   )

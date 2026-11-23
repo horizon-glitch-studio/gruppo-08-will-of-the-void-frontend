@@ -1,0 +1,75 @@
+<!--
+  Cookie banner and settings (src/static/consent.ts). Hidden until the script knows there is no saved choice.
+  Accept, Reject and Choose have the same weight; closing the banner counts as Reject.
+-->
+<section class="cookie-banner" aria-labelledby="cookie-banner-title" hidden>
+  <div class="panel" data-shape="chamfered" data-tone="accent">
+    <div class="panel-shape">
+      <div class="panel-content cookie-banner-content">
+        <div class="cookie-banner-head">
+          <h2 id="cookie-banner-title" class="h4">Cookies</h2>
+          <button type="button" class="cookie-close" data-consent="reject" aria-label="Close and reject optional cookies">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+              <path d="M208.49,191.51a12,12,0,0,1-17,17L128,145,64.49,208.49a12,12,0,0,1-17-17L111,128,47.51,64.49a12,12,0,0,1,17-17L128,111l63.51-63.52a12,12,0,0,1,17,17L145,128Z"></path>
+            </svg>
+          </button>
+        </div>
+        <p>We use analytics cookies, only with your consent, to measure how the site is used. Necessary cookies are always on. <a href="/cookies/">Cookie Policy</a></p>
+        <div class="row gap-s cookie-actions">
+          <button type="button" class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" data-consent="reject">
+            <span class="panel-shape"
+              ><span class="panel-content"
+                ><span class="button-label"><span class="button-text">Reject</span></span></span
+              ></span
+            >
+          </button>
+          <button type="button" class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" data-consent="choose">
+            <span class="panel-shape"
+              ><span class="panel-content"
+                ><span class="button-label"><span class="button-text">Choose</span></span></span
+              ></span
+            >
+          </button>
+          <button type="button" class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" data-consent="accept">
+            <span class="panel-shape"
+              ><span class="panel-content"
+                ><span class="button-label"><span class="button-text">Accept</span></span></span
+              ></span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<dialog class="cookie-dialog" aria-labelledby="cookie-dialog-title">
+  <form method="dialog" class="column gap-m">
+    <h2 id="cookie-dialog-title" class="h4">Cookie settings</h2>
+    <div class="column gap-s">
+      <label class="cookie-option">
+        <span class="column gap-3xs"><b>Necessary</b><span>Keep you logged in, protect your account and remember this choice. Always on.</span></span>
+        <input type="checkbox" role="switch" checked disabled />
+      </label>
+      <label class="cookie-option">
+        <span class="column gap-3xs"><b>Analytics</b><span>Google Analytics, through Google Tag Manager: pages visited, session length, device type. Off until you turn it on.</span></span>
+        <input type="checkbox" role="switch" name="analytics" />
+      </label>
+    </div>
+    <div class="row gap-s cookie-actions">
+      <button type="submit" class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" value="cancel" formnovalidate>
+        <span class="panel-shape"
+          ><span class="panel-content"
+            ><span class="button-label"><span class="button-text">Cancel</span></span></span
+          ></span
+        >
+      </button>
+      <button type="submit" class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" value="save">
+        <span class="panel-shape"
+          ><span class="panel-content"
+            ><span class="button-label"><span class="button-text">Save</span></span></span
+          ></span
+        >
+      </button>
+    </div>
+  </form>
+</dialog>

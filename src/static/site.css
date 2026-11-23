@@ -1,0 +1,1050 @@
+/* Static pages: header, side menu, footer and page layout. Shared components (panel, button, drawer) come from src/styles. */
+
+/* ---------- Header ---------- */
+
+/* Same frame as the platform top bar: sticky, with room around it */
+.site-bar {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--z-header);
+  padding: var(--space-s) var(--space-s) 0;
+}
+
+.site-header {
+  --_fill: var(--color-surface-raised);
+}
+
+.site-header-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.site-menu-button {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3xs);
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* Symbol on phones, wordmark from 40rem */
+.site-logo {
+  flex-shrink: 0;
+}
+
+.site-logo .logo {
+  height: 2.5rem;
+  aspect-ratio: 1;
+  mask-image: url('../assets/brand/symbol-simple.svg');
+}
+
+@media (min-width: 40rem) {
+  .site-logo .logo {
+    height: 2.25rem;
+    aspect-ratio: 2944 / 512;
+    mask-image: url('../assets/brand/wordmark-horizontal.svg');
+  }
+}
+
+/* Links in the bar only when they fit: below 64rem they are in the side menu */
+.site-nav {
+  display: none;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: var(--space-m);
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--color-text);
+}
+
+/* Current page: full text color and underline, so it is not told by color alone */
+.site-nav a[aria-current='page'],
+.site-menu-nav a[aria-current='page'] {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+/* Play stays on the right, at every width */
+.site-play {
+  margin-inline-start: auto;
+}
+
+@media (min-width: 64rem) {
+  .site-menu-button {
+    display: none;
+  }
+
+  .site-nav {
+    display: block;
+    margin-inline-start: var(--space-l);
+  }
+}
+
+.site-menu-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- Page ---------- */
+
+.site-main {
+  padding-block: var(--space-2xl) var(--space-3xl);
+}
+
+.page-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  max-inline-size: var(--measure);
+  margin-block-end: var(--space-2xl);
+}
+
+.lead {
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+}
+
+/* Running text: lore, rules, policies */
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  max-inline-size: var(--measure);
+}
+
+.prose h2 {
+  margin-block-start: var(--space-l);
+}
+
+/* A short note that stands out from the text around it */
+.callout {
+  padding-inline-start: var(--space-s);
+  border-inline-start: 3px solid var(--color-accent);
+}
+
+.prose h3 {
+  margin-block-start: var(--space-s);
+}
+
+.prose ul,
+.prose ol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding-inline-start: var(--space-m);
+}
+
+.prose li::marker {
+  color: var(--color-text-muted);
+}
+
+/* Email addresses as text: one click selects all of it */
+.selectable {
+  user-select: all;
+  font-weight: var(--weight-semibold);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  border-block-start: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.site-footer-content {
+  display: grid;
+  gap: var(--space-l);
+  padding-block: var(--space-xl);
+}
+
+.site-footer-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-l);
+}
+
+/* Social accounts are not open yet: names in muted text, no links */
+.site-footer-social li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-text-muted);
+}
+
+.site-footer-contact {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 64rem) {
+  .site-footer-content {
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    gap: var(--space-2xl);
+  }
+}
+
+/* ---------- 404 ---------- */
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-m);
+  padding-block: var(--space-2xl);
+  text-align: center;
+}
+
+.not-found .row {
+  justify-content: center;
+}
+
+/* ---------- Tables ---------- */
+
+/* Wide tables scroll sideways on their own, never the page. relative: hidden labels inside cells stay in the box too */
+.table-wrap {
+  position: relative;
+  max-inline-size: 100%;
+  overflow-x: auto;
+}
+
+.table-wrap table {
+  inline-size: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+.table-wrap caption {
+  padding-block-end: var(--space-2xs);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-align: start;
+}
+
+.table-wrap th,
+.table-wrap td {
+  padding: var(--space-2xs) var(--space-xs);
+  border-block-end: 1px solid var(--color-border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table-wrap thead th {
+  border-block-end-color: var(--color-border-strong);
+  font-weight: var(--weight-semibold);
+}
+
+.table-wrap tbody th {
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+
+.table-wrap td {
+  color: var(--color-text-muted);
+}
+
+/* Value not decided yet: a dashed pill, readable without color */
+.soon {
+  display: inline-block;
+  padding: 0 var(--space-2xs);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.legend {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* ---------- Rulebook ---------- */
+
+.rulebook {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.rulebook > * {
+  min-width: 0;
+}
+
+.rulebook-text {
+  max-inline-size: 48rem;
+}
+
+/* Lines between the sections of the rulebook and the chapters of the lore */
+.rulebook-text > hr {
+  margin-block: var(--space-l);
+}
+
+.rulebook-text section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+/* Sections start under the sticky header */
+.rulebook-text [id] {
+  scroll-margin-block-start: calc(var(--header-height) + var(--space-xl));
+}
+
+.toc details {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+}
+
+.toc summary {
+  padding: var(--space-xs) var(--space-s);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.toc ol {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--space-s) var(--space-s);
+}
+
+.toc a {
+  display: block;
+  padding-block: var(--space-3xs);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.toc a:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+@media (min-width: 64rem) {
+  .rulebook {
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .toc {
+    position: sticky;
+    inset-block-start: calc(var(--header-height) + var(--space-xl));
+  }
+}
+
+.matrix th,
+.matrix td {
+  text-align: center;
+}
+
+.matrix th:first-child {
+  text-align: start;
+}
+
+.matrix [data-result] {
+  color: var(--color-text);
+  font-weight: var(--weight-bold);
+}
+
+/*
+ * Match example. Without JavaScript every step is its own box, one under the other.
+ * With it, one box shows one step at a time, with the pager at the bottom.
+ * Cards use the faction look: icon and border in the faction color; the one with the advantage lifted with a glow,
+ * the one at a disadvantage faded, even ones the same, defeated ones faded and dashed.
+ */
+.example-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.example-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  padding: var(--space-s);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+}
+
+.example-title {
+  font-size: var(--text-base);
+}
+
+[data-example][data-enhanced] {
+  padding: var(--space-s);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+}
+
+[data-example][data-enhanced] .example-step {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+[data-example][data-enhanced] .example-title {
+  display: none;
+}
+
+.example-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-s);
+  padding-block-start: var(--space-xs);
+}
+
+.example-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  text-align: center;
+}
+
+.example-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs);
+  inline-size: 100%;
+  max-inline-size: 10rem;
+  padding: var(--space-xs) var(--space-2xs);
+  border: 2px solid var(--_faction, var(--color-border-strong));
+  border-radius: var(--radius-m);
+  background: var(--color-surface-raised);
+  transition:
+    translate var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.example-card .faction-icon,
+.example-unknown {
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+  line-height: 2.5rem;
+}
+
+.example-card b {
+  font-size: var(--text-h4);
+  font-variant-numeric: tabular-nums;
+}
+
+.example-card small {
+  color: var(--color-text-muted);
+}
+
+.example-card[data-result='wins'] {
+  translate: 0 calc(-1 * var(--space-2xs));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--_faction) 70%, transparent);
+}
+
+.example-card[data-result='loses'] {
+  opacity: 0.6;
+}
+
+/* Defeated: faded and dashed, and the text says it too */
+.example-card[data-result='out'] {
+  border-style: dashed;
+  opacity: 0.45;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .example-card {
+    transition: none;
+  }
+}
+
+.example-energy {
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.example-side meter {
+  inline-size: 100%;
+  max-inline-size: 10rem;
+  block-size: 0.5rem;
+}
+
+/* Energy bar in the accent colors instead of the browser green */
+.example-side meter::-webkit-meter-bar {
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-raised);
+}
+
+.example-side meter::-webkit-meter-optimum-value {
+  border-radius: var(--radius-full);
+  background: linear-gradient(to right, var(--color-accent), var(--color-accent-end));
+}
+
+.example-side meter::-moz-meter-bar {
+  border-radius: var(--radius-full);
+  background: linear-gradient(to right, var(--color-accent), var(--color-accent-end));
+}
+
+.example-log {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  min-block-size: 3lh;
+  padding-inline-start: var(--space-m);
+}
+
+/* Previous, step count, next (or Play now on the last step), as the pager of the story */
+.example-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  margin-block-start: var(--space-s);
+}
+
+.example-count {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Round icon button (ring arrows, example pager, back to top) ---------- */
+
+.round-button {
+  display: grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--duration-base) var(--ease-out);
+}
+
+.round-button:hover:not(:disabled) {
+  border-color: var(--color-text);
+}
+
+.round-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cta-row {
+  margin-block-start: var(--space-l);
+}
+
+/* ---------- Glossary ---------- */
+
+.glossary-search {
+  max-inline-size: 26rem;
+}
+
+.glossary-group h2 {
+  margin-block-end: var(--space-xs);
+  font-size: var(--text-h3);
+}
+
+.glossary dl {
+  max-inline-size: 52rem;
+}
+
+.glossary .term {
+  display: grid;
+  gap: var(--space-3xs) var(--space-m);
+  padding-block: var(--space-xs);
+  border-block-end: 1px solid var(--color-border);
+}
+
+.glossary dt {
+  font-weight: var(--weight-semibold);
+}
+
+.glossary dd {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 40rem) {
+  .glossary .term {
+    grid-template-columns: 12rem 1fr;
+  }
+}
+
+/* Policies: sections start under the sticky header */
+.prose h2[id] {
+  scroll-margin-block-start: calc(var(--header-height) + var(--space-xl));
+}
+
+/* ---------- Lore ---------- */
+
+/* Chapter: image and text side by side on wide screens, alternating sides */
+.chapter {
+  display: grid;
+  gap: var(--space-l);
+  align-items: center;
+}
+
+.chapter-image img {
+  inline-size: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius-m);
+}
+
+@media (min-aspect-ratio: 1/1) {
+  .chapter-image img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (min-width: 64rem) {
+  .chapter {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-2xl);
+  }
+
+  /* Chapters alternate: data-flip puts the image on the right */
+  .chapter[data-flip] .chapter-image {
+    order: 2;
+  }
+}
+
+.lore-grid,
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--space-m);
+}
+
+.lore-card,
+.member {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-s);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+}
+
+.lore-card p,
+.member span {
+  color: var(--color-text-muted);
+}
+
+/* Image that exists only as a square and a 4:3 crop: square on narrow phones, 4:3 from 40rem */
+.chapter-image[data-crop='wide'] img {
+  aspect-ratio: 1;
+}
+
+@media (min-width: 40rem) {
+  .chapter-image[data-crop='wide'] img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Faction boxes: the look of the home tiles (icon and border in the faction color), with the origin of the faction; hover lights the border */
+.faction-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-s);
+  border: 1px solid color-mix(in srgb, var(--_faction) 60%, transparent);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.faction-card:hover {
+  border-color: var(--_faction);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--_faction) 40%, transparent);
+}
+
+.faction-card h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.faction-card p {
+  color: var(--color-text-muted);
+}
+
+/* ---------- About ---------- */
+
+.team-course {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+}
+
+/* ---------- FAQ (support and home) ---------- */
+
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  max-inline-size: 48rem;
+}
+
+.faq-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+}
+
+.faq-item summary {
+  padding: var(--space-xs) var(--space-s);
+  min-block-size: 2.75rem;
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+
+.faq-item[open] summary {
+  border-block-end: 1px solid var(--color-border);
+}
+
+.faq-item p {
+  padding: var(--space-xs) var(--space-s) var(--space-s);
+  color: var(--color-text-muted);
+}
+
+/* GitHub icon and username */
+.member-github {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+/* ---------- Back to top ---------- */
+
+/* Round button (.round-button) fixed in the bottom corner */
+.to-top {
+  position: fixed;
+  inset-block-end: calc(var(--space-s) + env(safe-area-inset-bottom, 0px));
+  inset-inline-end: calc(var(--space-s) + env(safe-area-inset-right, 0px));
+  z-index: var(--z-header);
+}
+
+/* ---------- Cookie banner and settings ---------- */
+
+.cookie-banner {
+  position: fixed;
+  inset: auto var(--space-s) calc(var(--space-s) + env(safe-area-inset-bottom, 0px));
+  z-index: calc(var(--z-header) + 1);
+  max-inline-size: 36rem;
+  margin-inline: auto;
+}
+
+.cookie-banner > .panel {
+  --_fill: var(--color-surface-raised);
+}
+
+.cookie-banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.cookie-banner-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+}
+
+.cookie-close {
+  display: grid;
+  place-items: center;
+  padding: var(--space-3xs);
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* Choices with the same weight: same variant, same width. One per row on narrow phones, side by side from 30rem */
+.cookie-actions {
+  display: grid;
+  grid-auto-flow: row;
+  gap: var(--space-xs);
+}
+
+@media (min-width: 30rem) {
+  .cookie-actions {
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+  }
+}
+
+.cookie-dialog {
+  margin: auto;
+  inline-size: min(100% - 2 * var(--space-s), 32rem);
+  padding: var(--space-m);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.cookie-dialog::backdrop {
+  background: color-mix(in srgb, var(--color-bg) 80%, transparent);
+}
+
+.cookie-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+}
+
+.cookie-option span span {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* A button that looks like the footer links */
+.link-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-link);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  color: var(--color-link-hover);
+}
+
+/* ---------- Factions ---------- */
+
+/* Color of each faction, read by tiles, cards and icons through --_faction */
+[data-faction='lava'] {
+  --_faction: var(--color-lava);
+}
+
+[data-faction='electro'] {
+  --_faction: var(--color-electro);
+}
+
+[data-faction='radio'] {
+  --_faction: var(--color-radio);
+}
+
+[data-faction='ice'] {
+  --_faction: var(--color-ice);
+}
+
+[data-faction='metal'] {
+  --_faction: var(--color-metal);
+}
+
+[data-faction='matte'] {
+  --_faction: var(--color-matte);
+}
+
+[data-faction='gem'] {
+  --_faction: var(--color-gem);
+}
+
+[data-faction='noble-gas'] {
+  --_faction: var(--color-noble-gas);
+}
+
+.faction-icon {
+  flex-shrink: 0;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  color: var(--_faction);
+}
+
+/* ---------- Versus: who prevails over whom (home and rulebook) ---------- */
+
+.versus {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.versus-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.versus-label {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+}
+
+.versus-label:not(:first-child) {
+  margin-block-start: var(--space-s);
+}
+
+.versus-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2xs);
+}
+
+@media (min-width: 40rem) {
+  .versus-tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Tile: icon and border in its own faction color. Selected: accent border, glow and a light accent fill */
+.versus-tile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-xs);
+  border: 1px solid color-mix(in srgb, var(--_faction) 60%, transparent);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  text-align: start;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    background-color var(--duration-base) var(--ease-out);
+}
+
+.versus-tile:hover {
+  border-color: var(--_faction);
+}
+
+.versus-tile[aria-pressed='true'] {
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  box-shadow: var(--glow-accent);
+}
+
+.versus-tile .faction-name {
+  font-weight: var(--weight-semibold);
+}
+
+.versus-mark {
+  inline-size: 100%;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.versus-mark:empty {
+  display: none;
+}
+
+/* Result: two cards, the one that prevails lifted with a glow, the other faded; even ones the same */
+.versus-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding-block: var(--space-s);
+  text-align: center;
+}
+
+.versus-cards {
+  display: grid;
+  grid-template-columns: minmax(0, 10rem) auto minmax(0, 10rem);
+  align-items: center;
+  gap: var(--space-s);
+  margin-block-end: var(--space-xs);
+}
+
+.versus-vs {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+}
+
+.versus-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-m) var(--space-s);
+  border: 2px solid var(--_faction);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  font-weight: var(--weight-bold);
+  transition:
+    translate var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+.versus-card .faction-icon {
+  inline-size: 3rem;
+  block-size: 3rem;
+}
+
+.versus-card[data-result='wins'] {
+  translate: 0 calc(-1 * var(--space-xs));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--_faction) 70%, transparent);
+}
+
+.versus-card[data-result='loses'] {
+  opacity: 0.45;
+}
+
+.versus-title {
+  font-size: var(--text-h4);
+  font-weight: var(--weight-bold);
+}
+
+.versus-note {
+  max-inline-size: 32rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .versus-card {
+    transition: none;
+  }
+}
+
+/* Rulebook: two selects side by side */
+.versus-selects {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-s);
+}
+
+/* Matrix: the picked row, column and cell */
+.matrix [data-picked] {
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+.matrix [data-picked='cell'] {
+  background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  color: var(--color-text);
+}

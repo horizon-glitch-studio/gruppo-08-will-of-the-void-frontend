@@ -1,3 +1,8 @@
+/*
+ * Panel: neon frame shared by the platform (Panel.tsx) and the static pages (plain HTML):
+ * <div class="panel" data-shape="chamfered" data-tone="accent"><div class="panel-shape"><div class="panel-content">…</div></div></div>
+ */
+
 /* Registered so buttons can fade the glow on hover instead of jumping */
 @property --_glow {
   syntax: '<length>';
@@ -15,7 +20,7 @@
  * Neon frame with cut corners or pointed sides.
  * Border and glow go from --_color to --_color-end: the accent is a violet to purple gradient, the game areas use one color.
  * .panel carries the glow (filter): it is not clipped, so the glow stays visible.
- * .shape is clipped to the outline: its background is the border, ::before is the fill inside it.
+ * .panel-shape is clipped to the outline: its background is the border, ::before is the fill inside it.
  */
 .panel {
   --_color: var(--color-accent);
@@ -32,7 +37,7 @@
   filter: drop-shadow(0 0 2px color-mix(in srgb, var(--_color) 90%, transparent)) drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color-end) var(--_glow-strength), transparent));
 }
 
-.shape {
+.panel-shape {
   display: block;
   position: relative;
   padding: var(--space-s) calc(var(--_cut) + var(--space-s));
@@ -40,7 +45,7 @@
   clip-path: var(--_outline);
 }
 
-.shape::before {
+.panel-shape::before {
   content: '';
   position: absolute;
   inset: var(--_border);
@@ -49,7 +54,7 @@
   clip-path: var(--_outline);
 }
 
-.content {
+.panel-content {
   display: block;
   position: relative;
 }
@@ -73,7 +78,7 @@
   );
 }
 
-.panel[data-shape='chamfered'] .shape {
+.panel[data-shape='chamfered'] .panel-shape {
   padding: var(--space-s);
 }
 
@@ -90,4 +95,32 @@
 .panel[data-tone='arena'] {
   --_color: var(--color-arena);
   --_color-end: var(--color-arena);
+}
+
+/*
+ * Void: accent glow like every panel, border in the colors of the Void turning slowly, as its glow in the hub.
+ * Each color holds 40% of the border, the change takes 10%: a clear switch, not a blend.
+ * Used by the voice of the Void in the story and by the Arena step on the home page.
+ */
+@property --_turn {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0turn;
+}
+
+.panel[data-tone='void'] > .panel-shape {
+  background: conic-gradient(from var(--_turn), var(--color-void-warm) 0% 40%, var(--color-void-cold) 50% 90%, var(--color-void-warm) 100%);
+  animation: panel-turn 30s linear infinite;
+}
+
+@keyframes panel-turn {
+  to {
+    --_turn: 1turn;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel[data-tone='void'] > .panel-shape {
+    animation: none;
+  }
 }

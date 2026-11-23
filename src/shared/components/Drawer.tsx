@@ -1,7 +1,6 @@
 import { XIcon } from '@phosphor-icons/react'
 import { useEffect, useRef, type ReactNode } from 'react'
 import { useLocation } from 'react-router'
-import styles from './Drawer.module.css'
 
 /** Props of {@link Drawer}. */
 interface DrawerProps {
@@ -14,6 +13,7 @@ interface DrawerProps {
 
 /**
  * Side panel opened by a button with `popoverTarget={id}`.
+ * Styles in src/styles/components/drawer.css, shared with the static pages.
  * Closes with its close button, Esc, a click outside, or when the route changes.
  */
 export function Drawer({ id, title, side = 'left', children }: DrawerProps) {
@@ -30,12 +30,12 @@ export function Drawer({ id, title, side = 'left', children }: DrawerProps) {
   }, [pathname])
 
   return (
-    <section ref={ref} id={id} popover="auto" aria-labelledby={titleId} className={styles.drawer} data-side={side}>
-      <div className={styles.header}>
-        <h2 id={titleId} className={styles.title}>
+    <section ref={ref} id={id} popover="auto" aria-labelledby={titleId} className="drawer" data-side={side}>
+      <div className="drawer-header">
+        <h2 id={titleId} className="drawer-title">
           {title}
         </h2>
-        <button type="button" popoverTarget={id} popoverTargetAction="hide" className={styles.close} aria-label="Close">
+        <button type="button" popoverTarget={id} popoverTargetAction="hide" className="drawer-close" aria-label="Close">
           <XIcon size={24} weight="bold" aria-hidden="true" />
         </button>
       </div>

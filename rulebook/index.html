@@ -4,14 +4,971 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rulebook – Will of the Void</title>
-    <meta name="description" content="TODO" />
+    <meta name="description" content="The full rules of Will of the Void: cards, factions, decks, matches, game modes, ranking, packs, Shards and trades." />
     <!-- partial:head-icons -->
   </head>
   <body>
-    <!-- partial:site-nav -->
-    <main>
-      <h1>Rulebook – Will of the Void</h1>
+    <!-- partial:site-header -->
+    <main id="main" class="site-main">
+      <div class="container">
+        <header class="page-head">
+          <h1>Rulebook</h1>
+          <p class="lead">Everything that decides a match, a deck, a pack or a trade. Words with a special meaning are in the <a href="/rulebook/glossary/">glossary</a>.</p>
+          <p class="callout">You don't need to read it to start: the <a href="/#how-to-play">three steps on the home page</a> are enough. Come back when you want the details.</p>
+        </header>
+        <div class="rulebook">
+          <nav class="toc" aria-labelledby="toc-title">
+            <details open>
+              <summary id="toc-title">Contents</summary>
+              <ol class="list-plain">
+                <li><a href="#overview">The game in five lines</a></li>
+                <li><a href="#cards">Cards and rarities</a></li>
+                <li><a href="#factions">Factions</a></li>
+                <li><a href="#decks">Decks</a></li>
+                <li><a href="#match">Match</a></li>
+                <li><a href="#modes">Game modes</a></li>
+                <li><a href="#ranking">Ranking</a></li>
+                <li><a href="#packs">Packs</a></li>
+                <li><a href="#shards">Shards</a></li>
+                <li><a href="#trades">Trades</a></li>
+                <li><a href="/rulebook/glossary/">Glossary</a></li>
+              </ol>
+            </details>
+          </nav>
+          <div class="prose rulebook-text">
+            <section aria-labelledby="overview">
+              <h2 id="overview">The game in five lines</h2>
+              <ol>
+                <li>You collect cards. Every card is a creature.</li>
+                <li>You build a deck of 30 cards.</li>
+                <li>You challenge another Summoner. The server plays the match: you make no moves, only your deck counts.</li>
+                <li>Winning Ranked matches earns Trophies and moves you up the leaderboard.</li>
+                <li>With Shards you open packs and find new cards.</li>
+              </ol>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="cards">
+              <h2 id="cards">Cards and rarities</h2>
+              <ul>
+                <li>Every card has a name, a faction, a rarity, an ATK and a DEF.</li>
+                <li>ATK is the damage a creature deals in every round. DEF is the damage it can take. Both are at least 1.</li>
+                <li>The rarer the card, the stronger it is. Rarity is the only measure of strength.</li>
+              </ul>
+              <div class="table-wrap">
+                <table>
+                  <caption>
+                    Rarities, from the most common to the rarest
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Rarity</th>
+                      <th scope="col">Factions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Captive</th>
+                      <td>The six elemental factions</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Conscript</th>
+                      <td>The six elemental factions</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Soldier</th>
+                      <td>The six elemental factions</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Champion</th>
+                      <td>The six elemental factions</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Elect</th>
+                      <td>Gem only</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Wanderer</th>
+                      <td>Noble Gas only</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3>Wanderer cards</h3>
+              <ul>
+                <li>A Wanderer stays on board for 7 days from the moment you find it. The time left is always visible on the card.</li>
+                <li>You can own one copy of each Wanderer.</li>
+                <li>If you find a Wanderer that is still on board, it stays 7 more days. If it had already left, it comes back for 7 days.</li>
+                <li>When its time ends, the card moves to the memory archive with the date it left: you can still see it, you cannot play it.</li>
+                <li>Decks that hold it are not valid until you fix them. Matches already played are not affected.</li>
+                <li>Wanderer cards cannot be traded.</li>
+              </ul>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="factions">
+              <h2 id="factions">Factions</h2>
+              <ul>
+                <li>There are eight factions: six elemental (Lava, Electro, Radio, Ice, Metal, Matte) and two inert (Gem, Noble Gas).</li>
+                <li>Every elemental faction prevails over two factions, is overpowered by two and is even with one.</li>
+                <li>A creature facing a faction it prevails over gets +3 ATK for the whole clash. The other creature loses nothing.</li>
+                <li>Advantages never change DEF.</li>
+                <li>Gem and Noble Gas never give or receive an advantage.</li>
+                <li>No faction has more ATK or more DEF than the others: they differ only in their advantages.</li>
+              </ul>
+              <div class="table-wrap">
+                <table>
+                  <caption>
+                    The twelve advantages
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Prevails</th>
+                      <th scope="col">Over</th>
+                      <th scope="col">Why</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Lava</th>
+                      <td>Metal</td>
+                      <td>Lava melts metal.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Lava</th>
+                      <td>Matte</td>
+                      <td>Lava melts the rock.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Electro</th>
+                      <td>Lava</td>
+                      <td>Lava conducts: the discharge runs through it.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Electro</th>
+                      <td>Ice</td>
+                      <td>Ice conducts: the creature is struck by the discharge.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Radio</th>
+                      <td>Lava</td>
+                      <td>Heat doesn't stop decay: radiation passes through lava.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Radio</th>
+                      <td>Matte</td>
+                      <td>Radiation makes opaque matter decay from within.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Ice</th>
+                      <td>Radio</td>
+                      <td>Water is one of the best shields against radiation.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Ice</th>
+                      <td>Metal</td>
+                      <td>Frost makes metal brittle and jams its gears.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Metal</th>
+                      <td>Electro</td>
+                      <td>Metal conducts the energy and discharges the excess.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Metal</th>
+                      <td>Radio</td>
+                      <td>Metal armour shields radiation.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Matte</th>
+                      <td>Electro</td>
+                      <td>Rock insulates: the discharge finds no path and is lost.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Matte</th>
+                      <td>Ice</td>
+                      <td>Dark surfaces absorb heat and melt ice.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3>Who prevails over whom</h3>
+              <p>Choose two factions, or read the full table: the row is your creature, the column is the opposing one.</p>
+              <div class="versus" data-versus-select hidden>
+                <div class="versus-selects">
+                  <div class="column gap-2xs">
+                    <label for="versus-you">Your faction</label
+                    ><select id="versus-you">
+                      <option value="lava" selected>Lava</option>
+                      <option value="electro">Electro</option>
+                      <option value="radio">Radio</option>
+                      <option value="ice">Ice</option>
+                      <option value="metal">Metal</option>
+                      <option value="matte">Matte</option>
+                      <option value="gem">Gem</option>
+                      <option value="noble-gas">Noble Gas</option>
+                    </select>
+                  </div>
+                  <span class="versus-vs">vs</span>
+                  <div class="column gap-2xs">
+                    <label for="versus-opponent">Opponent</label
+                    ><select id="versus-opponent">
+                      <option value="lava">Lava</option>
+                      <option value="electro">Electro</option>
+                      <option value="radio">Radio</option>
+                      <option value="ice">Ice</option>
+                      <option value="metal" selected>Metal</option>
+                      <option value="matte">Matte</option>
+                      <option value="gem">Gem</option>
+                      <option value="noble-gas">Noble Gas</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="versus-result" aria-live="polite" hidden>
+                  <div class="versus-cards" aria-hidden="true">
+                    <div class="versus-card" data-side="you"></div>
+                    <span class="versus-vs">vs</span>
+                    <div class="versus-card" data-side="opponent"></div>
+                  </div>
+                  <p class="versus-title"></p>
+                  <p class="versus-note"></p>
+                </div>
+                <template id="faction-icons"
+                  ><span data-faction="lava"
+                    ><svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                      ></path></svg></span
+                  ><span data-faction="electro"
+                    ><svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                      ></path></svg></span
+                  ><span data-faction="radio"
+                    ><svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M128,112a16,16,0,1,1-16,16A16,16,0,0,1,128,112ZM96,128a12,12,0,0,0-12-12H44.47a83.88,83.88,0,0,1,31.2-54.11L95.38,96a12,12,0,1,0,20.78-12l-22-38a20,20,0,0,0-28.87-6.34,107.85,107.85,0,0,0-45.26,78.4,20.22,20.22,0,0,0,5.21,15.43A20,20,0,0,0,40,140H84A12,12,0,0,0,96,128Zm139.92-9.94a107.81,107.81,0,0,0-45.26-78.39A20,20,0,0,0,161.79,46L139.84,84a12,12,0,0,0,20.78,12l19.71-34.13A83.88,83.88,0,0,1,211.53,116H172a12,12,0,0,0,0,24h44a20,20,0,0,0,14.71-6.51A20.22,20.22,0,0,0,235.92,118.06ZM160.4,160.11a12,12,0,0,0-20.79,12L159.19,206a84.33,84.33,0,0,1-62.38,0l19.58-33.91a12,12,0,0,0-20.79-12l-21.82,37.8a20,20,0,0,0,8.91,28.15,108.24,108.24,0,0,0,90.62,0,20,20,0,0,0,8.91-28.15Z"
+                      ></path></svg></span
+                  ><span data-faction="ice"
+                    ><svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M227.65,149.14a12,12,0,0,1-8.79,14.51l-20.67,5.08,5.4,20.16a12,12,0,0,1-23.18,6.22l-7.29-27.2L140,148.78V187l20.48,20.48a12,12,0,0,1-17,17L128,209l-15.51,15.52a12,12,0,0,1-17-17L116,187V148.78L82.88,167.91l-7.29,27.2a12,12,0,0,1-23.18-6.22l5.4-20.16-20.67-5.08a12,12,0,1,1,5.72-23.3l27.89,6.85L104,128,70.75,108.8l-27.89,6.85A11.8,11.8,0,0,1,40,116a12,12,0,0,1-2.85-23.65l20.67-5.08-5.4-20.16a12,12,0,0,1,23.18-6.22l7.29,27.2L116,107.21V69L95.52,48.48a12,12,0,0,1,17-17L128,47l15.51-15.52a12,12,0,1,1,17,17L140,69v38.24l33.12-19.12,7.29-27.2a12,12,0,0,1,23.18,6.22l-5.4,20.16,20.67,5.08A12,12,0,0,1,216,116a11.8,11.8,0,0,1-2.87-.35l-27.89-6.85L152,128l33.25,19.2,27.89-6.85A12,12,0,0,1,227.65,149.14Z"
+                      ></path></svg></span
+                  ><span data-faction="metal"
+                    ><svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M209.84,47.44A91.42,91.42,0,0,0,144.62,20h-.35A91.44,91.44,0,0,0,79.15,47L17.76,109.17a20,20,0,0,0,.08,28.21L46.5,166a19.89,19.89,0,0,0,14.15,5.86h.11a19.86,19.86,0,0,0,14.2-6l60.87-62.39a12.07,12.07,0,0,1,16.77-.12,11.63,11.63,0,0,1,3.5,8.35,12.85,12.85,0,0,1-3.66,9.11L90.19,181a20,20,0,0,0-.21,28.5l28.66,28.66a20.08,20.08,0,0,0,28.15.14l61.76-60.44.09-.09C244.65,141.78,245.18,83.31,209.84,47.44ZM60.62,146.21l-23-23L55.81,104.8l22.88,22.88Zm72.2,72.18-23-23,18.61-18,22.88,22.87Zm58.89-57.62L168.48,183.5,145.7,160.73,169.21,138l.15-.14a37,37,0,0,0,10.74-26.37,35.44,35.44,0,0,0-10.85-25.41,36.2,36.2,0,0,0-50.44.48l-.1.11L95.46,110.49,72.68,87.72l23.5-23.8A67.55,67.55,0,0,1,144.27,44h.26a67.62,67.62,0,0,1,48.21,20.29C218.85,90.78,218.38,134.05,191.71,160.77Z"
+                      ></path></svg></span
+                  ><span data-faction="matte"
+                    ><svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,128,115.4,56,76ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l72-39.4v76.65Z"
+                      ></path></svg></span
+                  ><span data-faction="gem"
+                    ><svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M249,96.1l-56-64a12,12,0,0,0-9-4.1H72a12,12,0,0,0-9,4.1L7,96.1a12,12,0,0,0,.26,16.09l112,120a12,12,0,0,0,17.54,0l112-120A12,12,0,0,0,249,96.1ZM213.55,92H182L152,52h26.55ZM71.88,116l21.19,53L43.61,116Zm86.4,0L128,191.69,97.72,116ZM104,92l24-32,24,32Zm80.12,24h28.27l-49.46,53ZM77.45,52H104L74,92H42.45Z"
+                      ></path></svg></span
+                  ><span data-faction="noble-gas"
+                    ><svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M219.23,159.2a196.66,196.66,0,0,0-18-31.2,196.66,196.66,0,0,0,18-31.2c11.84-26.31,11.69-47.48-.43-59.6s-33.29-12.27-59.6-.43a196.66,196.66,0,0,0-31.2,18,196.66,196.66,0,0,0-31.2-18c-26.31-11.84-47.48-11.69-59.6.43s-12.27,33.29-.43,59.6a196.66,196.66,0,0,0,18,31.2,196.66,196.66,0,0,0-18,31.2c-11.84,26.31-11.69,47.48.43,59.6h0C43.33,224.93,51.78,228,62,228c10,0,21.77-2.92,34.76-8.77a196.66,196.66,0,0,0,31.2-18,196.66,196.66,0,0,0,31.2,18c13,5.85,24.74,8.77,34.76,8.77,10.26,0,18.71-3.07,24.84-9.2h0C230.92,206.68,231.07,185.51,219.23,159.2Zm-17.41-105c5.25,5.26,1.79,26-16,53.78-5.61-6.66-11.65-13.25-18.07-19.67S154.7,75.83,148,70.22C175.82,52.39,196.56,48.93,201.82,54.18ZM171.24,128a288.6,288.6,0,0,1-20.51,22.73A288.6,288.6,0,0,1,128,171.24a288.6,288.6,0,0,1-22.73-20.51A288.6,288.6,0,0,1,84.76,128,298.55,298.55,0,0,1,128,84.76a286.83,286.83,0,0,1,22.73,20.51A286.83,286.83,0,0,1,171.24,128ZM54.18,54.18c1.46-1.45,4.1-2.24,7.75-2.24,9.53,0,25.94,5.39,46,18.28-6.66,5.61-13.25,11.65-19.67,18.07S75.83,101.3,70.22,108C52.39,80.18,48.93,59.44,54.18,54.18Zm0,147.64c-5.25-5.26-1.79-26,16-53.78,5.61,6.66,11.65,13.25,18.07,19.67s13,12.46,19.67,18.07C80.18,203.61,59.44,207.07,54.18,201.82Zm147.64,0c-5.26,5.25-26,1.79-53.78-16,6.66-5.61,13.25-11.65,19.67-18.07s12.46-13,18.07-19.67C203.61,175.82,207.07,196.56,201.82,201.82ZM144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128Z"
+                      ></path></svg></span
+                ></template>
+              </div>
+              <div class="table-wrap">
+                <table class="matrix">
+                  <caption class="visually-hidden">
+                    Faction matrix
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">You / Opponent</th>
+                      <th scope="col">Lava</th>
+                      <th scope="col">Electro</th>
+                      <th scope="col">Radio</th>
+                      <th scope="col">Ice</th>
+                      <th scope="col">Metal</th>
+                      <th scope="col">Matte</th>
+                      <th scope="col">Gem</th>
+                      <th scope="col">Noble Gas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Lava</th>
+                      <td><span aria-hidden="true">–</span><span class="visually-hidden">same faction</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Electro</th>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td><span aria-hidden="true">–</span><span class="visually-hidden">same faction</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Radio</th>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">–</span><span class="visually-hidden">same faction</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Ice</th>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td><span aria-hidden="true">–</span><span class="visually-hidden">same faction</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Metal</th>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td><span aria-hidden="true">–</span><span class="visually-hidden">same faction</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Matte</th>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td data-result="overpowered"><span aria-hidden="true">▼</span><span class="visually-hidden">overpowered</span></td>
+                      <td data-result="prevails"><span aria-hidden="true">▲</span><span class="visually-hidden">prevails</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">–</span><span class="visually-hidden">same faction</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Gem</th>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">–</span><span class="visually-hidden">same faction</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Noble Gas</th>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">=</span><span class="visually-hidden">even</span></td>
+                      <td><span aria-hidden="true">–</span><span class="visually-hidden">same faction</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="legend">▲ you prevail. ▼ you are overpowered. = even. – same faction.</p>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="decks">
+              <h2 id="decks">Decks</h2>
+              <ul>
+                <li>A deck has exactly 30 cards.</li>
+                <li>At most 15 cards of the same elemental faction, so every deck mixes at least two factions.</li>
+                <li>You can use only cards you own and can play, in no more copies than you own.</li>
+                <li>You can save up to 20 decks.</li>
+              </ul>
+              <div class="table-wrap">
+                <table>
+                  <caption>
+                    Limits per rarity
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Rarity</th>
+                      <th scope="col">Copies of the same card</th>
+                      <th scope="col">Cards per deck</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Captive</th>
+                      <td>3</td>
+                      <td>No limit</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Conscript</th>
+                      <td>3</td>
+                      <td>No limit</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Soldier</th>
+                      <td>2</td>
+                      <td>8</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Champion</th>
+                      <td>1</td>
+                      <td>3</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Elect</th>
+                      <td>1</td>
+                      <td>2</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Wanderer</th>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Only valid decks can be played. A deck can stop being valid when you trade one of its cards or when a Wanderer in it leaves.</p>
+              <h3>Starter deck</h3>
+              <p>At registration every Summoner receives the same starter deck, with cards of all six elemental factions and no Wanderer card. Card list: <span class="soon">Coming soon</span></p>
+              <h3>Defense deck</h3>
+              <p>
+                You can choose one of your decks as defense deck, and change it at any moment. The game uses it when another Summoner attacks you in Ranked. Without a valid defense deck you can
+                neither attack nor be attacked in Ranked.
+              </p>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="match">
+              <h2 id="match">Match</h2>
+              <p>The server plays the whole match: you make no choices during it, the strategy is all in your deck.</p>
+              <ol>
+                <li>Both Summoners start with 0 Energy.</li>
+                <li>The server shuffles both decks. Nobody can influence the order.</li>
+                <li>Each Summoner deploys the first card of their deck in the Arena.</li>
+                <li>The two creatures clash in rounds. In every round they hit at the same time: each loses DEF equal to the effective ATK of the other, the ATK after the faction advantage.</li>
+                <li>Lost DEF never comes back. ATK never changes. A creature with DEF 0 or less is defeated.</li>
+                <li>If both are still alive, another round is played. The clash ends when at least one is defeated.</li>
+              </ol>
+              <h3>Energy</h3>
+              <ul>
+                <li>If only one creature is defeated, the other Summoner gains Energy equal to how far its DEF went below 0. At exactly 0, no Energy.</li>
+                <li>If both are defeated, nobody gains Energy.</li>
+                <li>The survivor stays in the Arena with the DEF it has left. The Summoner who lost a creature deploys the next card. If both were defeated, both Summoners deploy their next card.</li>
+              </ul>
+              <h3>How a match ends</h3>
+              <ul>
+                <li>The first Summoner to reach the win threshold wins: 30 Energy in Ranked and Friend, 20 in Quick.</li>
+                <li>
+                  If a Summoner has to deploy a card but has none left, the match ends. Each Summoner gains 4 Energy for every card they still have, the one in the Arena included. More Energy wins,
+                  equal Energy is a draw.
+                </li>
+                <li>There is no turn limit.</li>
+                <li>The whole match is saved: both Summoners can watch the replay for 90 days. The result stays in the history.</li>
+              </ul>
+              <h3 id="example">Example</h3>
+              <p>Three clashes between two decks. The cards are examples, the rules are the real ones.</p>
+              <div class="example" data-example>
+                <ol class="list-plain example-steps">
+                  <li class="example-step">
+                    <h4 class="example-title">Step 1 of 7</h4>
+                    <div class="example-board">
+                      <div class="example-side">
+                        <span>Summoner A</span>
+                        <div class="example-card" data-faction="lava" data-result="wins">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                            ></path></svg
+                          ><span>Lava</span><b>8 / 8</b><small>ATK / DEF</small>
+                        </div>
+                        <span class="example-energy">Energy 0 / 30</span><meter min="0" max="30" value="0" aria-hidden="true"></meter>
+                      </div>
+                      <div class="example-side">
+                        <span>Summoner B</span>
+                        <div class="example-card" data-faction="metal" data-result="loses">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M209.84,47.44A91.42,91.42,0,0,0,144.62,20h-.35A91.44,91.44,0,0,0,79.15,47L17.76,109.17a20,20,0,0,0,.08,28.21L46.5,166a19.89,19.89,0,0,0,14.15,5.86h.11a19.86,19.86,0,0,0,14.2-6l60.87-62.39a12.07,12.07,0,0,1,16.77-.12,11.63,11.63,0,0,1,3.5,8.35,12.85,12.85,0,0,1-3.66,9.11L90.19,181a20,20,0,0,0-.21,28.5l28.66,28.66a20.08,20.08,0,0,0,28.15.14l61.76-60.44.09-.09C244.65,141.78,245.18,83.31,209.84,47.44ZM60.62,146.21l-23-23L55.81,104.8l22.88,22.88Zm72.2,72.18-23-23,18.61-18,22.88,22.87Zm58.89-57.62L168.48,183.5,145.7,160.73,169.21,138l.15-.14a37,37,0,0,0,10.74-26.37,35.44,35.44,0,0,0-10.85-25.41,36.2,36.2,0,0,0-50.44.48l-.1.11L95.46,110.49,72.68,87.72l23.5-23.8A67.55,67.55,0,0,1,144.27,44h.26a67.62,67.62,0,0,1,48.21,20.29C218.85,90.78,218.38,134.05,191.71,160.77Z"
+                            ></path></svg
+                          ><span>Metal</span><b>4 / 8</b><small>ATK / DEF</small>
+                        </div>
+                        <span class="example-energy">Energy 0 / 30</span><meter min="0" max="30" value="0" aria-hidden="true"></meter>
+                      </div>
+                    </div>
+                    <ul class="example-log">
+                      <li>A deploys Lava 8/8. B deploys Metal 4/8.</li>
+                      <li>Lava prevails over Metal: its ATK is 8 + 3 = 11 for this clash.</li>
+                    </ul>
+                  </li>
+                  <li class="example-step">
+                    <h4 class="example-title">Step 2 of 7</h4>
+                    <div class="example-board">
+                      <div class="example-side">
+                        <span>Summoner A</span>
+                        <div class="example-card" data-faction="lava" data-result="wins">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                            ></path></svg
+                          ><span>Lava</span><b>8 / 4</b><small>ATK / DEF</small>
+                        </div>
+                        <span class="example-energy">Energy 3 / 30</span><meter min="0" max="30" value="3" aria-hidden="true"></meter>
+                      </div>
+                      <div class="example-side">
+                        <span>Summoner B</span>
+                        <div class="example-card" data-faction="metal" data-result="out">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M209.84,47.44A91.42,91.42,0,0,0,144.62,20h-.35A91.44,91.44,0,0,0,79.15,47L17.76,109.17a20,20,0,0,0,.08,28.21L46.5,166a19.89,19.89,0,0,0,14.15,5.86h.11a19.86,19.86,0,0,0,14.2-6l60.87-62.39a12.07,12.07,0,0,1,16.77-.12,11.63,11.63,0,0,1,3.5,8.35,12.85,12.85,0,0,1-3.66,9.11L90.19,181a20,20,0,0,0-.21,28.5l28.66,28.66a20.08,20.08,0,0,0,28.15.14l61.76-60.44.09-.09C244.65,141.78,245.18,83.31,209.84,47.44ZM60.62,146.21l-23-23L55.81,104.8l22.88,22.88Zm72.2,72.18-23-23,18.61-18,22.88,22.87Zm58.89-57.62L168.48,183.5,145.7,160.73,169.21,138l.15-.14a37,37,0,0,0,10.74-26.37,35.44,35.44,0,0,0-10.85-25.41,36.2,36.2,0,0,0-50.44.48l-.1.11L95.46,110.49,72.68,87.72l23.5-23.8A67.55,67.55,0,0,1,144.27,44h.26a67.62,67.62,0,0,1,48.21,20.29C218.85,90.78,218.38,134.05,191.71,160.77Z"
+                            ></path></svg
+                          ><span>Metal</span><b>4 / −3</b><small>ATK / DEF · defeated</small>
+                        </div>
+                        <span class="example-energy">Energy 0 / 30</span><meter min="0" max="30" value="0" aria-hidden="true"></meter>
+                      </div>
+                    </div>
+                    <ul class="example-log">
+                      <li>Lava takes 4: DEF 8 → 4. Metal takes 11: DEF 8 → −3.</li>
+                      <li>Metal is defeated: 3 below zero → A gains 3 Energy.</li>
+                    </ul>
+                  </li>
+                  <li class="example-step">
+                    <h4 class="example-title">Step 3 of 7</h4>
+                    <div class="example-board">
+                      <div class="example-side">
+                        <span>Summoner A</span>
+                        <div class="example-card" data-faction="lava" data-result="loses">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                            ></path></svg
+                          ><span>Lava</span><b>8 / 4</b><small>ATK / DEF</small>
+                        </div>
+                        <span class="example-energy">Energy 3 / 30</span><meter min="0" max="30" value="3" aria-hidden="true"></meter>
+                      </div>
+                      <div class="example-side">
+                        <span>Summoner B</span>
+                        <div class="example-card" data-faction="electro" data-result="wins">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                            ></path></svg
+                          ><span>Electro</span><b>7 / 13</b><small>ATK / DEF</small>
+                        </div>
+                        <span class="example-energy">Energy 0 / 30</span><meter min="0" max="30" value="0" aria-hidden="true"></meter>
+                      </div>
+                    </div>
+                    <ul class="example-log">
+                      <li>Lava stays in the Arena with DEF 4. B deploys Electro 7/13.</li>
+                      <li>Electro prevails over Lava: its ATK is 7 + 3 = 10 for this clash.</li>
+                    </ul>
+                  </li>
+                  <li class="example-step">
+                    <h4 class="example-title">Step 4 of 7</h4>
+                    <div class="example-board">
+                      <div class="example-side">
+                        <span>Summoner A</span>
+                        <div class="example-card" data-faction="lava" data-result="out">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                            ></path></svg
+                          ><span>Lava</span><b>8 / −6</b><small>ATK / DEF · defeated</small>
+                        </div>
+                        <span class="example-energy">Energy 3 / 30</span><meter min="0" max="30" value="3" aria-hidden="true"></meter>
+                      </div>
+                      <div class="example-side">
+                        <span>Summoner B</span>
+                        <div class="example-card" data-faction="electro" data-result="wins">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                            ></path></svg
+                          ><span>Electro</span><b>7 / 5</b><small>ATK / DEF</small>
+                        </div>
+                        <span class="example-energy">Energy 6 / 30</span><meter min="0" max="30" value="6" aria-hidden="true"></meter>
+                      </div>
+                    </div>
+                    <ul class="example-log">
+                      <li>Electro takes 8: DEF 13 → 5. Lava takes 10: DEF 4 → −6.</li>
+                      <li>Lava is defeated: 6 below zero → B gains 6 Energy.</li>
+                    </ul>
+                  </li>
+                  <li class="example-step">
+                    <h4 class="example-title">Step 5 of 7</h4>
+                    <div class="example-board">
+                      <div class="example-side">
+                        <span>Summoner A</span>
+                        <div class="example-card" data-faction="radio" data-result="even">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M128,112a16,16,0,1,1-16,16A16,16,0,0,1,128,112ZM96,128a12,12,0,0,0-12-12H44.47a83.88,83.88,0,0,1,31.2-54.11L95.38,96a12,12,0,1,0,20.78-12l-22-38a20,20,0,0,0-28.87-6.34,107.85,107.85,0,0,0-45.26,78.4,20.22,20.22,0,0,0,5.21,15.43A20,20,0,0,0,40,140H84A12,12,0,0,0,96,128Zm139.92-9.94a107.81,107.81,0,0,0-45.26-78.39A20,20,0,0,0,161.79,46L139.84,84a12,12,0,0,0,20.78,12l19.71-34.13A83.88,83.88,0,0,1,211.53,116H172a12,12,0,0,0,0,24h44a20,20,0,0,0,14.71-6.51A20.22,20.22,0,0,0,235.92,118.06ZM160.4,160.11a12,12,0,0,0-20.79,12L159.19,206a84.33,84.33,0,0,1-62.38,0l19.58-33.91a12,12,0,0,0-20.79-12l-21.82,37.8a20,20,0,0,0,8.91,28.15,108.24,108.24,0,0,0,90.62,0,20,20,0,0,0,8.91-28.15Z"
+                            ></path></svg
+                          ><span>Radio</span><b>6 / 6</b><small>ATK / DEF</small>
+                        </div>
+                        <span class="example-energy">Energy 3 / 30</span><meter min="0" max="30" value="3" aria-hidden="true"></meter>
+                      </div>
+                      <div class="example-side">
+                        <span>Summoner B</span>
+                        <div class="example-card" data-faction="electro" data-result="even">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                            ></path></svg
+                          ><span>Electro</span><b>7 / 5</b><small>ATK / DEF</small>
+                        </div>
+                        <span class="example-energy">Energy 6 / 30</span><meter min="0" max="30" value="6" aria-hidden="true"></meter>
+                      </div>
+                    </div>
+                    <ul class="example-log">
+                      <li>Electro stays in the Arena with DEF 5. A deploys Radio 6/6.</li>
+                      <li>Radio and Electro are even: no bonus.</li>
+                    </ul>
+                  </li>
+                  <li class="example-step">
+                    <h4 class="example-title">Step 6 of 7</h4>
+                    <div class="example-board">
+                      <div class="example-side">
+                        <span>Summoner A</span>
+                        <div class="example-card" data-faction="radio" data-result="out">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M128,112a16,16,0,1,1-16,16A16,16,0,0,1,128,112ZM96,128a12,12,0,0,0-12-12H44.47a83.88,83.88,0,0,1,31.2-54.11L95.38,96a12,12,0,1,0,20.78-12l-22-38a20,20,0,0,0-28.87-6.34,107.85,107.85,0,0,0-45.26,78.4,20.22,20.22,0,0,0,5.21,15.43A20,20,0,0,0,40,140H84A12,12,0,0,0,96,128Zm139.92-9.94a107.81,107.81,0,0,0-45.26-78.39A20,20,0,0,0,161.79,46L139.84,84a12,12,0,0,0,20.78,12l19.71-34.13A83.88,83.88,0,0,1,211.53,116H172a12,12,0,0,0,0,24h44a20,20,0,0,0,14.71-6.51A20.22,20.22,0,0,0,235.92,118.06ZM160.4,160.11a12,12,0,0,0-20.79,12L159.19,206a84.33,84.33,0,0,1-62.38,0l19.58-33.91a12,12,0,0,0-20.79-12l-21.82,37.8a20,20,0,0,0,8.91,28.15,108.24,108.24,0,0,0,90.62,0,20,20,0,0,0,8.91-28.15Z"
+                            ></path></svg
+                          ><span>Radio</span><b>6 / −1</b><small>ATK / DEF · defeated</small>
+                        </div>
+                        <span class="example-energy">Energy 3 / 30</span><meter min="0" max="30" value="3" aria-hidden="true"></meter>
+                      </div>
+                      <div class="example-side">
+                        <span>Summoner B</span>
+                        <div class="example-card" data-faction="electro" data-result="out">
+                          <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                            <path
+                              d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                            ></path></svg
+                          ><span>Electro</span><b>7 / −1</b><small>ATK / DEF · defeated</small>
+                        </div>
+                        <span class="example-energy">Energy 6 / 30</span><meter min="0" max="30" value="6" aria-hidden="true"></meter>
+                      </div>
+                    </div>
+                    <ul class="example-log">
+                      <li>Radio takes 7: DEF 6 → −1. Electro takes 6: DEF 5 → −1.</li>
+                      <li>Both are defeated: nobody gains Energy.</li>
+                    </ul>
+                  </li>
+                  <li class="example-step">
+                    <h4 class="example-title">Step 7 of 7</h4>
+                    <div class="example-board">
+                      <div class="example-side">
+                        <span>Summoner A</span>
+                        <div class="example-card" data-result="even"><span class="example-unknown" aria-hidden="true">?</span><span>Next card</span><b>? / ?</b><small>ATK / DEF</small></div>
+                        <span class="example-energy">Energy 3 / 30</span><meter min="0" max="30" value="3" aria-hidden="true"></meter>
+                      </div>
+                      <div class="example-side">
+                        <span>Summoner B</span>
+                        <div class="example-card" data-result="even"><span class="example-unknown" aria-hidden="true">?</span><span>Next card</span><b>? / ?</b><small>ATK / DEF</small></div>
+                        <span class="example-energy">Energy 6 / 30</span><meter min="0" max="30" value="6" aria-hidden="true"></meter>
+                      </div>
+                    </div>
+                    <ul class="example-log">
+                      <li>Both Summoners deploy their next card.</li>
+                      <li>The match goes on until a Summoner reaches 30 Energy, or a deck runs out.</li>
+                    </ul>
+                  </li>
+                </ol>
+                <nav class="example-pager" aria-label="Example steps" hidden>
+                  <button type="button" class="round-button" data-go="-1" aria-label="Previous step">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z"></path>
+                    </svg>
+                  </button>
+                  <p class="example-count" aria-live="polite"></p>
+                  <button type="button" class="round-button" data-go="1" aria-label="Next step">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"></path>
+                    </svg>
+                  </button>
+                  <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/" data-example-cta hidden
+                    ><span class="panel-shape"
+                      ><span class="panel-content"
+                        ><span class="button-label"><span class="button-text">Play now</span></span></span
+                      ></span
+                    ></a
+                  >
+                </nav>
+              </div>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="modes">
+              <h2 id="modes">Game modes</h2>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Mode</th>
+                      <th scope="col">Opponent</th>
+                      <th scope="col">Win threshold</th>
+                      <th scope="col">Trophies</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Friend</th>
+                      <td>One of your friends</td>
+                      <td>30 Energy</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Quick</th>
+                      <td>From a list of random Summoners</td>
+                      <td>20 Energy</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Ranked</th>
+                      <td>From a list of Summoners with similar Trophies</td>
+                      <td>30 Energy</td>
+                      <td>Yes</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ul>
+                <li>Matches are not played in real time: the server plays them at once.</li>
+                <li>Friend and Quick matches give no Trophies and no rewards.</li>
+                <li>
+                  In Friend and Quick, if the opponent has a valid defense deck, the match is played at once against it. Otherwise it becomes a challenge: the opponent can accept, choosing a deck, or
+                  reject. A challenge expires after 48 hours.
+                </li>
+                <li>Ranked matches are always played at once.</li>
+                <li>In Quick and Ranked the game offers 5 opponents. You can attack each of them once per list.</li>
+                <li>You can attack the same Summoner once every 24 hours in Ranked, 3 times in Quick.</li>
+                <li>Shield: after 5 Ranked attacks received in 24 hours, nobody can attack you in Ranked for 12 hours. If you attack in Ranked, the shield ends.</li>
+                <li>After a Friend or Quick match you can ask for a rematch. Not in Ranked.</li>
+              </ul>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="ranking">
+              <h2 id="ranking">Ranking</h2>
+              <ul>
+                <li>You start with 0 Trophies, on the event horizon. Only Ranked matches change them.</li>
+                <li>Beating a Summoner with more Trophies gives more, beating one with fewer gives less. A draw counts as half a win. The loser loses what the winner gains.</li>
+                <li>Trophies never go below 0.</li>
+                <li>A season lasts 4 weeks. At the end, Trophies above 1000 are halved: from 1400 you restart at 1200.</li>
+                <li>At the end of a season, every Summoner who played at least one Ranked match receives Shards based on their Orbit.</li>
+                <li>The first time in a season you reach a higher Orbit, you receive Shards.</li>
+              </ul>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Orbit</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Trophies</th>
+                      <th scope="col">Season reward</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td><span class="soon">Coming soon</span></td>
+                      <td>0–199</td>
+                      <td>1 × daily bonus</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td><span class="soon">Coming soon</span></td>
+                      <td>200–499</td>
+                      <td>3 × daily bonus</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td><span class="soon">Coming soon</span></td>
+                      <td>500–999</td>
+                      <td>6 × daily bonus</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td><span class="soon">Coming soon</span></td>
+                      <td>1000 and more</td>
+                      <td>10 × daily bonus</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>The leaderboard is global and per Orbit. Only Summoners who played Ranked in the current season appear in it.</p>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="packs">
+              <h2 id="packs">Packs</h2>
+              <ul>
+                <li>Packs are bought in the Shop for 300 Shards.</li>
+                <li>The standard pack is always on sale. It never holds Wanderer cards.</li>
+                <li>An event pack is on sale only during its event, and can hold the Wanderer cards of that event.</li>
+                <li>Every pack holds 5 cards, one per slot, and at least one card of Soldier rarity or higher.</li>
+              </ul>
+              <div class="table-wrap">
+                <table>
+                  <caption>
+                    Rarity probabilities per slot
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Slot</th>
+                      <th scope="col">Standard pack</th>
+                      <th scope="col">Event pack</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1, 2, 3</th>
+                      <td>Captive 70%, Conscript 30%</td>
+                      <td>Captive 70%, Conscript 30%</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td>Conscript 75%, Soldier 25%</td>
+                      <td>Conscript 75%, Soldier 25%</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5</th>
+                      <td>Soldier 84%, Champion 12.5%, Elect 3.5%</td>
+                      <td>Soldier 84%, Champion 11%, Elect 1.5%, Wanderer 3.5%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3>Guarantees</h3>
+              <ul>
+                <li>Champion or rarer: after 9 packs in a row without one, the 10th holds one.</li>
+                <li>Elect: after 49 standard packs in a row without one, the 50th holds one.</li>
+                <li>Wanderer: after 49 event packs in a row without one, the 50th holds one.</li>
+                <li>Each count is separate: standard packs count only for the Elect, event packs only for the Wanderer, every pack for the Champion.</li>
+                <li>The guaranteed card takes the place of slot 5. A pack always holds 5 cards.</li>
+              </ul>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="shards">
+              <h2 id="shards">Shards</h2>
+              <p>Shards are the currency of the game. They are spent only on packs and cannot be traded. Every pack can be opened with Shards you earn by playing.</p>
+              <p>For the first year Shards can only be earned. After that you will also be able to buy them.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Reward</th>
+                      <th scope="col">When</th>
+                      <th scope="col">Shards</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Daily bonus</th>
+                      <td>First login of the day, in your time zone</td>
+                      <td><span class="soon">Coming soon</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Registration bonus</th>
+                      <td>Once, at registration</td>
+                      <td><span class="soon">Coming soon</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Email bonus</th>
+                      <td>Once, when you verify your email</td>
+                      <td><span class="soon">Coming soon</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Comeback bonus</th>
+                      <td>After 7 days without playing, at most once every 30 days</td>
+                      <td>3 × daily bonus</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Invite bonus</th>
+                      <td>When a Summoner you invited has verified their email and played 10 matches against different opponents</td>
+                      <td><span class="soon">Coming soon</span></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Season reward</th>
+                      <td>End of season, if you played Ranked</td>
+                      <td>1 to 10 × daily bonus</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Orbit reward</th>
+                      <td>First time in a season you reach a higher Orbit</td>
+                      <td><span class="soon">Coming soon</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <hr />
+
+            <section aria-labelledby="trades">
+              <h2 id="trades">Trades</h2>
+              <ul>
+                <li>You can trade cards with any Summoner, friend or not.</li>
+                <li>Both Summoners need a verified email.</li>
+                <li>Only cards are traded. Shards and Wanderer cards are not.</li>
+                <li>Each side can hold any number of cards. One side can be empty: that is a gift.</li>
+                <li>The receiver can accept or reject. The sender can cancel. A proposal expires after 48 hours.</li>
+                <li>Cards are checked when the trade is accepted. If a card is no longer there, the trade fails.</li>
+                <li>All the cards move together or none does.</li>
+                <li>After a trade each Summoner must own at least 30 cards, not counting Wanderer cards.</li>
+                <li>After a trade your decks are checked again.</li>
+              </ul>
+            </section>
+
+            <div class="row gap-s cta-row">
+              <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/"
+                ><span class="panel-shape"
+                  ><span class="panel-content"
+                    ><span class="button-label"><span class="button-text">Play now</span></span></span
+                  ></span
+                ></a
+              >
+              <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/rulebook/glossary/"
+                ><span class="panel-shape"
+                  ><span class="panel-content"
+                    ><span class="button-label"><span class="button-text">Open the glossary</span></span></span
+                  ></span
+                ></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
+    <!-- partial:site-footer -->
     <script type="module" src="/src/static/main.ts"></script>
+    <script type="module" src="/src/static/rulebook.ts"></script>
   </body>
 </html>
