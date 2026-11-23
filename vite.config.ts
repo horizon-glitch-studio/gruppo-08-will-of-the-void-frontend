@@ -24,17 +24,21 @@ function htmlEntries(dir = root): Record<string, string> {
   return entries
 }
 
-/** Dev server only: deep links of the two React apps fall back to their own index.html. */
+/** Dev and preview servers: deep links of the two React apps fall back to their own index.html. */
 function spaFallback(bases: string[]): Plugin {
+  const middleware = (req: { url?: string }, _res: unknown, next: () => void) => {
+    const url = req.url ?? '/'
+    const base = bases.find((b) => url === b || url.startsWith(`${b}/`))
+    if (base && !url.includes('.') && !url.startsWith(`${base}/@`)) req.url = `${base}/index.html`
+    next()
+  }
   return {
     name: 'spa-fallback',
     configureServer(server) {
-      server.middlewares.use((req, _res, next) => {
-        const url = req.url ?? '/'
-        const base = bases.find((b) => url === b || url.startsWith(`${b}/`))
-        if (base && !url.includes('.') && !url.startsWith(`${base}/@`)) req.url = `${base}/index.html`
-        next()
-      })
+      server.middlewares.use(middleware)
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(middleware)
     },
   }
 }
@@ -118,4 +122,6 @@ export default defineConfig({
   build: {
     rollupOptions: { input: htmlEntries() },
   },
+  // Preview on the dev port: the backend allows only the dev origin (CORS). Stop npm run dev before npm run preview
+  preview: { port: 5173, strictPort: true },
 })
