@@ -1,16 +1,17 @@
-/* A Panel used as a button: reset the native button look, keep the neon frame */
+/* A Panel used as a link: plain text, the neon frame as the only decoration. Hover glow as on the buttons */
 .button {
-  border: 0;
-  padding: 0;
-  background: none;
   color: var(--color-text);
-  text-align: start;
-  cursor: pointer;
-  transition: --_glow var(--duration-base) var(--ease-out);
+  text-decoration: none;
+  transition:
+    --_glow var(--duration-base) var(--ease-out),
+    --_glow-strength var(--duration-base) var(--ease-out);
 }
 
 .button:hover {
-  --_glow: 18px;
+  --_glow: 14px;
+  --_glow-strength: 70%;
+
+  color: var(--color-text);
 }
 
 .button:focus-visible {

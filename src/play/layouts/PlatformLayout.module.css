@@ -16,3 +16,11 @@
 .main[data-hub] {
   padding: 0 0 var(--space-s);
 }
+
+/* Immersive screens (the story): tighter spacing, the content takes the height */
+.main[data-immersive] {
+  max-width: none;
+  --gap: var(--space-s);
+
+  padding-block: var(--space-s);
+}

@@ -121,3 +121,20 @@
   max-width: 100%;
   width: 13rem;
 }
+
+/* Minimal bar (the story): wordmark always visible and centered, account button on the right */
+.bar[data-variant='minimal'] .logo {
+  display: block;
+  min-width: 0;
+  margin-inline: auto;
+}
+
+.bar[data-variant='minimal'] .end {
+  margin-inline-start: 0;
+}
+
+.bar[data-variant='minimal'] .wordmark {
+  height: auto;
+  max-width: 100%;
+  width: 13rem;
+}

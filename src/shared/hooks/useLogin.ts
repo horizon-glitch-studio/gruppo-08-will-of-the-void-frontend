@@ -1,10 +1,14 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { authService, type PlayerRole } from '@/shared/api/auth'
+import { takeNewAccount } from '../newAccount'
 import { useApiAction } from './useApiAction'
 
-/** Signs in and returns to the original protected route. */
-export function useLogin(requiredRole?: PlayerRole) {
+/**
+ * Signs in and returns to the original protected route.
+ * firstLoginTo: where the first login of an account just registered on this device goes (the story), instead of the hub.
+ */
+export function useLogin(requiredRole?: PlayerRole, firstLoginTo?: string) {
   const { state } = useLocation()
   const navigate = useNavigate()
   const [roleDenied, setRoleDenied] = useState(false)
@@ -24,6 +28,10 @@ export function useLogin(requiredRole?: PlayerRole) {
 
     const returnTo: unknown = state?.returnTo
     const target = typeof returnTo === 'string' && /^\/(?![/\\])/.test(returnTo) ? returnTo : '/'
+    if (firstLoginTo && takeNewAccount(result.player.username)) {
+      await navigate(firstLoginTo, { replace: true })
+      return
+    }
     await navigate(target, { replace: true })
   })
 

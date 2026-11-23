@@ -35,4 +35,6 @@ export const paths = {
   community: '/community',
   summoner: (username: string) => `/summoners/${encodeURIComponent(username)}`,
   settings: '/settings',
+  story: (chapter: number) => `/story/${chapter}`,
+  tutorial: '/tutorial',
 } as const

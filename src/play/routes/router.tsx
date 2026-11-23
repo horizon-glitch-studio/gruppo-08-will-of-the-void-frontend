@@ -23,6 +23,8 @@ import { NotFoundPage } from '../pages/NotFoundPage'
 import { ProfileFriendsPage } from '../pages/ProfileFriendsPage'
 import { ProfilePage } from '../pages/ProfilePage'
 import { SettingsPage } from '../pages/SettingsPage'
+import { StoryPage } from '../pages/StoryPage'
+import { TutorialPage } from '../pages/TutorialPage'
 import { ShipCollectionCardPage } from '../pages/ShipCollectionCardPage'
 import { ShipCollectionPage } from '../pages/ShipCollectionPage'
 import { ShipDeckEditorPage } from '../pages/ShipDeckEditorPage'
@@ -101,6 +103,9 @@ export const router = createBrowserRouter(
             { path: 'community', element: <CommunityPage />, handle: meta.community },
             { path: 'summoners/:username', element: <CommunitySummonerPage />, handle: meta.summoner },
             { path: 'settings', element: <SettingsPage />, handle: meta.settings },
+            { path: 'story', element: <Navigate to="1" replace /> },
+            { path: 'story/:chapter', element: <StoryPage />, handle: meta.story },
+            { path: 'tutorial', element: <TutorialPage />, handle: meta.tutorial },
             { path: '*', element: <NotFoundPage />, handle: meta.notFound },
           ],
         },

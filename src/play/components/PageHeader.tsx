@@ -1,4 +1,4 @@
-import { CaretLeftIcon } from '@phosphor-icons/react'
+import { ArrowLeftIcon } from '@phosphor-icons/react'
 import { Link } from 'react-router'
 import styles from './PageHeader.module.css'
 
@@ -19,7 +19,7 @@ export function PageHeader({ title, back, hideTitle = false }: PageHeaderProps) 
       <title>{`${title} – Will of the Void`}</title>
       {back && (
         <Link to={back.to} className={styles.back}>
-          <CaretLeftIcon size={16} weight="bold" aria-hidden="true" />
+          <ArrowLeftIcon size={16} weight="bold" aria-hidden="true" />
           <span className="visually-hidden">Back to </span>
           {back.label}
         </Link>
