@@ -892,10 +892,17 @@
   gap: var(--space-m);
 }
 
+/* One box, two blocks side by side (your faction, opponent), at every width: one area of interaction, not a repeated list */
 .versus-picker {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
+  gap: var(--space-2xs) var(--space-m);
+  padding: var(--space-s);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
 }
 
 .versus-label {
@@ -903,19 +910,16 @@
   font-weight: var(--weight-semibold);
 }
 
-.versus-label:not(:first-child) {
-  margin-block-start: var(--space-s);
-}
-
 .versus-tiles {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2xs);
 }
 
-@media (min-width: 40rem) {
+/* Each block: one tile per row on phones, 2 × 4 on wider screens */
+@media (min-width: 48rem) {
   .versus-tiles {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 

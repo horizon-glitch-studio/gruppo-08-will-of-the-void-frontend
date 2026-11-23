@@ -44,7 +44,7 @@ export function RequireAuth({ requiredRole }: { requiredRole?: PlayerRole }) {
   const login = <Navigate to="/login" state={{ returnTo: `${pathname}${search}${hash}` }} replace />
 
   if (session === null) return login
-  if (result?.session !== session || result.attempt !== attempt) return <output>Checking your session…</output>
+  if (result?.session !== session || result.attempt !== attempt) return <output className="h3 screen-center">Checking your session…</output>
   if ('error' in result) {
     return (
       <main>

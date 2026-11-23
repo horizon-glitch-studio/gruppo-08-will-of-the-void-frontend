@@ -1,8 +1,8 @@
-import { CaretLeftIcon } from '@phosphor-icons/react'
+import { ArrowLeftIcon } from '@phosphor-icons/react'
 import { useEffect, useRef, type FormEvent } from 'react'
-import { useSearchParams } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import type { Registration } from '@/shared/api/auth'
-import { Button, ButtonLink } from '@/shared/components/Button'
+import { Button } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { Field } from '@/shared/components/Field'
 import { useFormErrorFocus } from '@/shared/hooks/useFormErrorFocus'
@@ -50,9 +50,11 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
     <AuthScreen
       title={success ? 'Account created' : 'Create account'}
       backLink={
-        <ButtonLink to={paths.login} icon={<CaretLeftIcon size={20} weight="bold" />}>
+        // A plain link, like the way back of the story: less weight than the primary action of the form
+        <Link to={paths.login} className="row gap-3xs">
+          <ArrowLeftIcon size={16} weight="bold" aria-hidden="true" />
           Back to log in
-        </ButtonLink>
+        </Link>
       }
     >
       {success ? (
