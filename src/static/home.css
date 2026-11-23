@@ -1,0 +1,1343 @@
+/* Home page sections. Imported by home.ts only. */
+
+/* The hero starts right under the header */
+.site-main:has(.hero) {
+  padding-block-start: 0;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  position: relative;
+  display: grid;
+  min-block-size: calc(100svh - var(--header-height) - var(--space-s));
+  margin-block-start: calc(-1 * (var(--header-height) + var(--space-s)));
+  padding-block: calc(var(--header-height) + var(--space-2xl)) var(--space-2xl);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-image img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+/* Darkens the image under the text, so the text stays readable on every part of it */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--color-bg) 30%, transparent), color-mix(in srgb, var(--color-bg) 70%, transparent) 55%, var(--color-bg));
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  gap: var(--space-s);
+  text-align: center;
+}
+
+.hero-title {
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--color-logo-glow) 90%, transparent)) drop-shadow(0 0 12px color-mix(in srgb, var(--color-logo-glow) 60%, transparent));
+}
+
+.hero-logo {
+  height: clamp(8rem, 22vw, 13rem);
+}
+
+.hero-kicker {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-semibold);
+}
+
+.hero-lead {
+  max-inline-size: 36rem;
+  font-size: var(--text-lg);
+}
+
+.hero-actions {
+  justify-content: center;
+  margin-block-start: var(--space-xs);
+}
+
+.hero-note {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* ---------- Sections ---------- */
+
+.home-section {
+  padding-block: var(--space-3xl) 0;
+}
+
+.home-section > .container {
+  --gap: var(--space-xl);
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  max-inline-size: var(--measure);
+}
+
+/* ---------- How to play ---------- */
+
+/*
+ * Three steps on a line. While the section scrolls through the screen, a light runs along the line:
+ * each step it reaches lights up its card (accent for 1 and 2, the Void for 3) and lifts it, the steps behind stay lit.
+ * Hover and focus do the same to any card. Without scroll-driven animations, or with reduced motion, everything is lit from the start.
+ * --_how-lit, --_how-lift, --_how-line and --_how-hover are numbers from 0 to 1, registered so they can be animated.
+ * @property names are global for the whole page: these carry the how- prefix so they never clash with the Panel variables (--_fill is its fill color).
+ */
+@property --_how-lit {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --_how-lift {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --_how-line {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --_how-hover {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.how {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.how-phase {
+  color: var(--color-text-muted);
+  font-weight: var(--weight-semibold);
+}
+
+/* Phases: one row over the line on wide screens, inside the first and third step on phones (never both, so they are read once) */
+.how-phases {
+  display: none;
+}
+
+.how-steps {
+  --_dot: 2rem;
+  --_line: 2px;
+  --_gap: var(--space-m);
+
+  display: grid;
+  gap: var(--_gap);
+  view-timeline: --how block;
+}
+
+.how-item {
+  --_on: max(var(--_how-lit), var(--_how-hover));
+  --_up: max(var(--_how-lift), var(--_how-hover));
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding-inline-start: calc(var(--_dot) + var(--space-s));
+  transition: --_how-hover var(--duration-base) var(--ease-out);
+}
+
+.how-item:hover,
+.how-item:focus-within {
+  --_how-hover: 1;
+}
+
+/* Dot of the step on the line: filled when the light has reached it */
+.how-dot {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  inline-size: var(--_dot);
+  aspect-ratio: 1;
+  border: var(--_line) solid color-mix(in srgb, var(--_tone) calc(var(--_on) * 100%), var(--color-border-strong));
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--_tone) calc(var(--_on) * 100%), var(--color-bg));
+  font-weight: var(--weight-bold);
+}
+
+.how-item[data-step='1'],
+.how-item[data-step='2'] {
+  --_tone: var(--color-accent);
+}
+
+.how-item[data-step='3'] {
+  --_tone: var(--color-void-warm);
+}
+
+/* Line from this dot to the next one: muted, filled with the color of the light up to --_how-line */
+.how-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  inset-block-start: var(--_dot);
+  inset-inline-start: calc((var(--_dot) - var(--_line)) / 2);
+  inline-size: var(--_line);
+  block-size: calc(100% + var(--_gap) - var(--_dot));
+  background: linear-gradient(to bottom, var(--color-accent) calc(var(--_how-line) * 100%), var(--color-border-strong) calc(var(--_how-line) * 100%));
+}
+
+.how-item[data-step='2']::after {
+  background: linear-gradient(to bottom, var(--color-accent), var(--color-void-warm) calc(var(--_how-line) * 100%), var(--color-border-strong) calc(var(--_how-line) * 100%));
+}
+
+/* The card: muted border until lit, then its tone and glow; lifted while its step is active */
+.how-card {
+  translate: 0 calc(var(--_up) * -0.5rem);
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--_color) calc(var(--_on) * 90%), transparent))
+    drop-shadow(0 0 var(--_glow) color-mix(in srgb, var(--_color-end) calc(var(--_on) * 35%), transparent));
+}
+
+.how-card > .panel-shape {
+  --_veil: color-mix(in srgb, var(--color-border-strong) calc((1 - var(--_on)) * 100%), transparent);
+}
+
+.how-card[data-tone='accent'] > .panel-shape {
+  background: linear-gradient(var(--_veil), var(--_veil)), linear-gradient(to right, var(--_color), var(--_color-end));
+}
+
+.how-card[data-tone='void'] > .panel-shape {
+  background: linear-gradient(var(--_veil), var(--_veil)), conic-gradient(from var(--_turn), var(--color-void-warm) 0% 40%, var(--color-void-cold) 50% 90%, var(--color-void-warm) 100%);
+}
+
+.how-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.how-card p {
+  color: var(--color-text-muted);
+}
+
+/* Wide screens: three columns, the line runs above the cards from dot to dot */
+@media (min-width: 48rem) {
+  .how-phases {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-m);
+  }
+
+  .how-phase-inline {
+    display: none;
+  }
+
+  .how-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .how-item {
+    padding-inline-start: 0;
+    padding-block-start: calc(var(--_dot) + var(--space-s));
+  }
+
+  .how-item:not(:last-child)::after {
+    inset-block-start: calc((var(--_dot) - var(--_line)) / 2);
+    inset-inline-start: var(--_dot);
+    inline-size: calc(100% + var(--_gap) - var(--_dot));
+    block-size: var(--_line);
+    background: linear-gradient(to right, var(--color-accent) calc(var(--_how-line) * 100%), var(--color-border-strong) calc(var(--_how-line) * 100%));
+  }
+
+  .how-item[data-step='2']::after {
+    background: linear-gradient(to right, var(--color-accent), var(--color-void-warm) calc(var(--_how-line) * 100%), var(--color-border-strong) calc(var(--_how-line) * 100%));
+  }
+}
+
+/* The light follows the scroll of the section, only where the browser supports it and motion is welcome */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .how-item {
+      animation: var(--_steps) linear both;
+      animation-timeline: --how;
+      animation-range: cover 15% cover 60%;
+    }
+
+    .how-item[data-step='1'] {
+      --_steps: how-step-1;
+    }
+
+    .how-item[data-step='2'] {
+      --_steps: how-step-2;
+    }
+
+    .how-item[data-step='3'] {
+      --_steps: how-step-3;
+    }
+  }
+}
+
+@keyframes how-step-1 {
+  0% {
+    --_how-lit: 0;
+    --_how-lift: 0;
+    --_how-line: 0;
+  }
+
+  8% {
+    --_how-lit: 1;
+    --_how-lift: 1;
+  }
+
+  20% {
+    --_how-line: 0;
+  }
+
+  33% {
+    --_how-lift: 1;
+    --_how-line: 1;
+  }
+
+  40%,
+  100% {
+    --_how-lit: 1;
+    --_how-lift: 0;
+    --_how-line: 1;
+  }
+}
+
+@keyframes how-step-2 {
+  0%,
+  33% {
+    --_how-lit: 0;
+    --_how-lift: 0;
+    --_how-line: 0;
+  }
+
+  40% {
+    --_how-lit: 1;
+    --_how-lift: 1;
+  }
+
+  53% {
+    --_how-line: 0;
+  }
+
+  66% {
+    --_how-lift: 1;
+    --_how-line: 1;
+  }
+
+  73%,
+  100% {
+    --_how-lit: 1;
+    --_how-lift: 0;
+    --_how-line: 1;
+  }
+}
+
+@keyframes how-step-3 {
+  0%,
+  66% {
+    --_how-lit: 0;
+    --_how-lift: 0;
+  }
+
+  73%,
+  100% {
+    --_how-lit: 1;
+    --_how-lift: 1;
+  }
+}
+
+.step-visual {
+  display: grid;
+  place-items: center;
+  min-block-size: 8rem;
+  border-radius: var(--radius-m);
+  background: var(--color-bg);
+}
+
+.fan {
+  position: relative;
+  inline-size: 10rem;
+  block-size: 6rem;
+}
+
+.fan span {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-end: 0;
+  inline-size: 3rem;
+  block-size: 4.5rem;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-m);
+  background: var(--color-surface-raised);
+  transform-origin: 50% 120%;
+  translate: -50% 0;
+}
+
+.fan span:nth-child(1) {
+  rotate: -24deg;
+}
+
+.fan span:nth-child(2) {
+  rotate: -12deg;
+}
+
+.fan span:nth-child(4) {
+  rotate: 12deg;
+}
+
+.fan span:nth-child(5) {
+  rotate: 24deg;
+}
+
+.deck-count {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2xs);
+}
+
+.deck-count b {
+  font-size: var(--text-h3);
+  font-variant-numeric: tabular-nums;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3xs);
+}
+
+.chips span {
+  padding: 0 var(--space-2xs);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+}
+
+.clash {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-2xs);
+  inline-size: 100%;
+  max-inline-size: 15rem;
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.mini-card {
+  display: grid;
+  padding: var(--space-2xs);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-m);
+  background: var(--color-surface-raised);
+}
+
+.clash-result {
+  grid-column: 1 / -1;
+  color: var(--color-text-muted);
+}
+
+/* ---------- World ---------- */
+
+.world-layout,
+.ranking-layout {
+  display: grid;
+  gap: var(--space-l);
+  align-items: center;
+}
+
+.world-image img {
+  inline-size: 100%;
+  border-radius: var(--radius-m);
+}
+
+@media (min-width: 64rem) {
+  .world-layout,
+  .ranking-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-2xl);
+  }
+}
+
+/* ---------- Card anatomy ---------- */
+
+.anatomy {
+  display: grid;
+  gap: var(--space-l);
+  align-items: center;
+}
+
+@media (min-width: 48rem) {
+  .anatomy {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-2xl);
+  }
+}
+
+.anatomy-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.anatomy-figure figcaption {
+  max-inline-size: 16rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+/* Example card in plain shapes: the real card design comes later */
+.anatomy-card {
+  position: relative;
+  inline-size: 15rem;
+  aspect-ratio: 32 / 50;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+}
+
+.example-part {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-s);
+  background: var(--color-surface-raised);
+  font-weight: var(--weight-bold);
+  transition:
+    box-shadow var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.example-part[data-active] {
+  border-color: var(--color-text);
+  box-shadow:
+    0 0 0 2px var(--color-text),
+    var(--glow-accent);
+  z-index: 1;
+}
+
+.card-art {
+  inset: 0.5rem 0.5rem 36%;
+  background:
+    radial-gradient(circle at 50% 55%, var(--color-bg) 22%, var(--color-void-warm) 24%, transparent 32%),
+    radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-space-violet) 40%, transparent), transparent 60%), var(--color-surface-raised);
+}
+
+.card-name {
+  inset: 0 18% auto;
+  block-size: 2rem;
+  border-block-start: 0;
+  border-radius: 0 0 var(--radius-m) var(--radius-m);
+}
+
+.card-atk,
+.card-def {
+  inset-block-start: calc(64% - 1.25rem);
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  font-size: var(--text-h4);
+}
+
+.card-def {
+  inset-inline-start: -0.5rem;
+}
+
+.card-atk {
+  inset-inline-end: -0.5rem;
+}
+
+.card-text {
+  position: absolute;
+  inset: 70% 0.75rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.card-text i {
+  block-size: 0.3rem;
+  border-radius: var(--radius-full);
+  background: var(--color-border);
+}
+
+.card-faction,
+.card-rarity {
+  inset-block-end: 0.5rem;
+  block-size: 1.75rem;
+  padding-inline: var(--space-2xs);
+  font-size: var(--text-xs);
+}
+
+.card-faction {
+  inset-inline-start: 0.5rem;
+}
+
+.card-rarity {
+  inset-inline-end: 0.5rem;
+}
+
+/* Number of the legend item, in the corner of each part */
+.part-number {
+  position: absolute;
+  inset-block-start: -0.6rem;
+  inset-inline-end: -0.6rem;
+  display: grid;
+  place-items: center;
+  inline-size: 1.25rem;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+}
+
+.anatomy-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.anatomy-item {
+  display: flex;
+  align-items: start;
+  gap: var(--space-xs);
+  inline-size: 100%;
+  padding: var(--space-xs);
+  border: 1px solid transparent;
+  border-radius: var(--radius-m);
+  background: none;
+  text-align: start;
+  cursor: pointer;
+}
+
+.anatomy-item:hover {
+  border-color: var(--color-border);
+}
+
+.anatomy-item[aria-pressed='true'] {
+  border-color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.anatomy-item > span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.anatomy-item > span:last-child span {
+  color: var(--color-text-muted);
+}
+
+.anatomy-number {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  inline-size: 1.5rem;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+
+/*
+ * Card anatomy in 3D: the card tilts a little and splits into thin layers, each part of the legend lights up with its layer, one after the other.
+ * Wide screens: card and legend stay in place (sticky) for a short stretch of scroll; the split starts while the section is still entering.
+ * Phones: nothing stays in place; the card splits as it comes into view, and each legend item lights up (with its layer) when it crosses the middle of the screen.
+ * Reduced motion or no scroll-driven animations: the card is shown already split, the legend works by click and keyboard.
+ * --_anat-p (0 to 1) is how far the card is split; --_anat-on (0 to 1) lights a legend item and its layer.
+ */
+@property --_anat-p {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+@property --_anat-on {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.anatomy-figure {
+  perspective: 56rem;
+}
+
+/* Small tilt and small depths: the layers separate without leaving the screen */
+.anatomy-card {
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--_anat-p) * 18deg)) rotateY(calc(var(--_anat-p) * -16deg)) rotateZ(calc(var(--_anat-p) * 3deg));
+}
+
+.anatomy-card > * {
+  transform: translateZ(calc(var(--_anat-p) * var(--_z, 0) * 1px));
+}
+
+.anatomy-card > [data-part='name'] {
+  --_z: 18;
+}
+
+.anatomy-card > [data-part='art'] {
+  --_z: 8;
+}
+
+.anatomy-card > [data-part='atk'] {
+  --_z: 28;
+}
+
+.anatomy-card > [data-part='def'] {
+  --_z: 28;
+}
+
+.anatomy-card > [data-part='faction'] {
+  --_z: 22;
+}
+
+.anatomy-card > [data-part='rarity'] {
+  --_z: 22;
+}
+
+.anatomy-card > .card-text {
+  --_z: 12;
+}
+
+/* A part lit by the scroll looks like a part picked from the legend */
+.anatomy-card > [data-part] {
+  box-shadow: 0 0 0 calc(var(--_anat-on) * 2px) var(--color-text);
+}
+
+.anatomy-card > [data-part][data-active] {
+  box-shadow:
+    0 0 0 2px var(--color-text),
+    var(--glow-accent);
+}
+
+.anatomy-item {
+  border-color: color-mix(in srgb, var(--color-text) calc(var(--_anat-on) * 100%), transparent);
+  background: color-mix(in srgb, var(--color-surface) calc(var(--_anat-on) * 100%), transparent);
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Phones: the split follows the card itself, each item its own position on the screen */
+    .anatomy {
+      timeline-scope: --anat-1, --anat-2, --anat-3, --anat-4, --anat-5, --anat-6;
+    }
+
+    .anatomy-card {
+      animation: anat-split linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 45%;
+    }
+
+    .anatomy-list li:nth-child(1) {
+      view-timeline: --anat-1 block;
+    }
+
+    .anatomy-list li:nth-child(1) .anatomy-item,
+    .anatomy-card > [data-part='name'] {
+      animation: anat-middle linear both;
+      animation-timeline: --anat-1;
+      animation-range: cover 0% cover 100%;
+    }
+
+    .anatomy-list li:nth-child(2) {
+      view-timeline: --anat-2 block;
+    }
+
+    .anatomy-list li:nth-child(2) .anatomy-item,
+    .anatomy-card > [data-part='art'] {
+      animation: anat-middle linear both;
+      animation-timeline: --anat-2;
+      animation-range: cover 0% cover 100%;
+    }
+
+    .anatomy-list li:nth-child(3) {
+      view-timeline: --anat-3 block;
+    }
+
+    .anatomy-list li:nth-child(3) .anatomy-item,
+    .anatomy-card > [data-part='atk'] {
+      animation: anat-middle linear both;
+      animation-timeline: --anat-3;
+      animation-range: cover 0% cover 100%;
+    }
+
+    .anatomy-list li:nth-child(4) {
+      view-timeline: --anat-4 block;
+    }
+
+    .anatomy-list li:nth-child(4) .anatomy-item,
+    .anatomy-card > [data-part='def'] {
+      animation: anat-middle linear both;
+      animation-timeline: --anat-4;
+      animation-range: cover 0% cover 100%;
+    }
+
+    .anatomy-list li:nth-child(5) {
+      view-timeline: --anat-5 block;
+    }
+
+    .anatomy-list li:nth-child(5) .anatomy-item,
+    .anatomy-card > [data-part='faction'] {
+      animation: anat-middle linear both;
+      animation-timeline: --anat-5;
+      animation-range: cover 0% cover 100%;
+    }
+
+    .anatomy-list li:nth-child(6) {
+      view-timeline: --anat-6 block;
+    }
+
+    .anatomy-list li:nth-child(6) .anatomy-item,
+    .anatomy-card > [data-part='rarity'] {
+      animation: anat-middle linear both;
+      animation-timeline: --anat-6;
+      animation-range: cover 0% cover 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (min-width: 48rem) and (min-height: 40rem) {
+    /* Wide screens: a short stretch where card and legend stay in place; everything follows that stretch */
+    .anatomy-track {
+      block-size: 170vh;
+      view-timeline: --anatomy block;
+    }
+
+    .anatomy {
+      position: sticky;
+      inset-block-start: calc(var(--header-height) + var(--space-xl));
+    }
+
+    .anatomy-card {
+      animation: anat-split linear both;
+      animation-timeline: --anatomy;
+      animation-range: entry 40% contain 100%;
+    }
+
+    .anatomy-list li:nth-child(1) .anatomy-item,
+    .anatomy-card > [data-part='name'] {
+      animation: anat-1 linear both;
+      animation-timeline: --anatomy;
+      animation-range: entry 40% contain 100%;
+    }
+
+    .anatomy-list li:nth-child(2) .anatomy-item,
+    .anatomy-card > [data-part='art'] {
+      animation: anat-2 linear both;
+      animation-timeline: --anatomy;
+      animation-range: entry 40% contain 100%;
+    }
+
+    .anatomy-list li:nth-child(3) .anatomy-item,
+    .anatomy-card > [data-part='atk'] {
+      animation: anat-3 linear both;
+      animation-timeline: --anatomy;
+      animation-range: entry 40% contain 100%;
+    }
+
+    .anatomy-list li:nth-child(4) .anatomy-item,
+    .anatomy-card > [data-part='def'] {
+      animation: anat-4 linear both;
+      animation-timeline: --anatomy;
+      animation-range: entry 40% contain 100%;
+    }
+
+    .anatomy-list li:nth-child(5) .anatomy-item,
+    .anatomy-card > [data-part='faction'] {
+      animation: anat-5 linear both;
+      animation-timeline: --anatomy;
+      animation-range: entry 40% contain 100%;
+    }
+
+    .anatomy-list li:nth-child(6) .anatomy-item,
+    .anatomy-card > [data-part='rarity'] {
+      animation: anat-6 linear both;
+      animation-timeline: --anatomy;
+      animation-range: entry 40% contain 100%;
+    }
+  }
+}
+
+@keyframes anat-split {
+  0% {
+    --_anat-p: 0;
+  }
+
+  25%,
+  100% {
+    --_anat-p: 1;
+  }
+}
+
+/* Phones: lit while the item crosses the middle of the screen */
+@keyframes anat-middle {
+  0%,
+  45% {
+    --_anat-on: 0;
+  }
+
+  47%,
+  53% {
+    --_anat-on: 1;
+  }
+
+  55%,
+  100% {
+    --_anat-on: 0;
+  }
+}
+
+@keyframes anat-1 {
+  0%,
+  25.0% {
+    --_anat-on: 0;
+  }
+
+  27.0%,
+  36.5% {
+    --_anat-on: 1;
+  }
+
+  37.5%,
+  100% {
+    --_anat-on: 0;
+  }
+}
+
+@keyframes anat-2 {
+  0%,
+  37.5% {
+    --_anat-on: 0;
+  }
+
+  39.5%,
+  49.0% {
+    --_anat-on: 1;
+  }
+
+  50.0%,
+  100% {
+    --_anat-on: 0;
+  }
+}
+
+@keyframes anat-3 {
+  0%,
+  50.0% {
+    --_anat-on: 0;
+  }
+
+  52.0%,
+  61.5% {
+    --_anat-on: 1;
+  }
+
+  62.5%,
+  100% {
+    --_anat-on: 0;
+  }
+}
+
+@keyframes anat-4 {
+  0%,
+  62.5% {
+    --_anat-on: 0;
+  }
+
+  64.5%,
+  74.0% {
+    --_anat-on: 1;
+  }
+
+  75.0%,
+  100% {
+    --_anat-on: 0;
+  }
+}
+
+@keyframes anat-5 {
+  0%,
+  75.0% {
+    --_anat-on: 0;
+  }
+
+  77.0%,
+  86.5% {
+    --_anat-on: 1;
+  }
+
+  87.5%,
+  100% {
+    --_anat-on: 0;
+  }
+}
+
+@keyframes anat-6 {
+  0%,
+  87.5% {
+    --_anat-on: 0;
+  }
+
+  89.5% {
+    --_anat-on: 1;
+  }
+
+  100% {
+    --_anat-on: 1;
+  }
+}
+
+/* ---------- Logo flight ---------- */
+
+/*
+ * The big logo of the hero flies into the top bar while the page scrolls, and the bar logo appears where it lands.
+ * home.ts measures where the bar logo is and sets --_fly-x, --_fly-y, --_fly-scale and --_fly-end, then adds .logo-fly to <html>.
+ * Without JavaScript, scroll-driven animations or with reduced motion, both logos simply stay where they are.
+ */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .logo-fly .hero-title {
+      animation: logo-fly linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 var(--_fly-end);
+    }
+
+    .logo-fly .site-logo {
+      animation: logo-land linear both;
+      animation-timeline: scroll(root);
+      animation-range: calc(var(--_fly-end) * 0.85) var(--_fly-end);
+    }
+  }
+}
+
+@keyframes logo-fly {
+  90% {
+    opacity: 1;
+  }
+
+  to {
+    translate: var(--_fly-x) var(--_fly-y);
+    scale: var(--_fly-scale);
+    opacity: 0;
+  }
+}
+
+@keyframes logo-land {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Ring of cards ---------- */
+
+/*
+ * Twelve sample cards on a ring, full width: the side cards leave the screen. It turns with the scroll, with drag and with the arrows.
+ * Ring and slots carry the 3D (preserve-3d): no clip-path, filter, overflow, opacity or mask on them, or the 3D flattens.
+ * The back of each card shows the logo. Reduced motion: a plain row that scrolls sideways, fronts only.
+ */
+@property --_ring-scroll {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+@property --_ring-offset {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+.site-main:has(.ring-stage) {
+  overflow-x: clip;
+}
+
+.ring-stage {
+  --_card: 9rem;
+
+  /* Wide enough to fit the cards, and at least close to half the screen, so the side cards leave it */
+  --_radius: max(var(--_n, 12) * var(--_card) * 1.18 / 6.283, 42vw);
+
+  /* Dragging turns the ring: no text or image gets selected or dragged */
+  -webkit-user-select: none;
+  user-select: none;
+
+  display: grid;
+  place-items: center;
+  gap: var(--space-2xl);
+  padding-block: var(--space-xl) 0;
+  margin-inline: calc(50% - 50vw);
+  perspective: calc(var(--_radius) * 2.6);
+  perspective-origin: 50% 40%;
+  touch-action: pan-y;
+}
+
+.ring {
+  position: relative;
+  inline-size: var(--_card);
+  aspect-ratio: 32 / 50;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(-1 * var(--_radius))) rotateX(-6deg) rotateY(calc(var(--_ring-scroll) + var(--_ring-offset)));
+  transition: --_ring-offset var(--duration-base) var(--ease-out);
+}
+
+.ring[data-dragging] {
+  transition: none;
+}
+
+.ring-slot {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateY(calc(var(--_i) * 360deg / var(--_n))) translateZ(var(--_radius));
+}
+
+.ring-face {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-m);
+  backface-visibility: hidden;
+}
+
+/* Front: a sample card in plain shapes, like the anatomy card */
+.ring-front {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs);
+  padding: var(--space-2xs);
+  border: 2px solid var(--_faction);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.ring-art {
+  display: grid;
+  place-items: center;
+  inline-size: 100%;
+  flex: 1;
+  border-radius: var(--radius-s);
+  background: var(--color-surface-raised);
+}
+
+.ring-art .faction-icon {
+  inline-size: 3rem;
+  block-size: 3rem;
+}
+
+.ring-front span {
+  color: var(--color-text-muted);
+}
+
+/* Back: the colored logo on the card */
+.ring-back {
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--color-accent);
+  background: var(--color-surface);
+  transform: rotateY(180deg);
+}
+
+.ring-back img {
+  inline-size: 75%;
+  block-size: auto;
+  pointer-events: none;
+}
+
+.ring-controls {
+  display: flex;
+  gap: var(--space-s);
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ring {
+      animation: ring-turn linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes ring-turn {
+  from {
+    --_ring-scroll: 60deg;
+  }
+
+  to {
+    --_ring-scroll: -60deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-stage {
+    display: block;
+    padding-block: 0;
+    margin-inline: 0;
+    perspective: none;
+  }
+
+  .ring {
+    display: flex;
+    gap: var(--space-s);
+    inline-size: auto;
+    aspect-ratio: auto;
+    padding-block-end: var(--space-s);
+    overflow-x: auto;
+    transform: none;
+    transition: none;
+  }
+
+  .ring-slot {
+    position: relative;
+    flex: 0 0 var(--_card);
+    aspect-ratio: 32 / 50;
+    transform: none;
+  }
+
+  .ring-back,
+  .ring-controls {
+    display: none;
+  }
+}
+
+/* ---------- Ranking ---------- */
+
+/*
+ * Orbits as half ellipses around the Void, from the farthest (outside) to the closest, labels on top. Spacing as in the wireframe:
+ * --_u is the step between two orbits, each orbit has a vertical radius of 1.4, 2.4, 3.4 or 4.4 steps and is 2.4 times wider than tall.
+ * While the section crosses the screen they flatten, from rounder to elliptical (--_orbit-s from 1.5 to 1): the Ship moving away from the Void.
+ * The step never goes below 2.75rem, so the labels never touch. The outer orbits may leave the box on the sides; the lower part fades into the page.
+ */
+@property --_orbit-s {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 1;
+}
+
+.orbits {
+  --_u: clamp(2.75rem, 6vw, 4.25rem);
+
+  position: relative;
+  block-size: calc(var(--_u) * 6.8);
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, #000 72%, transparent);
+}
+
+.orbit {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 50%;
+  display: flex;
+  justify-content: center;
+  inline-size: calc(var(--_ry) * 4.8);
+  block-size: calc(var(--_ry) * 2 * var(--_orbit-s));
+  translate: -50% 50%;
+  border: 2px solid var(--_ring);
+  border-radius: 50%;
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--_ring) 50%, transparent),
+    inset 0 0 10px color-mix(in srgb, var(--_ring) 30%, transparent);
+}
+
+.orbit[data-orbit='4'] {
+  --_ry: calc(var(--_u) * 4.4);
+  --_ring: var(--color-space-indigo);
+}
+
+.orbit[data-orbit='3'] {
+  --_ry: calc(var(--_u) * 3.4);
+  --_ring: var(--color-space-violet);
+}
+
+.orbit[data-orbit='2'] {
+  --_ry: calc(var(--_u) * 2.4);
+  --_ring: var(--color-space-purple);
+}
+
+.orbit[data-orbit='1'] {
+  --_ry: calc(var(--_u) * 1.4);
+  --_ring: var(--color-void-warm);
+}
+
+/* The Void at the center, below the closest orbit */
+.orbits::after {
+  content: '';
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 50%;
+  inline-size: calc(var(--_u) * 1.6);
+  aspect-ratio: 1;
+  translate: -50% 50%;
+  border: 2px solid var(--color-void-rim);
+  border-radius: 50%;
+  background: var(--color-bg);
+  box-shadow: 0 0 16px var(--color-void-cold);
+}
+
+.orbit-label {
+  translate: 0 -50%;
+  block-size: fit-content;
+  padding: 0 var(--space-2xs);
+  border: 1px solid var(--_ring);
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .orbits {
+      animation: orbits-flatten linear both;
+      animation-timeline: view();
+      animation-range: entry 0% contain 70%;
+    }
+  }
+}
+
+@keyframes orbits-flatten {
+  from {
+    --_orbit-s: 1.5;
+  }
+
+  to {
+    --_orbit-s: 1;
+  }
+}
+
+/* Buttons alone under a centered block (steps, versus, ring, questions) */
+.actions-center {
+  justify-content: center;
+}

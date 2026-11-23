@@ -1,4 +1,4 @@
-import { AtomIcon, CubeIcon, DiamondIcon, FireIcon, LightningIcon, MagnetIcon, RadioactiveIcon, SnowflakeIcon, type IconProps } from '@phosphor-icons/react'
+import { AtomIcon, CubeIcon, FireIcon, LightningIcon, MagnetIcon, RadioactiveIcon, SketchLogoIcon, SnowflakeIcon, type IconProps } from '@phosphor-icons/react'
 import type { Faction } from '../factions'
 
 /** Phosphor icon of each faction, bold weight. */
@@ -9,7 +9,7 @@ const icons = {
   ice: SnowflakeIcon,
   metal: MagnetIcon,
   matte: CubeIcon,
-  gem: DiamondIcon,
+  gem: SketchLogoIcon,
   'noble-gas': AtomIcon,
 } satisfies Record<Faction, unknown>
 

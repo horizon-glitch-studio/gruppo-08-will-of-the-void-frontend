@@ -4,14 +4,250 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lore – Will of the Void</title>
-    <meta name="description" content="TODO" />
+    <meta name="description" content="The story of Will of the Void: the Void, the Summoners, their Ships and the creatures of eight factions." />
     <!-- partial:head-icons -->
   </head>
   <body>
-    <!-- partial:site-nav -->
-    <main>
-      <h1>Lore – Will of the Void</h1>
+    <!-- partial:site-header -->
+    <main id="main" class="site-main">
+      <div class="container">
+        <header class="page-head">
+          <h1>Lore</h1>
+          <p class="lead">A galaxy, a black hole that thinks, and the Ships that orbit around it.</p>
+        </header>
+        <div class="column gap-xl lore">
+          <section class="chapter" aria-labelledby="the-void">
+            <picture class="chapter-image">
+              <source
+                media="(min-aspect-ratio: 1/1)"
+                srcset="
+                  /src/assets/images/lore/lore-01-landscape-768w.webp   768w,
+                  /src/assets/images/lore/lore-01-landscape-1024w.webp 1024w,
+                  /src/assets/images/lore/lore-01-landscape-1536w.webp 1536w,
+                  /src/assets/images/lore/lore-01-landscape-2048w.webp 2048w
+                "
+                sizes="(min-width: 64rem) 34rem, 100vw"
+              />
+              <img
+                src="/src/assets/images/lore/lore-01-portrait-768w.webp"
+                srcset="
+                  /src/assets/images/lore/lore-01-portrait-480w.webp   480w,
+                  /src/assets/images/lore/lore-01-portrait-768w.webp   768w,
+                  /src/assets/images/lore/lore-01-portrait-1024w.webp 1024w,
+                  /src/assets/images/lore/lore-01-portrait-1536w.webp 1536w
+                "
+                sizes="(min-width: 64rem) 34rem, 100vw"
+                width="1536"
+                height="2048"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="prose">
+              <h2 id="the-void">The Void</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris.
+              </p>
+              <p>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+              <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.</p>
+            </div>
+          </section>
+          <hr />
+          <section class="chapter" aria-labelledby="summoner">
+            <picture class="chapter-image">
+              <source
+                media="(min-aspect-ratio: 1/1)"
+                srcset="
+                  /src/assets/images/lore/lore-07-landscape-768w.webp   768w,
+                  /src/assets/images/lore/lore-07-landscape-1024w.webp 1024w,
+                  /src/assets/images/lore/lore-07-landscape-1536w.webp 1536w,
+                  /src/assets/images/lore/lore-07-landscape-2048w.webp 2048w
+                "
+                sizes="(min-width: 64rem) 34rem, 100vw"
+              />
+              <img
+                src="/src/assets/images/lore/lore-07-portrait-768w.webp"
+                srcset="
+                  /src/assets/images/lore/lore-07-portrait-480w.webp   480w,
+                  /src/assets/images/lore/lore-07-portrait-768w.webp   768w,
+                  /src/assets/images/lore/lore-07-portrait-1024w.webp 1024w,
+                  /src/assets/images/lore/lore-07-portrait-1536w.webp 1536w
+                "
+                sizes="(min-width: 64rem) 34rem, 100vw"
+                width="1536"
+                height="2048"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="prose">
+              <h2 id="summoner">The Summoner and the Ship</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris.
+              </p>
+              <p>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+              <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.</p>
+            </div>
+          </section>
+          <hr />
+          <section class="column gap-m" aria-labelledby="factions">
+            <div class="prose">
+              <h2 id="factions">The factions</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris.
+              </p>
+              <p>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+            </div>
+            <ul class="list-plain lore-grid">
+              <li class="lore-card" data-faction="lava">
+                <h3 class="h4">Lava</h3>
+                <p>Planets close to the stars, covered in magma.</p>
+              </li>
+              <li class="lore-card" data-faction="electro">
+                <h3 class="h4">Electro</h3>
+                <p>Planets of conductive materials, wrapped in strong electromagnetic fields.</p>
+              </li>
+              <li class="lore-card" data-faction="radio">
+                <h3 class="h4">Radio</h3>
+                <p>Planets of heavy, unstable elements, subject to radioactive decay.</p>
+              </li>
+              <li class="lore-card" data-faction="ice">
+                <h3 class="h4">Ice</h3>
+                <p>Planets and comets far from the stars, where water and other common substances exist only as ice or freezing liquid.</p>
+              </li>
+              <li class="lore-card" data-faction="metal">
+                <h3 class="h4">Metal</h3>
+                <p>Metallic planets, often strongly magnetic.</p>
+              </li>
+              <li class="lore-card" data-faction="matte">
+                <h3 class="h4">Matte</h3>
+                <p>Dark planets of rock and carbon-based materials: opaque and insulating.</p>
+              </li>
+              <li class="lore-card" data-faction="gem">
+                <h3 class="h4">Gem</h3>
+                <p>Crystals formed in the core of planets.</p>
+              </li>
+              <li class="lore-card" data-faction="noble-gas">
+                <h3 class="h4">Noble Gas</h3>
+                <p>Creatures born in nebulae and between galaxies.</p>
+              </li>
+            </ul>
+          </section>
+          <hr />
+          <section class="column gap-m" aria-labelledby="creatures">
+            <div class="prose">
+              <h2 id="creatures">The creatures on board</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris.
+              </p>
+              <p>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+            </div>
+            <ul class="list-plain lore-grid">
+              <li class="lore-card">
+                <h3 class="h4">Captive</h3>
+                <p>Creatures freed by the Summoner in exchange for their help in the Arena.</p>
+              </li>
+              <li class="lore-card">
+                <h3 class="h4">Conscript</h3>
+                <p>Common people who answered the call of the Ship.</p>
+              </li>
+              <li class="lore-card">
+                <h3 class="h4">Soldier</h3>
+                <p>Trained troops sent by the armies of their worlds.</p>
+              </li>
+              <li class="lore-card">
+                <h3 class="h4">Champion</h3>
+                <p>Heroes of their worlds who chose the Ship themselves.</p>
+              </li>
+              <li class="lore-card">
+                <h3 class="h4">Elect</h3>
+                <p>Gems: rare crystals formed in the core of planets, guides and examples for the other creatures.</p>
+              </li>
+              <li class="lore-card">
+                <h3 class="h4">Wanderer</h3>
+                <p>Noble Gases: nobody calls or commands them. They choose which Ship to board and how long to stay.</p>
+              </li>
+            </ul>
+          </section>
+          <hr />
+          <section class="chapter" aria-labelledby="wanderers">
+            <picture class="chapter-image">
+              <source
+                media="(min-aspect-ratio: 1/1)"
+                srcset="
+                  /src/assets/images/lore/lore-08-landscape-768w.webp   768w,
+                  /src/assets/images/lore/lore-08-landscape-1024w.webp 1024w,
+                  /src/assets/images/lore/lore-08-landscape-1536w.webp 1536w,
+                  /src/assets/images/lore/lore-08-landscape-2048w.webp 2048w
+                "
+                sizes="(min-width: 64rem) 34rem, 100vw"
+              />
+              <img
+                src="/src/assets/images/lore/lore-08-portrait-768w.webp"
+                srcset="
+                  /src/assets/images/lore/lore-08-portrait-480w.webp   480w,
+                  /src/assets/images/lore/lore-08-portrait-768w.webp   768w,
+                  /src/assets/images/lore/lore-08-portrait-1024w.webp 1024w,
+                  /src/assets/images/lore/lore-08-portrait-1536w.webp 1536w
+                "
+                sizes="(min-width: 64rem) 34rem, 100vw"
+                width="1536"
+                height="2048"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="prose">
+              <h2 id="wanderers">Wanderers leave</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                laboris.
+              </p>
+              <p>
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+                deserunt mollit anim id est laborum.
+              </p>
+              <div class="row gap-s cta-row">
+                <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/"
+                  ><span class="panel-shape"
+                    ><span class="panel-content"
+                      ><span class="button-label"><span class="button-text">Play now</span></span></span
+                    ></span
+                  ></a
+                >
+                <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/rulebook/"
+                  ><span class="panel-shape"
+                    ><span class="panel-content"
+                      ><span class="button-label"><span class="button-text">Read the rules</span></span></span
+                    ></span
+                  ></a
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
     </main>
+    <!-- partial:site-footer -->
     <script type="module" src="/src/static/main.ts"></script>
   </body>
 </html>

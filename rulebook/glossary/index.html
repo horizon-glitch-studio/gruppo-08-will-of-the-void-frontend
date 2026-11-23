@@ -4,14 +4,353 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Glossary – Will of the Void</title>
-    <meta name="description" content="TODO" />
+    <meta name="description" content="The official terms of Will of the Void: world, cards, factions, rarities, decks, packs, matches, modes, ranking and Shards." />
     <!-- partial:head-icons -->
   </head>
   <body>
-    <!-- partial:site-nav -->
-    <main>
-      <h1>Glossary – Will of the Void</h1>
+    <!-- partial:site-header -->
+    <main id="main" class="site-main">
+      <div class="container">
+        <header class="page-head">
+          <h1>Glossary</h1>
+          <p class="lead">The words of Will of the Void, grouped by topic. The full rules are in the <a href="/rulebook/">rulebook</a>.</p>
+        </header>
+        <div class="column gap-m glossary">
+          <div class="column gap-2xs glossary-search" hidden>
+            <label for="glossary-search">Search a term</label>
+            <input id="glossary-search" type="search" autocomplete="off" />
+          </div>
+          <p class="glossary-empty" hidden>No term matches your search.</p>
+          <section class="glossary-group" aria-labelledby="group-world">
+            <h2 id="group-world">World</h2>
+            <dl>
+              <div class="term" id="umbra">
+                <dt>Umbra</dt>
+                <dd>The galaxy where the game takes place.</dd>
+              </div>
+              <div class="term" id="void">
+                <dt>Void</dt>
+                <dd>The conscious black hole at the center of Umbra. It feeds on the Energy of battles.</dd>
+              </div>
+              <div class="term" id="arena">
+                <dt>Arena</dt>
+                <dd>The place inside the Void where creatures fight. Every match happens in the Arena.</dd>
+              </div>
+              <div class="term" id="summoner">
+                <dt>Summoner</dt>
+                <dd>The player. A Summoner commands a Ship and sends its creatures to fight in the Arena.</dd>
+              </div>
+              <div class="term" id="ship">
+                <dt>Ship</dt>
+                <dd>The Summoner's base, in orbit around the Void. The creatures found in packs live on board.</dd>
+              </div>
+              <div class="term" id="event-horizon">
+                <dt>Event horizon</dt>
+                <dd>The narrative place of a Summoner with 0 Trophies: on the edge of the Void, not swallowed by it. Nobody is ever swallowed.</dd>
+              </div>
+            </dl>
+          </section>
+          <section class="glossary-group" aria-labelledby="group-cards">
+            <h2 id="group-cards">Cards</h2>
+            <dl>
+              <div class="term" id="card">
+                <dt>Card</dt>
+                <dd>A creature. Every card in the game is a creature, with ATK, DEF, a faction and a rarity. "Card" and "creature" are the same thing.</dd>
+              </div>
+              <div class="term" id="atk">
+                <dt>ATK</dt>
+                <dd>The damage a creature deals to the opposing creature in each round. Always at least 1.</dd>
+              </div>
+              <div class="term" id="def">
+                <dt>DEF</dt>
+                <dd>The damage a creature can take. It goes down with damage and never regenerates during a match.</dd>
+              </div>
+              <div class="term" id="faction">
+                <dt>Faction</dt>
+                <dd>The element a creature is made of. It decides the advantages against other factions.</dd>
+              </div>
+              <div class="term" id="rarity">
+                <dt>Rarity</dt>
+                <dd>The tier of a card. It decides its points and how many copies a deck can hold. The only measure of strength.</dd>
+              </div>
+              <div class="term" id="collection">
+                <dt>Collection</dt>
+                <dd>All the cards a Summoner owns, with their copies.</dd>
+              </div>
+              <div class="term" id="memory-archive">
+                <dt>Memory archive</dt>
+                <dd>The part of the collection where departed Wanderer cards stay. Visible, not playable.</dd>
+              </div>
+            </dl>
+          </section>
+          <section class="glossary-group" aria-labelledby="group-factions">
+            <h2 id="group-factions">Factions</h2>
+            <dl>
+              <div class="term" id="lava">
+                <dt>Lava</dt>
+                <dd>Elemental faction. Creatures of magma from planets close to the stars.</dd>
+              </div>
+              <div class="term" id="electro">
+                <dt>Electro</dt>
+                <dd>Elemental faction. Creatures of conductive materials and electromagnetic fields.</dd>
+              </div>
+              <div class="term" id="radio">
+                <dt>Radio</dt>
+                <dd>Elemental faction. Creatures of radioactive, unstable elements.</dd>
+              </div>
+              <div class="term" id="ice">
+                <dt>Ice</dt>
+                <dd>Elemental faction. Creatures of ice and frozen liquids from planets far from the stars.</dd>
+              </div>
+              <div class="term" id="metal">
+                <dt>Metal</dt>
+                <dd>Elemental faction. Creatures of metal, often magnetic.</dd>
+              </div>
+              <div class="term" id="matte">
+                <dt>Matte</dt>
+                <dd>Elemental faction. Creatures of dark carbon and opaque minerals.</dd>
+              </div>
+              <div class="term" id="gem">
+                <dt>Gem</dt>
+                <dd>Inert faction. Crystals formed in the core of planets. Every Gem card is an Elect card, and every Elect card is a Gem card.</dd>
+              </div>
+              <div class="term" id="noble-gas">
+                <dt>Noble Gas</dt>
+                <dd>Inert faction. Creatures born in nebulae and between galaxies. Every Noble Gas card is a Wanderer card, and every Wanderer card is a Noble Gas card.</dd>
+              </div>
+              <div class="term" id="elemental-faction">
+                <dt>Elemental faction</dt>
+                <dd>Lava, Electro, Radio, Ice, Metal or Matte. Elemental factions give and receive advantages.</dd>
+              </div>
+              <div class="term" id="inert-faction">
+                <dt>Inert faction</dt>
+                <dd>Gem or Noble Gas. An inert faction never gives or receives advantages.</dd>
+              </div>
+              <div class="term" id="advantage">
+                <dt>Advantage</dt>
+                <dd>The modifier a faction gets against a faction it prevails over. It lasts for the whole clash.</dd>
+              </div>
+              <div class="term" id="even">
+                <dt>Even</dt>
+                <dd>Two factions with no advantage between them. Two creatures of the same faction are always even.</dd>
+              </div>
+            </dl>
+          </section>
+          <section class="glossary-group" aria-labelledby="group-rarities">
+            <h2 id="group-rarities">Rarities</h2>
+            <dl>
+              <div class="term" id="captive">
+                <dt>Captive</dt>
+                <dd>The most common rarity. Creatures freed by the Summoner in exchange for their help in the Arena.</dd>
+              </div>
+              <div class="term" id="conscript">
+                <dt>Conscript</dt>
+                <dd>Common people who answered the call of the Ship.</dd>
+              </div>
+              <div class="term" id="soldier">
+                <dt>Soldier</dt>
+                <dd>Trained troops sent by the armies of their worlds.</dd>
+              </div>
+              <div class="term" id="champion">
+                <dt>Champion</dt>
+                <dd>Heroes of their worlds who chose the Ship themselves.</dd>
+              </div>
+              <div class="term" id="elect">
+                <dt>Elect</dt>
+                <dd>The rarity of the Gem faction.</dd>
+              </div>
+              <div class="term" id="wanderer">
+                <dt>Wanderer</dt>
+                <dd>The rarest rarity, the rarity of the Noble Gas faction. A Wanderer stays on board for a limited time, then leaves. It cannot be traded.</dd>
+              </div>
+            </dl>
+          </section>
+          <section class="glossary-group" aria-labelledby="group-decks-and-packs">
+            <h2 id="group-decks-and-packs">Decks and packs</h2>
+            <dl>
+              <div class="term" id="deck">
+                <dt>Deck</dt>
+                <dd>A set of cards from the collection, saved by the Summoner and used in a match. It must respect the deck constraints.</dd>
+              </div>
+              <div class="term" id="valid-deck">
+                <dt>Valid deck</dt>
+                <dd>A deck that respects every deck constraint and uses only cards the Summoner owns and can play.</dd>
+              </div>
+              <div class="term" id="starter-deck">
+                <dt>Starter deck</dt>
+                <dd>The deck every Summoner receives at registration. The same for everyone, with cards of every elemental faction.</dd>
+              </div>
+              <div class="term" id="defense-deck">
+                <dt>Defense deck</dt>
+                <dd>The deck the system uses when other Summoners attack in Ranked. Required to play Ranked.</dd>
+              </div>
+              <div class="term" id="shop">
+                <dt>Shop</dt>
+                <dd>The section of the portal where Summoners buy packs with Shards.</dd>
+              </div>
+              <div class="term" id="pack">
+                <dt>Pack</dt>
+                <dd>A set of random cards bought with Shards. Opening a pack sends a call: new creatures answer and board the Ship.</dd>
+              </div>
+              <div class="term" id="standard-pack">
+                <dt>Standard pack</dt>
+                <dd>The pack always on sale. It never contains Wanderer cards.</dd>
+              </div>
+              <div class="term" id="event-pack">
+                <dt>Event pack</dt>
+                <dd>A pack on sale for a limited period. It can contain Wanderer cards.</dd>
+              </div>
+              <div class="term" id="slot">
+                <dt>Slot</dt>
+                <dd>A position in a pack, with its own rarity probabilities.</dd>
+              </div>
+              <div class="term" id="guarantee">
+                <dt>Guarantee</dt>
+                <dd>A rule that grants a card of a given rarity after a number of packs without one.</dd>
+              </div>
+            </dl>
+          </section>
+          <section class="glossary-group" aria-labelledby="group-match">
+            <h2 id="group-match">Match</h2>
+            <dl>
+              <div class="term" id="match">
+                <dt>Match</dt>
+                <dd>A battle between two decks, simulated by the server from start to end without choices from the Summoners.</dd>
+              </div>
+              <div class="term" id="clash">
+                <dt>Clash</dt>
+                <dd>The fight between the two creatures in the Arena. It lasts one or more rounds and ends when at least one creature is defeated.</dd>
+              </div>
+              <div class="term" id="round">
+                <dt>Round</dt>
+                <dd>One exchange inside a clash: both creatures hit each other at the same time.</dd>
+              </div>
+              <div class="term" id="effective-atk">
+                <dt>Effective ATK</dt>
+                <dd>The ATK a creature uses in a clash, after the faction advantage.</dd>
+              </div>
+              <div class="term" id="energy">
+                <dt>Energy</dt>
+                <dd>The match score. A Summoner gains Energy when its creature defeats the opposing one. The first to reach the win threshold wins.</dd>
+              </div>
+              <div class="term" id="win-threshold">
+                <dt>Win threshold</dt>
+                <dd>The Energy needed to win a match. It depends on the mode.</dd>
+              </div>
+              <div class="term" id="deck-exhaustion">
+                <dt>Deck exhaustion</dt>
+                <dd>The moment a deck has no cards left to deploy. The match ends.</dd>
+              </div>
+              <div class="term" id="end-bonus">
+                <dt>End bonus</dt>
+                <dd>The Energy given for every card a Summoner still has, the card in the Arena included, when the match ends by deck exhaustion.</dd>
+              </div>
+              <div class="term" id="draw">
+                <dt>Draw</dt>
+                <dd>A match that ends with the same Energy for both Summoners.</dd>
+              </div>
+              <div class="term" id="replay">
+                <dt>Replay</dt>
+                <dd>The turn-by-turn record of a match, visible to both Summoners.</dd>
+              </div>
+            </dl>
+          </section>
+          <section class="glossary-group" aria-labelledby="group-modes">
+            <h2 id="group-modes">Modes</h2>
+            <dl>
+              <div class="term" id="friend-match">
+                <dt>Friend match</dt>
+                <dd>A match against one of the Summoner's friends. No Trophies, no rewards.</dd>
+              </div>
+              <div class="term" id="quick-match">
+                <dt>Quick match</dt>
+                <dd>A match against a random, recently active Summoner. No Trophies, no rewards.</dd>
+              </div>
+              <div class="term" id="ranked-match">
+                <dt>Ranked match</dt>
+                <dd>A match that changes Trophies. Both Summoners need a defense deck.</dd>
+              </div>
+              <div class="term" id="challenge">
+                <dt>Challenge</dt>
+                <dd>A match request that the other Summoner must accept within a time limit. Used in Friend and Quick matches when the opponent has no defense deck.</dd>
+              </div>
+              <div class="term" id="rematch">
+                <dt>Rematch</dt>
+                <dd>A new match between the same two Summoners right after a match. Friend and Quick only.</dd>
+              </div>
+              <div class="term" id="opponent-list">
+                <dt>Opponent list</dt>
+                <dd>The opponents the system offers for a Ranked or Quick match, saved on the server.</dd>
+              </div>
+              <div class="term" id="shield">
+                <dt>Shield</dt>
+                <dd>A temporary protection from Ranked attacks, given after many attacks received. It ends if the Summoner attacks in Ranked.</dd>
+              </div>
+            </dl>
+          </section>
+          <section class="glossary-group" aria-labelledby="group-ranking">
+            <h2 id="group-ranking">Ranking</h2>
+            <dl>
+              <div class="term" id="trophies">
+                <dt>Trophies</dt>
+                <dd>The ranking score, changed only by Ranked matches. Never below 0.</dd>
+              </div>
+              <div class="term" id="season">
+                <dt>Season</dt>
+                <dd>A ranking period. At the end of each season Trophies are partly reset.</dd>
+              </div>
+              <div class="term" id="orbit">
+                <dt>Orbit</dt>
+                <dd>A ranking tier, set by Trophies. The higher the Orbit, the farther the Ship from the Void.</dd>
+              </div>
+              <div class="term" id="leaderboard">
+                <dt>Leaderboard</dt>
+                <dd>The list of Summoners ordered by Trophies.</dd>
+              </div>
+            </dl>
+          </section>
+          <section class="glossary-group" aria-labelledby="group-economy-and-trades">
+            <h2 id="group-economy-and-trades">Economy and trades</h2>
+            <dl>
+              <div class="term" id="shards">
+                <dt>Shards</dt>
+                <dd>The virtual currency. Summoners spend Shards on packs. In phase 1 Shards are only earned; buying them with real money comes in phase 2.</dd>
+              </div>
+              <div class="term" id="phase-1">
+                <dt>Phase 1</dt>
+                <dd>The launch period, without real-money purchases.</dd>
+              </div>
+              <div class="term" id="phase-2">
+                <dt>Phase 2</dt>
+                <dd>From month 13 after launch: Shards can be bought with real money.</dd>
+              </div>
+              <div class="term" id="trade">
+                <dt>Trade</dt>
+                <dd>An exchange of cards between two Summoners, in any quantity. It happens only if the receiver accepts.</dd>
+              </div>
+            </dl>
+          </section>
+          <div class="row gap-s cta-row">
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Play now</span></span></span
+                ></span
+              ></a
+            >
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/rulebook/"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Read the rulebook</span></span></span
+                ></span
+              ></a
+            >
+          </div>
+        </div>
+      </div>
     </main>
+    <!-- partial:site-footer -->
     <script type="module" src="/src/static/main.ts"></script>
+    <script type="module" src="/src/static/glossary.ts"></script>
   </body>
 </html>

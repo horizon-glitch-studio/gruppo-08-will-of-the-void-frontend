@@ -1,4 +1,8 @@
-/* Button and link drawn as a neon Panel. Layout comes from the Panel, this file adds only the button states. */
+/*
+ * Button and link drawn as a neon Panel. Layout comes from the Panel, this file adds only the button states.
+ * Static pages: <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="…">
+ *   <span class="panel-shape"><span class="panel-content"><span class="button-label"><span class="button-text">Label</span></span></span></span></a>
+ */
 .button {
   --_text: var(--color-text);
 
@@ -31,7 +35,7 @@
 }
 
 /* Icon and label on one line. flex, not inline-flex: an inline box sits on a text line, which leaves room for descenders under it */
-.label {
+.button-label {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +43,7 @@
 }
 
 /* Trims the space above capitals and below the baseline, so the text centers on the icon. Not in Firefox yet: there it stays as before */
-.text {
+.button-text {
   text-box: trim-both cap alphabetic;
 }
 

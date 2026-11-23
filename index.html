@@ -3,16 +3,699 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Will of the Void</title>
-    <meta name="description" content="TODO" />
+    <title>Will of the Void – Digital collectible card game</title>
+    <meta
+      name="description"
+      content="Will of the Void is a free digital collectible card game in the browser: collect creatures of eight factions, build a deck of 30 cards and send it into the Arena."
+    />
     <!-- partial:head-icons -->
   </head>
   <body>
-    <!-- partial:site-nav -->
-    <main>
-      <h1>Will of the Void</h1>
-      <a href="/" class="logo-glow" aria-label="Will of the Void, home"><span class="logo logo-stacked"></span></a>
+    <!-- partial:site-header -->
+    <main id="main" class="site-main">
+      <section class="hero" aria-labelledby="hero-title">
+        <picture class="hero-image">
+          <source
+            media="(min-aspect-ratio: 1/1)"
+            srcset="
+              /src/assets/images/lore/lore-01-landscape-768w.webp   768w,
+              /src/assets/images/lore/lore-01-landscape-1024w.webp 1024w,
+              /src/assets/images/lore/lore-01-landscape-1536w.webp 1536w,
+              /src/assets/images/lore/lore-01-landscape-2048w.webp 2048w
+            "
+            sizes="100vw"
+          />
+          <img
+            src="/src/assets/images/lore/lore-01-portrait-768w.webp"
+            srcset="
+              /src/assets/images/lore/lore-01-portrait-480w.webp   480w,
+              /src/assets/images/lore/lore-01-portrait-768w.webp   768w,
+              /src/assets/images/lore/lore-01-portrait-1024w.webp 1024w,
+              /src/assets/images/lore/lore-01-portrait-1536w.webp 1536w
+            "
+            sizes="100vw"
+            width="1536"
+            height="2048"
+            alt=""
+            fetchpriority="high"
+          />
+        </picture>
+        <div class="container hero-content">
+          <h1 id="hero-title" class="hero-title"><span class="visually-hidden">Will of the Void</span><span class="logo logo-stacked hero-logo" aria-hidden="true"></span></h1>
+          <p class="hero-kicker">A digital collectible card game</p>
+          <p class="hero-lead">Collect creatures from eight factions, build a deck of 30 cards and send it into the Arena. The server plays the match: your strategy is the deck.</p>
+          <div class="row gap-s hero-actions">
+            <a class="panel button" data-size="lg" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Play now</span></span></span
+                ></span
+              ></a
+            >
+            <a class="panel button" data-size="lg" data-shape="pointed" data-tone="accent" data-variant="secondary" href="#how-to-play"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Discover the game</span></span></span
+                ></span
+              ></a
+            >
+          </div>
+          <p class="hero-note">Free in your browser, on phone or computer. Nothing to download.</p>
+        </div>
+      </section>
+
+      <section class="home-section" id="how-to-play" aria-labelledby="how-title">
+        <div class="container column gap-l">
+          <div class="section-head">
+            <h2 id="how-title">How to play</h2>
+            <p class="lead">Three steps. You make every choice before the match starts.</p>
+          </div>
+          <div class="how">
+            <div class="how-phases">
+              <p class="how-phase">Before the match, you decide</p>
+              <p class="how-phase">During the match, the server plays</p>
+            </div>
+            <ol class="list-plain how-steps">
+              <li class="how-item" data-step="1">
+                <p class="how-phase how-phase-inline">Before the match, you decide</p>
+                <span class="how-dot" aria-hidden="true">1</span>
+                <div class="panel how-card" data-shape="chamfered" data-tone="accent">
+                  <div class="panel-shape">
+                    <div class="panel-content how-card-content">
+                      <div class="step-visual" aria-hidden="true">
+                        <div class="fan"><span></span><span></span><span></span><span></span><span></span></div>
+                      </div>
+                      <h3 class="h4">Open packs</h3>
+                      <p>Every pack holds 5 creatures. Every pack can be opened with Shards you earn by playing.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="how-item" data-step="2">
+                <span class="how-dot" aria-hidden="true">2</span>
+                <div class="panel how-card" data-shape="chamfered" data-tone="accent">
+                  <div class="panel-shape">
+                    <div class="panel-content how-card-content">
+                      <div class="step-visual" aria-hidden="true">
+                        <div class="deck-count">
+                          <b>30 / 30</b><span class="chips"><span>2 factions</span><span>3 Champion</span><span>Valid</span></span>
+                        </div>
+                      </div>
+                      <h3 class="h4">Build your deck</h3>
+                      <p>30 cards, at most 15 of the same faction, few rare ones. Which factions you mix is your strategy.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="how-item" data-step="3">
+                <p class="how-phase how-phase-inline">During the match, the server plays</p>
+                <span class="how-dot" aria-hidden="true">3</span>
+                <div class="panel how-card" data-shape="chamfered" data-tone="void">
+                  <div class="panel-shape">
+                    <div class="panel-content how-card-content">
+                      <div class="step-visual" aria-hidden="true">
+                        <div class="clash">
+                          <span class="mini-card">Lava<b>8 / 8</b></span
+                          ><span>vs</span><span class="mini-card">Metal<b>4 / 8</b></span
+                          ><span class="clash-result">Metal defeated, +3 Energy</span>
+                        </div>
+                      </div>
+                      <h3 class="h4">Challenge</h3>
+                      <p>Pick an opponent. The server shuffles both decks and plays the match round by round. Then you watch the replay and improve your deck.</p>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <div class="row gap-s actions-center">
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Get your starter deck</span></span></span
+                ></span
+              ></a
+            >
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/rulebook/#example"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">See a match step by step</span></span></span
+                ></span
+              ></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="home-section world" aria-labelledby="world-title">
+        <div class="container world-layout">
+          <picture class="world-image">
+            <img
+              src="/src/assets/images/lore/lore-07-landscape-1024w.webp"
+              srcset="
+                /src/assets/images/lore/lore-07-landscape-768w.webp   768w,
+                /src/assets/images/lore/lore-07-landscape-1024w.webp 1024w,
+                /src/assets/images/lore/lore-07-landscape-1536w.webp 1536w,
+                /src/assets/images/lore/lore-07-landscape-2048w.webp 2048w
+              "
+              sizes="(min-width: 64rem) 34rem, 100vw"
+              width="2048"
+              height="1536"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+          <div class="column gap-s">
+            <h2 id="world-title">The world</h2>
+            <p class="lead">At the center of the galaxy of Umbra there is a black hole older than the stars. It thinks, it remembers, and it feeds on the Energy of battles.</p>
+            <p>Summoners command Ships in orbit around the Void. The creatures they call board the Ship and fight in the Arena, inside the Void. As long as they fight, their worlds stay whole.</p>
+            <div class="row">
+              <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/lore/"
+                ><span class="panel-shape"
+                  ><span class="panel-content"
+                    ><span class="button-label"><span class="button-text">Read the lore</span></span></span
+                  ></span
+                ></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="home-section" id="factions" aria-labelledby="factions-title">
+        <div class="container column gap-l">
+          <div class="section-head">
+            <h2 id="factions-title">Eight factions</h2>
+            <p class="lead">Every creature is made of an element. A creature facing a faction it prevails over gets +3 ATK for the whole clash. Choose your faction and an opponent.</p>
+          </div>
+          <div class="versus" data-versus>
+            <div class="versus-picker" hidden>
+              <p class="versus-label" id="versus-you">Your faction</p>
+              <div class="versus-tiles" role="group" aria-labelledby="versus-you" data-pick="you">
+                <button type="button" class="versus-tile" data-faction="lava" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                    ></path></svg
+                  ><span class="faction-name">Lava</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="electro" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                    ></path></svg
+                  ><span class="faction-name">Electro</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="radio" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M128,112a16,16,0,1,1-16,16A16,16,0,0,1,128,112ZM96,128a12,12,0,0,0-12-12H44.47a83.88,83.88,0,0,1,31.2-54.11L95.38,96a12,12,0,1,0,20.78-12l-22-38a20,20,0,0,0-28.87-6.34,107.85,107.85,0,0,0-45.26,78.4,20.22,20.22,0,0,0,5.21,15.43A20,20,0,0,0,40,140H84A12,12,0,0,0,96,128Zm139.92-9.94a107.81,107.81,0,0,0-45.26-78.39A20,20,0,0,0,161.79,46L139.84,84a12,12,0,0,0,20.78,12l19.71-34.13A83.88,83.88,0,0,1,211.53,116H172a12,12,0,0,0,0,24h44a20,20,0,0,0,14.71-6.51A20.22,20.22,0,0,0,235.92,118.06ZM160.4,160.11a12,12,0,0,0-20.79,12L159.19,206a84.33,84.33,0,0,1-62.38,0l19.58-33.91a12,12,0,0,0-20.79-12l-21.82,37.8a20,20,0,0,0,8.91,28.15,108.24,108.24,0,0,0,90.62,0,20,20,0,0,0,8.91-28.15Z"
+                    ></path></svg
+                  ><span class="faction-name">Radio</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="ice" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M227.65,149.14a12,12,0,0,1-8.79,14.51l-20.67,5.08,5.4,20.16a12,12,0,0,1-23.18,6.22l-7.29-27.2L140,148.78V187l20.48,20.48a12,12,0,0,1-17,17L128,209l-15.51,15.52a12,12,0,0,1-17-17L116,187V148.78L82.88,167.91l-7.29,27.2a12,12,0,0,1-23.18-6.22l5.4-20.16-20.67-5.08a12,12,0,1,1,5.72-23.3l27.89,6.85L104,128,70.75,108.8l-27.89,6.85A11.8,11.8,0,0,1,40,116a12,12,0,0,1-2.85-23.65l20.67-5.08-5.4-20.16a12,12,0,0,1,23.18-6.22l7.29,27.2L116,107.21V69L95.52,48.48a12,12,0,0,1,17-17L128,47l15.51-15.52a12,12,0,1,1,17,17L140,69v38.24l33.12-19.12,7.29-27.2a12,12,0,0,1,23.18,6.22l-5.4,20.16,20.67,5.08A12,12,0,0,1,216,116a11.8,11.8,0,0,1-2.87-.35l-27.89-6.85L152,128l33.25,19.2,27.89-6.85A12,12,0,0,1,227.65,149.14Z"
+                    ></path></svg
+                  ><span class="faction-name">Ice</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="metal" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M209.84,47.44A91.42,91.42,0,0,0,144.62,20h-.35A91.44,91.44,0,0,0,79.15,47L17.76,109.17a20,20,0,0,0,.08,28.21L46.5,166a19.89,19.89,0,0,0,14.15,5.86h.11a19.86,19.86,0,0,0,14.2-6l60.87-62.39a12.07,12.07,0,0,1,16.77-.12,11.63,11.63,0,0,1,3.5,8.35,12.85,12.85,0,0,1-3.66,9.11L90.19,181a20,20,0,0,0-.21,28.5l28.66,28.66a20.08,20.08,0,0,0,28.15.14l61.76-60.44.09-.09C244.65,141.78,245.18,83.31,209.84,47.44ZM60.62,146.21l-23-23L55.81,104.8l22.88,22.88Zm72.2,72.18-23-23,18.61-18,22.88,22.87Zm58.89-57.62L168.48,183.5,145.7,160.73,169.21,138l.15-.14a37,37,0,0,0,10.74-26.37,35.44,35.44,0,0,0-10.85-25.41,36.2,36.2,0,0,0-50.44.48l-.1.11L95.46,110.49,72.68,87.72l23.5-23.8A67.55,67.55,0,0,1,144.27,44h.26a67.62,67.62,0,0,1,48.21,20.29C218.85,90.78,218.38,134.05,191.71,160.77Z"
+                    ></path></svg
+                  ><span class="faction-name">Metal</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="matte" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,128,115.4,56,76ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l72-39.4v76.65Z"
+                    ></path></svg
+                  ><span class="faction-name">Matte</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="gem" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M249,96.1l-56-64a12,12,0,0,0-9-4.1H72a12,12,0,0,0-9,4.1L7,96.1a12,12,0,0,0,.26,16.09l112,120a12,12,0,0,0,17.54,0l112-120A12,12,0,0,0,249,96.1ZM213.55,92H182L152,52h26.55ZM71.88,116l21.19,53L43.61,116Zm86.4,0L128,191.69,97.72,116ZM104,92l24-32,24,32Zm80.12,24h28.27l-49.46,53ZM77.45,52H104L74,92H42.45Z"
+                    ></path></svg
+                  ><span class="faction-name">Gem</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="noble-gas" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M219.23,159.2a196.66,196.66,0,0,0-18-31.2,196.66,196.66,0,0,0,18-31.2c11.84-26.31,11.69-47.48-.43-59.6s-33.29-12.27-59.6-.43a196.66,196.66,0,0,0-31.2,18,196.66,196.66,0,0,0-31.2-18c-26.31-11.84-47.48-11.69-59.6.43s-12.27,33.29-.43,59.6a196.66,196.66,0,0,0,18,31.2,196.66,196.66,0,0,0-18,31.2c-11.84,26.31-11.69,47.48.43,59.6h0C43.33,224.93,51.78,228,62,228c10,0,21.77-2.92,34.76-8.77a196.66,196.66,0,0,0,31.2-18,196.66,196.66,0,0,0,31.2,18c13,5.85,24.74,8.77,34.76,8.77,10.26,0,18.71-3.07,24.84-9.2h0C230.92,206.68,231.07,185.51,219.23,159.2Zm-17.41-105c5.25,5.26,1.79,26-16,53.78-5.61-6.66-11.65-13.25-18.07-19.67S154.7,75.83,148,70.22C175.82,52.39,196.56,48.93,201.82,54.18ZM171.24,128a288.6,288.6,0,0,1-20.51,22.73A288.6,288.6,0,0,1,128,171.24a288.6,288.6,0,0,1-22.73-20.51A288.6,288.6,0,0,1,84.76,128,298.55,298.55,0,0,1,128,84.76a286.83,286.83,0,0,1,22.73,20.51A286.83,286.83,0,0,1,171.24,128ZM54.18,54.18c1.46-1.45,4.1-2.24,7.75-2.24,9.53,0,25.94,5.39,46,18.28-6.66,5.61-13.25,11.65-19.67,18.07S75.83,101.3,70.22,108C52.39,80.18,48.93,59.44,54.18,54.18Zm0,147.64c-5.25-5.26-1.79-26,16-53.78,5.61,6.66,11.65,13.25,18.07,19.67s13,12.46,19.67,18.07C80.18,203.61,59.44,207.07,54.18,201.82Zm147.64,0c-5.26,5.25-26,1.79-53.78-16,6.66-5.61,13.25-11.65,19.67-18.07s12.46-13,18.07-19.67C203.61,175.82,207.07,196.56,201.82,201.82ZM144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128Z"
+                    ></path></svg
+                  ><span class="faction-name">Noble Gas</span><span class="versus-mark"></span>
+                </button>
+              </div>
+              <p class="versus-label" id="versus-opponent">Opponent</p>
+              <div class="versus-tiles" role="group" aria-labelledby="versus-opponent" data-pick="opponent">
+                <button type="button" class="versus-tile" data-faction="lava" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                    ></path></svg
+                  ><span class="faction-name">Lava</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="electro" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                    ></path></svg
+                  ><span class="faction-name">Electro</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="radio" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M128,112a16,16,0,1,1-16,16A16,16,0,0,1,128,112ZM96,128a12,12,0,0,0-12-12H44.47a83.88,83.88,0,0,1,31.2-54.11L95.38,96a12,12,0,1,0,20.78-12l-22-38a20,20,0,0,0-28.87-6.34,107.85,107.85,0,0,0-45.26,78.4,20.22,20.22,0,0,0,5.21,15.43A20,20,0,0,0,40,140H84A12,12,0,0,0,96,128Zm139.92-9.94a107.81,107.81,0,0,0-45.26-78.39A20,20,0,0,0,161.79,46L139.84,84a12,12,0,0,0,20.78,12l19.71-34.13A83.88,83.88,0,0,1,211.53,116H172a12,12,0,0,0,0,24h44a20,20,0,0,0,14.71-6.51A20.22,20.22,0,0,0,235.92,118.06ZM160.4,160.11a12,12,0,0,0-20.79,12L159.19,206a84.33,84.33,0,0,1-62.38,0l19.58-33.91a12,12,0,0,0-20.79-12l-21.82,37.8a20,20,0,0,0,8.91,28.15,108.24,108.24,0,0,0,90.62,0,20,20,0,0,0,8.91-28.15Z"
+                    ></path></svg
+                  ><span class="faction-name">Radio</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="ice" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M227.65,149.14a12,12,0,0,1-8.79,14.51l-20.67,5.08,5.4,20.16a12,12,0,0,1-23.18,6.22l-7.29-27.2L140,148.78V187l20.48,20.48a12,12,0,0,1-17,17L128,209l-15.51,15.52a12,12,0,0,1-17-17L116,187V148.78L82.88,167.91l-7.29,27.2a12,12,0,0,1-23.18-6.22l5.4-20.16-20.67-5.08a12,12,0,1,1,5.72-23.3l27.89,6.85L104,128,70.75,108.8l-27.89,6.85A11.8,11.8,0,0,1,40,116a12,12,0,0,1-2.85-23.65l20.67-5.08-5.4-20.16a12,12,0,0,1,23.18-6.22l7.29,27.2L116,107.21V69L95.52,48.48a12,12,0,0,1,17-17L128,47l15.51-15.52a12,12,0,1,1,17,17L140,69v38.24l33.12-19.12,7.29-27.2a12,12,0,0,1,23.18,6.22l-5.4,20.16,20.67,5.08A12,12,0,0,1,216,116a11.8,11.8,0,0,1-2.87-.35l-27.89-6.85L152,128l33.25,19.2,27.89-6.85A12,12,0,0,1,227.65,149.14Z"
+                    ></path></svg
+                  ><span class="faction-name">Ice</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="metal" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M209.84,47.44A91.42,91.42,0,0,0,144.62,20h-.35A91.44,91.44,0,0,0,79.15,47L17.76,109.17a20,20,0,0,0,.08,28.21L46.5,166a19.89,19.89,0,0,0,14.15,5.86h.11a19.86,19.86,0,0,0,14.2-6l60.87-62.39a12.07,12.07,0,0,1,16.77-.12,11.63,11.63,0,0,1,3.5,8.35,12.85,12.85,0,0,1-3.66,9.11L90.19,181a20,20,0,0,0-.21,28.5l28.66,28.66a20.08,20.08,0,0,0,28.15.14l61.76-60.44.09-.09C244.65,141.78,245.18,83.31,209.84,47.44ZM60.62,146.21l-23-23L55.81,104.8l22.88,22.88Zm72.2,72.18-23-23,18.61-18,22.88,22.87Zm58.89-57.62L168.48,183.5,145.7,160.73,169.21,138l.15-.14a37,37,0,0,0,10.74-26.37,35.44,35.44,0,0,0-10.85-25.41,36.2,36.2,0,0,0-50.44.48l-.1.11L95.46,110.49,72.68,87.72l23.5-23.8A67.55,67.55,0,0,1,144.27,44h.26a67.62,67.62,0,0,1,48.21,20.29C218.85,90.78,218.38,134.05,191.71,160.77Z"
+                    ></path></svg
+                  ><span class="faction-name">Metal</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="matte" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,128,115.4,56,76ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l72-39.4v76.65Z"
+                    ></path></svg
+                  ><span class="faction-name">Matte</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="gem" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M249,96.1l-56-64a12,12,0,0,0-9-4.1H72a12,12,0,0,0-9,4.1L7,96.1a12,12,0,0,0,.26,16.09l112,120a12,12,0,0,0,17.54,0l112-120A12,12,0,0,0,249,96.1ZM213.55,92H182L152,52h26.55ZM71.88,116l21.19,53L43.61,116Zm86.4,0L128,191.69,97.72,116ZM104,92l24-32,24,32Zm80.12,24h28.27l-49.46,53ZM77.45,52H104L74,92H42.45Z"
+                    ></path></svg
+                  ><span class="faction-name">Gem</span><span class="versus-mark"></span>
+                </button>
+                <button type="button" class="versus-tile" data-faction="noble-gas" aria-pressed="false">
+                  <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                    <path
+                      d="M219.23,159.2a196.66,196.66,0,0,0-18-31.2,196.66,196.66,0,0,0,18-31.2c11.84-26.31,11.69-47.48-.43-59.6s-33.29-12.27-59.6-.43a196.66,196.66,0,0,0-31.2,18,196.66,196.66,0,0,0-31.2-18c-26.31-11.84-47.48-11.69-59.6.43s-12.27,33.29-.43,59.6a196.66,196.66,0,0,0,18,31.2,196.66,196.66,0,0,0-18,31.2c-11.84,26.31-11.69,47.48.43,59.6h0C43.33,224.93,51.78,228,62,228c10,0,21.77-2.92,34.76-8.77a196.66,196.66,0,0,0,31.2-18,196.66,196.66,0,0,0,31.2,18c13,5.85,24.74,8.77,34.76,8.77,10.26,0,18.71-3.07,24.84-9.2h0C230.92,206.68,231.07,185.51,219.23,159.2Zm-17.41-105c5.25,5.26,1.79,26-16,53.78-5.61-6.66-11.65-13.25-18.07-19.67S154.7,75.83,148,70.22C175.82,52.39,196.56,48.93,201.82,54.18ZM171.24,128a288.6,288.6,0,0,1-20.51,22.73A288.6,288.6,0,0,1,128,171.24a288.6,288.6,0,0,1-22.73-20.51A288.6,288.6,0,0,1,84.76,128,298.55,298.55,0,0,1,128,84.76a286.83,286.83,0,0,1,22.73,20.51A286.83,286.83,0,0,1,171.24,128ZM54.18,54.18c1.46-1.45,4.1-2.24,7.75-2.24,9.53,0,25.94,5.39,46,18.28-6.66,5.61-13.25,11.65-19.67,18.07S75.83,101.3,70.22,108C52.39,80.18,48.93,59.44,54.18,54.18Zm0,147.64c-5.25-5.26-1.79-26,16-53.78,5.61,6.66,11.65,13.25,18.07,19.67s13,12.46,19.67,18.07C80.18,203.61,59.44,207.07,54.18,201.82Zm147.64,0c-5.26,5.25-26,1.79-53.78-16,6.66-5.61,13.25-11.65,19.67-18.07s12.46-13,18.07-19.67C203.61,175.82,207.07,196.56,201.82,201.82ZM144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128Z"
+                    ></path></svg
+                  ><span class="faction-name">Noble Gas</span><span class="versus-mark"></span>
+                </button>
+              </div>
+            </div>
+            <div class="versus-result" aria-live="polite" hidden>
+              <div class="versus-cards" aria-hidden="true">
+                <div class="versus-card" data-side="you"></div>
+                <span class="versus-vs">vs</span>
+                <div class="versus-card" data-side="opponent"></div>
+              </div>
+              <p class="versus-title"></p>
+              <p class="versus-note"></p>
+            </div>
+            <ul class="faction-fallback">
+              <li><strong>Lava</strong>: prevails over Metal and Matte. Overpowered by Electro and Radio. Even with Ice.</li>
+              <li><strong>Electro</strong>: prevails over Lava and Ice. Overpowered by Metal and Matte. Even with Radio.</li>
+              <li><strong>Radio</strong>: prevails over Lava and Matte. Overpowered by Ice and Metal. Even with Electro.</li>
+              <li><strong>Ice</strong>: prevails over Radio and Metal. Overpowered by Electro and Matte. Even with Lava.</li>
+              <li><strong>Metal</strong>: prevails over Electro and Radio. Overpowered by Lava and Ice. Even with Matte.</li>
+              <li><strong>Matte</strong>: prevails over Electro and Ice. Overpowered by Lava and Radio. Even with Metal.</li>
+              <li><strong>Gem</strong>: inert. It never gives or receives an advantage. Every Gem card is an Elect card.</li>
+              <li><strong>Noble Gas</strong>: inert. It never gives or receives an advantage. Every Noble Gas card is a Wanderer card.</li>
+            </ul>
+          </div>
+          <div class="row gap-s actions-center">
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/rulebook/#factions"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Faction rules</span></span></span
+                ></span
+              ></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="home-section" id="cards" aria-labelledby="cards-title">
+        <div class="container column gap-l">
+          <div class="section-head">
+            <h2 id="cards-title">Anatomy of a card</h2>
+            <p class="lead">Every card is a creature. Its rarity sets how strong it is, its faction sets whom it is worth playing against.</p>
+          </div>
+          <div class="anatomy-track">
+            <div class="anatomy">
+              <figure class="anatomy-figure">
+                <div class="anatomy-card" aria-hidden="true">
+                  <div class="example-part card-art" data-part="art"><span class="part-number" aria-hidden="true">2</span></div>
+                  <div class="example-part card-name" data-part="name">Card name<span class="part-number" aria-hidden="true">1</span></div>
+                  <div class="example-part card-atk" data-part="atk">9<span class="part-number" aria-hidden="true">3</span></div>
+                  <div class="example-part card-def" data-part="def">11<span class="part-number" aria-hidden="true">4</span></div>
+                  <div class="card-text"><i></i><i></i><i></i></div>
+                  <div class="example-part card-faction" data-part="faction">Lava<span class="part-number" aria-hidden="true">5</span></div>
+                  <div class="example-part card-rarity" data-part="rarity">Soldier<span class="part-number" aria-hidden="true">6</span></div>
+                </div>
+                <figcaption>Example card. The art and the final card design are coming soon.</figcaption>
+              </figure>
+              <ol class="list-plain anatomy-list">
+                <li>
+                  <button type="button" class="anatomy-item" data-part="name" aria-pressed="false">
+                    <span class="anatomy-number" aria-hidden="true">1</span><span><b>Name</b><span>Every creature has its own.</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="anatomy-item" data-part="art" aria-pressed="false">
+                    <span class="anatomy-number" aria-hidden="true">2</span><span><b>Art</b><span>The creature and the world it comes from.</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="anatomy-item" data-part="atk" aria-pressed="false">
+                    <span class="anatomy-number" aria-hidden="true">3</span><span><b>ATK</b><span>Damage dealt in every round. It never changes.</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="anatomy-item" data-part="def" aria-pressed="false">
+                    <span class="anatomy-number" aria-hidden="true">4</span><span><b>DEF</b><span>Damage it can take. It goes down and never comes back during a match.</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="anatomy-item" data-part="faction" aria-pressed="false">
+                    <span class="anatomy-number" aria-hidden="true">5</span><span><b>Faction</b><span>Whom it prevails over, and who prevails over it.</span></span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="anatomy-item" data-part="rarity" aria-pressed="false">
+                    <span class="anatomy-number" aria-hidden="true">6</span><span><b>Rarity</b><span>How strong it is, from Captive to Wanderer.</span></span>
+                  </button>
+                </li>
+              </ol>
+            </div>
+          </div>
+          <div class="column gap-2xs ring-head">
+            <h3>From the first set</h3>
+            <p class="lead">Scroll, drag or use the arrows to turn the ring. The real cards are coming soon.</p>
+          </div>
+          <div class="ring-stage" data-ring>
+            <ul class="list-plain ring" aria-label="Sample cards" style="--_n: 12">
+              <li class="ring-slot" style="--_i: 0">
+                <div class="ring-face ring-front" data-faction="lava">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Lava</b><span>Soldier</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 1">
+                <div class="ring-face ring-front" data-faction="electro">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Electro</b><span>Champion</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 2">
+                <div class="ring-face ring-front" data-faction="radio">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M128,112a16,16,0,1,1-16,16A16,16,0,0,1,128,112ZM96,128a12,12,0,0,0-12-12H44.47a83.88,83.88,0,0,1,31.2-54.11L95.38,96a12,12,0,1,0,20.78-12l-22-38a20,20,0,0,0-28.87-6.34,107.85,107.85,0,0,0-45.26,78.4,20.22,20.22,0,0,0,5.21,15.43A20,20,0,0,0,40,140H84A12,12,0,0,0,96,128Zm139.92-9.94a107.81,107.81,0,0,0-45.26-78.39A20,20,0,0,0,161.79,46L139.84,84a12,12,0,0,0,20.78,12l19.71-34.13A83.88,83.88,0,0,1,211.53,116H172a12,12,0,0,0,0,24h44a20,20,0,0,0,14.71-6.51A20.22,20.22,0,0,0,235.92,118.06ZM160.4,160.11a12,12,0,0,0-20.79,12L159.19,206a84.33,84.33,0,0,1-62.38,0l19.58-33.91a12,12,0,0,0-20.79-12l-21.82,37.8a20,20,0,0,0,8.91,28.15,108.24,108.24,0,0,0,90.62,0,20,20,0,0,0,8.91-28.15Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Radio</b><span>Captive</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 3">
+                <div class="ring-face ring-front" data-faction="ice">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M227.65,149.14a12,12,0,0,1-8.79,14.51l-20.67,5.08,5.4,20.16a12,12,0,0,1-23.18,6.22l-7.29-27.2L140,148.78V187l20.48,20.48a12,12,0,0,1-17,17L128,209l-15.51,15.52a12,12,0,0,1-17-17L116,187V148.78L82.88,167.91l-7.29,27.2a12,12,0,0,1-23.18-6.22l5.4-20.16-20.67-5.08a12,12,0,1,1,5.72-23.3l27.89,6.85L104,128,70.75,108.8l-27.89,6.85A11.8,11.8,0,0,1,40,116a12,12,0,0,1-2.85-23.65l20.67-5.08-5.4-20.16a12,12,0,0,1,23.18-6.22l7.29,27.2L116,107.21V69L95.52,48.48a12,12,0,0,1,17-17L128,47l15.51-15.52a12,12,0,1,1,17,17L140,69v38.24l33.12-19.12,7.29-27.2a12,12,0,0,1,23.18,6.22l-5.4,20.16,20.67,5.08A12,12,0,0,1,216,116a11.8,11.8,0,0,1-2.87-.35l-27.89-6.85L152,128l33.25,19.2,27.89-6.85A12,12,0,0,1,227.65,149.14Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Ice</b><span>Conscript</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 4">
+                <div class="ring-face ring-front" data-faction="metal">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M209.84,47.44A91.42,91.42,0,0,0,144.62,20h-.35A91.44,91.44,0,0,0,79.15,47L17.76,109.17a20,20,0,0,0,.08,28.21L46.5,166a19.89,19.89,0,0,0,14.15,5.86h.11a19.86,19.86,0,0,0,14.2-6l60.87-62.39a12.07,12.07,0,0,1,16.77-.12,11.63,11.63,0,0,1,3.5,8.35,12.85,12.85,0,0,1-3.66,9.11L90.19,181a20,20,0,0,0-.21,28.5l28.66,28.66a20.08,20.08,0,0,0,28.15.14l61.76-60.44.09-.09C244.65,141.78,245.18,83.31,209.84,47.44ZM60.62,146.21l-23-23L55.81,104.8l22.88,22.88Zm72.2,72.18-23-23,18.61-18,22.88,22.87Zm58.89-57.62L168.48,183.5,145.7,160.73,169.21,138l.15-.14a37,37,0,0,0,10.74-26.37,35.44,35.44,0,0,0-10.85-25.41,36.2,36.2,0,0,0-50.44.48l-.1.11L95.46,110.49,72.68,87.72l23.5-23.8A67.55,67.55,0,0,1,144.27,44h.26a67.62,67.62,0,0,1,48.21,20.29C218.85,90.78,218.38,134.05,191.71,160.77Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Metal</b><span>Soldier</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 5">
+                <div class="ring-face ring-front" data-faction="matte">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M225.6,62.64l-88-48.17a19.91,19.91,0,0,0-19.2,0l-88,48.17A20,20,0,0,0,20,80.19v95.62a20,20,0,0,0,10.4,17.55l88,48.17a19.89,19.89,0,0,0,19.2,0l88-48.17A20,20,0,0,0,236,175.81V80.19A20,20,0,0,0,225.6,62.64ZM128,36.57,200,76,128,115.4,56,76ZM44,96.79l72,39.4v76.67L44,173.44Zm96,116.07V136.19l72-39.4v76.65Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Matte</b><span>Captive</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 6">
+                <div class="ring-face ring-front" data-faction="gem">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M249,96.1l-56-64a12,12,0,0,0-9-4.1H72a12,12,0,0,0-9,4.1L7,96.1a12,12,0,0,0,.26,16.09l112,120a12,12,0,0,0,17.54,0l112-120A12,12,0,0,0,249,96.1ZM213.55,92H182L152,52h26.55ZM71.88,116l21.19,53L43.61,116Zm86.4,0L128,191.69,97.72,116ZM104,92l24-32,24,32Zm80.12,24h28.27l-49.46,53ZM77.45,52H104L74,92H42.45Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Gem</b><span>Elect</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 7">
+                <div class="ring-face ring-front" data-faction="noble-gas">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M219.23,159.2a196.66,196.66,0,0,0-18-31.2,196.66,196.66,0,0,0,18-31.2c11.84-26.31,11.69-47.48-.43-59.6s-33.29-12.27-59.6-.43a196.66,196.66,0,0,0-31.2,18,196.66,196.66,0,0,0-31.2-18c-26.31-11.84-47.48-11.69-59.6.43s-12.27,33.29-.43,59.6a196.66,196.66,0,0,0,18,31.2,196.66,196.66,0,0,0-18,31.2c-11.84,26.31-11.69,47.48.43,59.6h0C43.33,224.93,51.78,228,62,228c10,0,21.77-2.92,34.76-8.77a196.66,196.66,0,0,0,31.2-18,196.66,196.66,0,0,0,31.2,18c13,5.85,24.74,8.77,34.76,8.77,10.26,0,18.71-3.07,24.84-9.2h0C230.92,206.68,231.07,185.51,219.23,159.2Zm-17.41-105c5.25,5.26,1.79,26-16,53.78-5.61-6.66-11.65-13.25-18.07-19.67S154.7,75.83,148,70.22C175.82,52.39,196.56,48.93,201.82,54.18ZM171.24,128a288.6,288.6,0,0,1-20.51,22.73A288.6,288.6,0,0,1,128,171.24a288.6,288.6,0,0,1-22.73-20.51A288.6,288.6,0,0,1,84.76,128,298.55,298.55,0,0,1,128,84.76a286.83,286.83,0,0,1,22.73,20.51A286.83,286.83,0,0,1,171.24,128ZM54.18,54.18c1.46-1.45,4.1-2.24,7.75-2.24,9.53,0,25.94,5.39,46,18.28-6.66,5.61-13.25,11.65-19.67,18.07S75.83,101.3,70.22,108C52.39,80.18,48.93,59.44,54.18,54.18Zm0,147.64c-5.25-5.26-1.79-26,16-53.78,5.61,6.66,11.65,13.25,18.07,19.67s13,12.46,19.67,18.07C80.18,203.61,59.44,207.07,54.18,201.82Zm147.64,0c-5.26,5.25-26,1.79-53.78-16,6.66-5.61,13.25-11.65,19.67-18.07s12.46-13,18.07-19.67C203.61,175.82,207.07,196.56,201.82,201.82ZM144,128a16,16,0,1,1-16-16A16,16,0,0,1,144,128Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Noble Gas</b><span>Wanderer</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 8">
+                <div class="ring-face ring-front" data-faction="lava">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M177.62,159.6a52,52,0,0,1-34,34,12.2,12.2,0,0,1-3.6.55,12,12,0,0,1-3.6-23.45,28,28,0,0,0,18.32-18.32,12,12,0,0,1,22.9,7.2ZM220,144a92,92,0,0,1-184,0c0-28.81,11.27-58.18,33.48-87.28a12,12,0,0,1,17.9-1.33L107.07,74.5,127,19.89a12,12,0,0,1,18.94-5.12C168.2,33.25,220,82.85,220,144Zm-24,0c0-41.71-30.61-78.39-52.52-99.29l-20.21,55.4a12,12,0,0,1-19.63,4.5L80.71,82.36C67,103.38,60,124.06,60,144a68,68,0,0,0,136,0Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Lava</b><span>Captive</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 9">
+                <div class="ring-face ring-front" data-faction="electro">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M219.71,117.38a12,12,0,0,0-7.25-8.52L161.28,88.39l10.59-70.61a12,12,0,0,0-20.64-10l-112,120a12,12,0,0,0,4.31,19.33l51.18,20.47L84.13,238.22a12,12,0,0,0,20.64,10l112-120A12,12,0,0,0,219.71,117.38ZM113.6,203.55l6.27-41.77a12,12,0,0,0-7.41-12.92L68.74,131.37,142.4,52.45l-6.27,41.77a12,12,0,0,0,7.41,12.92l43.72,17.49Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Electro</b><span>Conscript</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 10">
+                <div class="ring-face ring-front" data-faction="ice">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M227.65,149.14a12,12,0,0,1-8.79,14.51l-20.67,5.08,5.4,20.16a12,12,0,0,1-23.18,6.22l-7.29-27.2L140,148.78V187l20.48,20.48a12,12,0,0,1-17,17L128,209l-15.51,15.52a12,12,0,0,1-17-17L116,187V148.78L82.88,167.91l-7.29,27.2a12,12,0,0,1-23.18-6.22l5.4-20.16-20.67-5.08a12,12,0,1,1,5.72-23.3l27.89,6.85L104,128,70.75,108.8l-27.89,6.85A11.8,11.8,0,0,1,40,116a12,12,0,0,1-2.85-23.65l20.67-5.08-5.4-20.16a12,12,0,0,1,23.18-6.22l7.29,27.2L116,107.21V69L95.52,48.48a12,12,0,0,1,17-17L128,47l15.51-15.52a12,12,0,1,1,17,17L140,69v38.24l33.12-19.12,7.29-27.2a12,12,0,0,1,23.18,6.22l-5.4,20.16,20.67,5.08A12,12,0,0,1,216,116a11.8,11.8,0,0,1-2.87-.35l-27.89-6.85L152,128l33.25,19.2,27.89-6.85A12,12,0,0,1,227.65,149.14Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Ice</b><span>Soldier</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li class="ring-slot" style="--_i: 11">
+                <div class="ring-face ring-front" data-faction="metal">
+                  <div class="ring-art">
+                    <svg class="faction-icon" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                      <path
+                        d="M209.84,47.44A91.42,91.42,0,0,0,144.62,20h-.35A91.44,91.44,0,0,0,79.15,47L17.76,109.17a20,20,0,0,0,.08,28.21L46.5,166a19.89,19.89,0,0,0,14.15,5.86h.11a19.86,19.86,0,0,0,14.2-6l60.87-62.39a12.07,12.07,0,0,1,16.77-.12,11.63,11.63,0,0,1,3.5,8.35,12.85,12.85,0,0,1-3.66,9.11L90.19,181a20,20,0,0,0-.21,28.5l28.66,28.66a20.08,20.08,0,0,0,28.15.14l61.76-60.44.09-.09C244.65,141.78,245.18,83.31,209.84,47.44ZM60.62,146.21l-23-23L55.81,104.8l22.88,22.88Zm72.2,72.18-23-23,18.61-18,22.88,22.87Zm58.89-57.62L168.48,183.5,145.7,160.73,169.21,138l.15-.14a37,37,0,0,0,10.74-26.37,35.44,35.44,0,0,0-10.85-25.41,36.2,36.2,0,0,0-50.44.48l-.1.11L95.46,110.49,72.68,87.72l23.5-23.8A67.55,67.55,0,0,1,144.27,44h.26a67.62,67.62,0,0,1,48.21,20.29C218.85,90.78,218.38,134.05,191.71,160.77Z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <b>Metal</b><span>Champion</span>
+                </div>
+                <div class="ring-face ring-back" aria-hidden="true">
+                  <img src="/src/assets/brand/symbol-color-256w.webp" alt="" draggable="false" width="256" height="256" loading="lazy" decoding="async" />
+                </div>
+              </li>
+            </ul>
+            <div class="ring-controls" hidden>
+              <button type="button" class="round-button" data-turn="-1" aria-label="Previous card">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                  <path d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z"></path>
+                </svg>
+              </button>
+              <button type="button" class="round-button" data-turn="1" aria-label="Next card">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true">
+                  <path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="row gap-s actions-center">
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Open your first pack</span></span></span
+                ></span
+              ></a
+            >
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/rulebook/#cards"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Card rules</span></span></span
+                ></span
+              ></a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="home-section ranking" aria-labelledby="ranking-title">
+        <div class="container ranking-layout">
+          <ol class="list-plain orbits" aria-label="Orbits, from the farthest to the closest to the Void">
+            <li class="orbit" data-orbit="4">
+              <span class="orbit-label"><b>Orbit 4</b> 1000 and more Trophies</span>
+            </li>
+            <li class="orbit" data-orbit="3">
+              <span class="orbit-label"><b>Orbit 3</b> 500–999 Trophies</span>
+            </li>
+            <li class="orbit" data-orbit="2">
+              <span class="orbit-label"><b>Orbit 2</b> 200–499 Trophies</span>
+            </li>
+            <li class="orbit" data-orbit="1">
+              <span class="orbit-label"><b>Orbit 1</b> 0–199 Trophies</span>
+            </li>
+          </ol>
+          <div class="column gap-s">
+            <h2 id="ranking-title">Climb away from the Void</h2>
+            <p class="lead">Ranked matches win and lose Trophies. More Trophies place your Ship in a higher Orbit, farther from the Void.</p>
+            <p>
+              Every Summoner starts with 0 Trophies, on the event horizon. Seasons last 4 weeks: at the end, every Summoner who played Ranked earns Shards based on their Orbit. Nobody is ever
+              swallowed.
+            </p>
+            <div class="row gap-s">
+              <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/"
+                ><span class="panel-shape"
+                  ><span class="panel-content"
+                    ><span class="button-label"><span class="button-text">Play Ranked</span></span></span
+                  ></span
+                ></a
+              >
+              <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/rulebook/#ranking"
+                ><span class="panel-shape"
+                  ><span class="panel-content"
+                    ><span class="button-label"><span class="button-text">Ranking rules</span></span></span
+                  ></span
+                ></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="home-section" aria-labelledby="faq-title">
+        <div class="container column gap-l">
+          <h2 id="faq-title">Questions</h2>
+          <div class="faq">
+            <details class="faq-item">
+              <summary>Do I make choices during a match?</summary>
+              <p>No. The server plays the whole match from your deck, round by round. You choose the deck, and you can watch the replay.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Do I need to pay to play?</summary>
+              <p>Every pack can be opened with Shards you earn by playing. For the first year Shards can only be earned.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Where do I play?</summary>
+              <p>In the browser, on phone or computer, after signing in. There is nothing to download.</p>
+            </details>
+          </div>
+          <div class="row gap-s actions-center">
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/play/"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">Play now</span></span></span
+                ></span
+              ></a
+            >
+            <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/support/"
+              ><span class="panel-shape"
+                ><span class="panel-content"
+                  ><span class="button-label"><span class="button-text">More answers in Support</span></span></span
+                ></span
+              ></a
+            >
+          </div>
+        </div>
+      </section>
     </main>
+    <!-- partial:site-footer -->
     <script type="module" src="/src/static/main.ts"></script>
+    <script type="module" src="/src/static/home.ts"></script>
   </body>
 </html>

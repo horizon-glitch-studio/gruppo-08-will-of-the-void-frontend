@@ -11,13 +11,8 @@ export interface SiteLink {
  */
 export const siteLinks: readonly SiteLink[] = [
   { href: '/', label: 'Home' },
-  { href: '/card-prototype/', label: 'Cards' },
   { href: '/lore/', label: 'Lore' },
   { href: '/rulebook/', label: 'Rulebook' },
-  { href: '/rulebook/glossary/', label: 'Glossary' },
-  { href: '/about/', label: 'About' },
   { href: '/support/', label: 'Support' },
-  { href: '/admin/', label: 'Admin' },
-  { href: '/play/', label: 'Play' },
-  { href: '/404', label: '404' },
+  { href: '/about/', label: 'About' },
 ]

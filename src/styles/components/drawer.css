@@ -44,7 +44,7 @@
   background: color-mix(in srgb, var(--color-bg) 60%, transparent);
 }
 
-.header {
+.drawer-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,11 +52,29 @@
   margin-block-end: var(--space-m);
 }
 
-.title {
+.drawer-title {
   font-size: var(--text-h4);
 }
 
-.close {
+/*
+ * Site menu (static pages and /play): the wordmark instead of the written name, with the logo glow.
+ * The name stays in the heading for screen readers (aria-labelledby); only the drawn wordmark is visible.
+ */
+#site-menu .drawer-title {
+  font-size: 0;
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--color-logo-glow) 90%, transparent)) drop-shadow(0 0 6px color-mix(in srgb, var(--color-logo-glow) 50%, transparent));
+}
+
+#site-menu .drawer-title::before {
+  content: '';
+  display: block;
+  inline-size: 11rem;
+  aspect-ratio: 2944 / 512;
+  background: var(--color-text);
+  mask: url('../../assets/brand/wordmark-horizontal.svg') center / contain no-repeat;
+}
+
+.drawer-close {
   display: grid;
   place-items: center;
   padding: var(--space-2xs);

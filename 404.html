@@ -4,14 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page not found – Will of the Void</title>
-    <meta name="description" content="TODO" />
+    <meta name="description" content="This page does not exist." />
+    <meta name="robots" content="noindex" />
     <!-- partial:head-icons -->
   </head>
   <body>
-    <!-- partial:site-nav -->
-    <main>
-      <h1>Page not found – Will of the Void</h1>
+    <!-- partial:site-header -->
+    <main id="main" class="site-main">
+      <div class="container not-found">
+        <h1>The Void got to this page first.</h1>
+        <p class="lead">Nothing else is missing. Your cards are where you left them.</p>
+        <div class="row gap-s">
+          <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="primary" href="/"
+            ><span class="panel-shape"
+              ><span class="panel-content"
+                ><span class="button-label"><span class="button-text">Back to home</span></span></span
+              ></span
+            ></a
+          >
+          <a class="panel button" data-shape="pointed" data-tone="accent" data-variant="secondary" href="/play/"
+            ><span class="panel-shape"
+              ><span class="panel-content"
+                ><span class="button-label"><span class="button-text">Play</span></span></span
+              ></span
+            ></a
+          >
+        </div>
+      </div>
     </main>
+    <!-- partial:site-footer -->
     <script type="module" src="/src/static/main.ts"></script>
   </body>
 </html>
