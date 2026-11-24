@@ -71,7 +71,7 @@
   inline-size: 11rem;
   aspect-ratio: 2944 / 512;
   background: var(--color-text);
-  mask: url('../../assets/brand/wordmark-horizontal.svg') center / contain no-repeat;
+  mask: var(--logo-wordmark) center / contain no-repeat;
 }
 
 .drawer-close {

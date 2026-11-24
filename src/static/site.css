@@ -30,22 +30,20 @@
   cursor: pointer;
 }
 
-/* Symbol on phones, wordmark from 40rem */
+/* Horizontal wordmark, smaller on phones so the menu button and Play still fit at 320px */
 .site-logo {
   flex-shrink: 0;
 }
 
 .site-logo .logo {
-  height: 2.5rem;
-  aspect-ratio: 1;
-  mask-image: url('../assets/brand/symbol-simple.svg');
+  height: 1.5rem;
+  aspect-ratio: 2944 / 512;
+  mask-image: var(--logo-wordmark);
 }
 
 @media (min-width: 40rem) {
   .site-logo .logo {
     height: 2.25rem;
-    aspect-ratio: 2944 / 512;
-    mask-image: url('../assets/brand/wordmark-horizontal.svg');
   }
 }
 
@@ -607,14 +605,15 @@
   align-items: center;
 }
 
+/* Square on narrow phones, the 4:3 crop from 40rem (lore.html picks the file with the same threshold): never taller than wide */
 .chapter-image img {
   inline-size: 100%;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1;
   object-fit: cover;
   border-radius: var(--radius-m);
 }
 
-@media (min-aspect-ratio: 1/1) {
+@media (min-width: 40rem) {
   .chapter-image img {
     aspect-ratio: 4 / 3;
   }
@@ -653,17 +652,6 @@
 .lore-card p,
 .member span {
   color: var(--color-text-muted);
-}
-
-/* Image that exists only as a square and a 4:3 crop: square on narrow phones, 4:3 from 40rem */
-.chapter-image[data-crop='wide'] img {
-  aspect-ratio: 1;
-}
-
-@media (min-width: 40rem) {
-  .chapter-image[data-crop='wide'] img {
-    aspect-ratio: 4 / 3;
-  }
 }
 
 /* Faction boxes: the look of the home tiles (icon and border in the faction color), with the origin of the faction; hover lights the border */

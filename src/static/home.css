@@ -1022,6 +1022,11 @@
  */
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
+    /* Hidden from the start, not only by the animation: before home.ts measures, and while Safari bounces above the top, there is no animation */
+    .site-logo {
+      opacity: 0;
+    }
+
     .logo-fly .hero-title {
       animation: logo-fly linear both;
       animation-timeline: scroll(root);
@@ -1175,6 +1180,13 @@
 }
 
 .ring-controls {
+  /*
+   * Above the cards. z-index: the ring has a transform, so it is painted like a positioned element and would cover them.
+   * translateZ: Safari can sort the arrows by depth with the cards; the front card sits at z 0 and its lower edge comes forward (rotateX), so the arrows go 1rem nearer.
+   */
+  position: relative;
+  z-index: 1;
+  transform: translateZ(1rem);
   display: flex;
   gap: var(--space-s);
 }

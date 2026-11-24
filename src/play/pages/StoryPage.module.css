@@ -64,11 +64,6 @@
   }
 }
 
-.frame > picture {
-  display: block;
-  block-size: 100%;
-}
-
 .image {
   display: block;
   inline-size: 100%;

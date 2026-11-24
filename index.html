@@ -8,6 +8,32 @@
       name="description"
       content="Will of the Void is a free digital collectible card game in the browser: collect creatures of eight factions, build a deck of 30 cards and send it into the Arena."
     />
+    <!-- Structured data: WebSite gives Google the site name (home page only), VideoGame describes the game. %SITE_URL% is set by vite.config.ts -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "Will of the Void",
+            "url": "%SITE_URL%/"
+          },
+          {
+            "@type": "VideoGame",
+            "name": "Will of the Void",
+            "url": "%SITE_URL%/",
+            "description": "A free digital collectible card game in the browser: collect creatures of eight factions, build a deck of 30 cards and send it into the Arena.",
+            "image": "%SITE_URL%/og-image.jpg",
+            "genre": "Collectible card game",
+            "gamePlatform": "Web browser",
+            "applicationCategory": "Game",
+            "inLanguage": "en",
+            "isAccessibleForFree": true,
+            "author": { "@type": "Organization", "name": "Horizon Glitch Studio", "url": "%SITE_URL%/about/" }
+          }
+        ]
+      }
+    </script>
     <!-- partial:head-icons -->
   </head>
   <body>
@@ -15,13 +41,24 @@
     <main id="main" class="site-main">
       <section class="hero" aria-labelledby="hero-title">
         <picture class="hero-image">
+          <!-- The crop follows the shape of the hero: landscape when wide, square in between, portrait on tall phones -->
           <source
-            media="(min-aspect-ratio: 1/1)"
+            media="(min-aspect-ratio: 4/3)"
             srcset="
               /src/assets/images/lore/lore-01-landscape-768w.webp   768w,
               /src/assets/images/lore/lore-01-landscape-1024w.webp 1024w,
               /src/assets/images/lore/lore-01-landscape-1536w.webp 1536w,
               /src/assets/images/lore/lore-01-landscape-2048w.webp 2048w
+            "
+            sizes="100vw"
+          />
+          <source
+            media="(min-aspect-ratio: 3/4)"
+            srcset="
+              /src/assets/images/lore/lore-01-square-768w.webp   768w,
+              /src/assets/images/lore/lore-01-square-1024w.webp 1024w,
+              /src/assets/images/lore/lore-01-square-1536w.webp 1536w,
+              /src/assets/images/lore/lore-01-square-2048w.webp 2048w
             "
             sizes="100vw"
           />

@@ -8,17 +8,10 @@ import { paths } from '../routes/paths'
 import styles from './StoryPage.module.css'
 
 /*
- * The image box takes the shape of the free space, from 3:4 to 4:3 (StoryPage.module.css).
- * The crop follows the window: portrait at 3:4 or taller, landscape at 4:3 or wider, square in between, always in cover.
- * The window is a little taller than the free space (top bar and links), so near the two limits the crop is an approximation.
+ * The image box takes the shape of the free space, from 3:4 to 4:3 (StoryPage.module.css), and crops the square image with object-fit: cover.
+ * The file must cover the long side of the box: at most 4/3 of the window width or height, and of --_image-max (60rem).
  */
-const landscapeMedia = '(min-aspect-ratio: 4/3)'
-const squareMedia = '(min-aspect-ratio: 3/4)'
-const sizes = {
-  landscape: 'calc(100vh * 4 / 3)',
-  square: 'min(100vw, 100vh)',
-  portrait: '100vw',
-}
+const sizes = 'min(133vw, 133vh, 80rem)'
 
 /*
  * Chapters replace each other in the browser history: Back leaves the story at once instead of going through nine pages.
@@ -50,7 +43,6 @@ export function StoryPage() {
   if (!chapter) return <Navigate to={paths.story(1)} replace />
 
   const last = number === story.length
-  const { portrait, square, landscape } = chapter.images
 
   const body = (
     <div className={styles.body}>
@@ -118,12 +110,8 @@ export function StoryPage() {
       <div className={styles.stage}>
         <div className={styles.media}>
           <div className={styles.frame}>
-            <picture>
-              <source media={landscapeMedia} srcSet={landscape.srcSet} sizes={sizes.landscape} width={landscape.width} height={landscape.height} />
-              <source media={squareMedia} srcSet={square.srcSet} sizes={sizes.square} width={square.width} height={square.height} />
-              {/* The text tells the story; the picture only sets the scene */}
-              <img className={styles.image} src={portrait.src} srcSet={portrait.srcSet} sizes={sizes.portrait} width={portrait.width} height={portrait.height} alt="" decoding="async" />
-            </picture>
+            {/* The text tells the story; the picture only sets the scene */}
+            <img className={styles.image} src={chapter.image.src} srcSet={chapter.image.srcSet} sizes={sizes} width={chapter.image.width} height={chapter.image.height} alt="" decoding="async" />
           </div>
         </div>
 
