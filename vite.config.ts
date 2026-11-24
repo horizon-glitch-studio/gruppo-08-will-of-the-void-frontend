@@ -90,6 +90,66 @@ function htmlPartials(): Plugin {
   }
 }
 
+/** Address of the published site: canonical links, link previews, sitemap and robots.txt. VITE_SITE_URL overrides it (for example, a custom domain). */
+const DEFAULT_SITE_URL = 'https://willofthevoid.horizonglitchstudio.workers.dev'
+
+/** Preview image for shared links, made by npm run og-image (public/, so the address has no hash). */
+const OG_IMAGE = { path: '/og-image.jpg', width: 1200, height: 630, alt: 'The Will of the Void logo over the swirling Void' }
+
+const NOINDEX = /<meta\s+name="robots"\s+content="noindex"/
+
+/** A text taken from the HTML, for an attribute: it is already HTML (entities stay as they are), only quotes need escaping. */
+const attribute = (text: string) => text.replaceAll('"', '&quot;')
+
+/**
+ * Build and dev: search engine and link preview tags in every page, from what the page already has.
+ * og:title and og:description copy <title> and the meta description, so each text is written once.
+ * Pages with noindex (404, /play, /admin) get no canonical link and stay out of the sitemap.
+ * %SITE_URL% in a page (structured data) becomes the site address.
+ * Build only: writes sitemap.xml and robots.txt.
+ */
+function seo(): Plugin {
+  let site = DEFAULT_SITE_URL
+  return {
+    name: 'seo',
+    configResolved(config) {
+      site = (config.env.VITE_SITE_URL || DEFAULT_SITE_URL).replace(/\/$/, '')
+    },
+    transformIndexHtml(html, ctx) {
+      const title = /<title>([^<]*)<\/title>/.exec(html)?.[1]
+      const description = /<meta\s+name="description"\s+content="([^"]*)"/.exec(html)?.[1]
+      const indexed = !NOINDEX.test(html)
+      const url = `${site}${ctx.path.replace(/index\.html$/, '')}`
+      const meta = (key: 'name' | 'property', name: string, content: string) => ({ tag: 'meta', attrs: { [key]: name, content: attribute(content) }, injectTo: 'head' as const })
+      const tags = [
+        meta('name', 'theme-color', '#090618'),
+        meta('property', 'og:type', 'website'),
+        meta('property', 'og:site_name', 'Will of the Void'),
+        meta('property', 'og:locale', 'en_US'),
+        ...(title ? [meta('property', 'og:title', title)] : []),
+        ...(description ? [meta('property', 'og:description', description)] : []),
+        meta('property', 'og:image', `${site}${OG_IMAGE.path}`),
+        meta('property', 'og:image:width', String(OG_IMAGE.width)),
+        meta('property', 'og:image:height', String(OG_IMAGE.height)),
+        meta('property', 'og:image:alt', OG_IMAGE.alt),
+        meta('name', 'twitter:card', 'summary_large_image'),
+        ...(indexed ? [{ tag: 'link', attrs: { rel: 'canonical', href: url }, injectTo: 'head' as const }, meta('property', 'og:url', url)] : []),
+      ]
+      return { html: html.replaceAll('%SITE_URL%', site), tags }
+    },
+    generateBundle() {
+      const pages = Object.entries(htmlEntries())
+        .filter(([, file]) => !NOINDEX.test(readFileSync(file, 'utf8')))
+        .map(([key]) => `${site}/${key.replace(/(^|\/)index$/, '$1')}`)
+        .sort()
+      const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((page) => `  <url><loc>${page}</loc></url>`).join('\n')}\n</urlset>\n`
+      const robots = `User-agent: *\nDisallow: /play/\nDisallow: /admin/\n\nSitemap: ${site}/sitemap.xml\n`
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemap })
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robots })
+    },
+  }
+}
+
 /** Font files loaded on every page: preloaded so the text does not switch font after the first paint. */
 const PRELOAD_FONTS = ['exo-latin-wght-normal', 'cinzel-latin-wght-normal']
 
@@ -115,7 +175,7 @@ function preloadFonts(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   appType: 'mpa',
-  plugins: [react(), htmlPartials(), preloadFonts(), spaFallback(['/play', '/admin']), notFoundPage()],
+  plugins: [react(), htmlPartials(), seo(), preloadFonts(), spaFallback(['/play', '/admin']), notFoundPage()],
   resolve: {
     alias: { '@': resolve(root, 'src') },
   },

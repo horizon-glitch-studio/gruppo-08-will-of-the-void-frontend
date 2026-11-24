@@ -10,11 +10,19 @@ npm run images -- <folder with the original JPG files> src/assets/images/lore
 
 The script (`scripts/images.mjs`, sharp) crops every original from the center and writes WebP files at quality 85.
 
-| Crop | Ratio | Widths (px) | Used when the window is |
-|---|---|---|---|
-| portrait | 3:4 | 480, 768, 1024, 1536 | tall (phone) |
-| square | 1:1 | 768, 1024, 1536, 2048 | close to square (tablet, narrow desktop window) |
-| landscape | 4:3 | 768, 1024, 1536, 2048 | wide (desktop) |
+| Crop | Ratio | Widths (px) |
+|---|---|---|
+| portrait | 3:4 | 480, 768, 1024, 1536 |
+| square | 1:1 | 768, 1024, 1536, 2048 |
+| landscape | 4:3 | 768, 1024, 1536, 2048 |
+
+All crops stay in the repository; each page uses only the ones it needs:
+
+| Page | Crops | How |
+|---|---|---|
+| Home hero | portrait, square, landscape | `<picture>`, the crop follows the shape of the window |
+| Lore | square, landscape | `<picture>`: square on narrow phones, landscape from 40rem. Never taller than wide |
+| Story (/play) | square | one `<img>` with `srcset`; the frame changes shape (3:4 to 4:3) and crops it with `object-fit: cover` |
 
 File name: `<name>-<crop>-<width>w.webp`, for example `lore-01-portrait-768w.webp`. The originals are 2048 px squares, so a crop never goes past 1536 px on its short side.
 

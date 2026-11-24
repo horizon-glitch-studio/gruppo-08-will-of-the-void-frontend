@@ -97,10 +97,15 @@
 
 /*
  * Logo: the brand SVG used as a mask and filled with the text color.
- * The file is downloaded once and cached.
+ * The SVGs are inlined in the CSS (?inline), so the mask is there from the first frame: no unmasked rectangle while a file downloads.
  * The accessible name goes on the link around it (aria-label).
  * For a colored variant, change `color` on the .logo element.
  */
+:root {
+  --logo-wordmark: url('../assets/brand/wordmark-horizontal.svg?inline');
+  --logo-stacked: url('../assets/brand/wordmark-stacked.svg?inline');
+}
+
 .logo {
   display: block;
   color: var(--color-text);
@@ -110,7 +115,7 @@
   mask-repeat: no-repeat;
 }
 
-/* Navigation: detailed symbol on mobile, horizontal wordmark from 40rem */
+/* Navigation of the old pages (admin): symbol on mobile, horizontal wordmark from 40rem */
 .logo-nav {
   height: 4rem;
   aspect-ratio: 1;
@@ -119,17 +124,16 @@
 
 @media (min-width: 40rem) {
   .logo-nav {
-    height: 4rem;
     aspect-ratio: 2944 / 512;
-    mask-image: url('../assets/brand/wordmark-horizontal.svg');
+    mask-image: var(--logo-wordmark);
   }
 }
 
-/* Footer: stacked wordmark */
+/* Footer and home hero: stacked wordmark */
 .logo-stacked {
   height: 6rem;
   aspect-ratio: 639 / 512;
-  mask-image: url('../assets/brand/wordmark-stacked.svg');
+  mask-image: var(--logo-stacked);
 }
 
 /* Neon glow around a logo. Goes on the link that contains it: the mask on .logo would cut the glow off */
