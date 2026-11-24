@@ -28,9 +28,10 @@ npm run dev            # development server on http://localhost:5173
 
 Environment variables (`.env.example`):
 
-| Variable            | Description                                                 |
-| ------------------- | ----------------------------------------------------------- |
-| `VITE_API_BASE_URL` | Backend API base URL, `/api/v1` included, no trailing slash |
+| Variable            | Description                                                            |
+| ------------------- | ---------------------------------------------------------------------- |
+| `VITE_API_BASE_URL` | Backend API base URL, `/api/v1` included, no trailing slash            |
+| `VITE_GTM_ID`       | Google Tag Manager container (`GTM-XXXXXXX`). Empty: GTM is not loaded |
 
 The backend builds the links in verification and password-reset emails from its `APP_FRONTEND_URL`, which must end with `/play` (for example `http://localhost:5173/play`).
 
@@ -61,7 +62,16 @@ support/
 terms/
 404.html
 index.html
+wrangler.jsonc
 ```
+
+## Deployment
+
+The site runs on Cloudflare Workers with static assets, at [willofthevoid.horizonglitchstudio.workers.dev](https://willofthevoid.horizonglitchstudio.workers.dev). Every push to `main` triggers a Cloudflare build (`npm run build`) and deploy (`npx wrangler deploy`).
+
+- `wrangler.jsonc`: serves `dist/` and answers unknown paths with the custom `404.html`.
+- `public/_redirects`: rewrites `/play/*` and `/admin/*` to their `index.html`, so direct links and reloads open the app.
+- `VITE_API_BASE_URL` is set as a build variable in the Cloudflare dashboard, because Vite reads it at build time.
 
 ## Conventions
 
