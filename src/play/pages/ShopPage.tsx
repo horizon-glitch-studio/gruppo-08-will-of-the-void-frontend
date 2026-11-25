@@ -2,31 +2,31 @@ import { useNavigate } from 'react-router'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { useApiAction } from '@/shared/hooks/useApiAction'
 import { useApiQuery } from '@/shared/hooks/useApiQuery'
+import { useCurrentUser } from '@/shared/hooks/useCurrentUser'
 import { shopService } from '../api/shop'
 import { paths } from '../routes/paths'
 
-/** Probability as a percentage. Assumes the API sends a fraction (0.7 = 70%): check it in Swagger. */
+/** Probability as a percentage. The API sends a percentage: 70 = 70%. */
 function formatOdds(probability: number) {
-  return `${Number((probability * 100).toFixed(1))}%`
+  return `${Number(probability.toFixed(1))}%`
 }
 
 /** Shop screen: packs on sale. Buying a pack opens it at once and shows the result. */
 export function ShopPage() {
   const navigate = useNavigate()
   const { status, data, errorMessage, reload } = useApiQuery(shopService.listPacks)
+  const { reload: reloadUser } = useCurrentUser()
 
   // Buy and open in one step: the API has no "owned packs" yet, so after the purchase
-  // we go straight to the opening screen (/shop/openings/:id).
+  // we refresh the Shards balance in the top bar and go straight to the opening screen (/shop/openings/:id).
   const buy = useApiAction(async (packId: number) => {
     const opening = await shopService.openPack(packId)
+    await reloadUser()
     await navigate(paths.shopOpening(opening.id))
   })
 
   return (
     <section>
-      <title>Shop – Will of the Void</title>
-      <h1>Shop</h1>
-
       {/* STYLE: loading state. */}
       {status === 'loading' && <output>Loading…</output>}
 
@@ -46,7 +46,7 @@ export function ShopPage() {
             </p>
 
             {/* Event pack only: end date and Wanderer cards. Not in the Figma, remove if not wanted. */}
-            {pack.availableUntil && <p>Available until {new Date(pack.availableUntil).toLocaleDateString()}</p>}
+            {pack.availableUntil && <p>Available until {new Date(pack.availableUntil).toLocaleDateString('en-US')}</p>}
             {pack.eventCards.length > 0 && <p>Wanderers: {pack.eventCards.map((card) => card.name).join(', ')}</p>}
 
             {/* STYLE: primary button. Disabled while a purchase is running or when the pack is not on sale. */}

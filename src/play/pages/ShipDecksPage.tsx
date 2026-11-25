@@ -33,9 +33,6 @@ export function ShipDecksPage() {
 
   return (
     <section>
-      <title>Decks – Will of the Void</title>
-      <h1>Decks</h1>
-
       {status === 'loading' && <output>Loading…</output>}
 
       {/* STYLE: error state with a "Try again" button. */}
@@ -60,9 +57,9 @@ export function ShipDecksPage() {
               <li key={deck.id}>
                 {/* STYLE: deck name, linked to the editor. */}
                 <Link to={paths.deck(deck.id)}>{deck.name}</Link>
-                {/* STYLE: deck status. VALID decks can be played, DRAFT decks cannot (they are saved but break a rule).
-                    A deck also becomes DRAFT when a Wanderer in it leaves or a traded card is no longer owned.
-                    The look of valid / invalid is up to the PM; it should not rely on color alone. */}
+                {/* STYLE: deck status. The API sends INCOMPLETE, VALID or INVALID: only VALID decks can be played.
+                    A deck becomes INVALID when a Wanderer in it leaves or a traded card is no longer owned.
+                    The look of valid / not valid is up to the PM; it should not rely on color alone. */}
                 <p>
                   {deck.status === 'VALID' ? 'Valid' : 'Not valid'} · {deck.totalCards}
                   {deckSize !== undefined ? ` / ${deckSize}` : ''} cards
@@ -112,8 +109,7 @@ export function ShipDecksPage() {
             ))}
           </ul>
 
-          {/* STYLE: error of the last action. Known API codes such as DEFENSE_DECK_INVALID are not mapped yet in
-              src/shared/api/error-message.ts, so the generic message appears. Add them there if the PM wants specific texts. */}
+          {/* STYLE: error of the last action. */}
           {change.errorMessage && <ErrorBox message={change.errorMessage} />}
 
           {/* NOTE: the list reloads from the server after every action, so the page may flash "Loading…" for a moment.

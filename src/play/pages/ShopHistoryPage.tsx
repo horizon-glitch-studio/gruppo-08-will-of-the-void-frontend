@@ -18,18 +18,18 @@ export function ShopHistoryPage() {
 
   return (
     <section>
-      <title>Purchase history – Will of the Void</title>
-
-      {/* STYLE: back link to the Shop. In the Figma it is the "Back to Shop" button at the bottom. */}
-      <Link to={paths.shop}>← Shop</Link>
-
-      <h1>Purchase history</h1>
+      {/* NOTE: the Figma groups the history by pack type ("Standard pack · 1 pack · 5 cards · 300 Shards spent").
+          Here there is one row per opening. Grouping is possible on the frontend: to be decided with the PM. */}
+      {/* NOTE: a purchase opens the pack at once (no "owned packs" in the API), so every opening is also a purchase.
+          If owned packs are introduced, this page must be reviewed. */}
 
       {status === 'loading' && <output>Loading…</output>}
       {status === 'error' && <ErrorBox message={errorMessage} onRetry={reload} />}
 
       {status === 'success' && (
         <>
+          {/* NOTE: only the first page (20 items) is loaded. The response has `totalPages`, so "Load more" or page numbers
+              can be added once the PM decides how they look. */}
           <h2>Opened packs</h2>
           {data.openings.items.length === 0 ? (
             // STYLE: empty state. Wording is a placeholder, the Void's voice can be used here.
@@ -45,12 +45,13 @@ export function ShopHistoryPage() {
                   </p>
                   {/* `guarantee` is not null when a guarantee replaced slot 5. Raw value from the API for now. */}
                   {opening.guarantee && <p>Guarantee: {opening.guarantee}</p>}
-                  <time dateTime={opening.createdAt}>{new Date(opening.createdAt).toLocaleString()}</time>
+                  <time dateTime={opening.createdAt}>{new Date(opening.createdAt).toLocaleString('en-US')}</time>
                 </li>
               ))}
             </ul>
           )}
 
+          {/* NOTE: same as above, only the first page (20 items) is loaded. */}
           <h2>Shard transactions</h2>
           {data.transactions.items.length === 0 ? (
             <p>No transactions yet.</p>
@@ -64,7 +65,7 @@ export function ShopHistoryPage() {
                       TODO: map the codes to readable text once the backend list is confirmed. */}
                   <p>{transaction.reason}</p>
                   <p>{transaction.amount > 0 ? `+${transaction.amount}` : transaction.amount} Shards</p>
-                  <time dateTime={transaction.createdAt}>{new Date(transaction.createdAt).toLocaleString()}</time>
+                  <time dateTime={transaction.createdAt}>{new Date(transaction.createdAt).toLocaleString('en-US')}</time>
                 </li>
               ))}
             </ul>

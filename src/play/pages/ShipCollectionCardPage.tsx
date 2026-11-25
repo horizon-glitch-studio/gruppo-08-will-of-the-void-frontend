@@ -1,10 +1,9 @@
 import { useCallback } from 'react'
-import { Link, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { cardsService } from '@/shared/api/cards'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { useApiQuery } from '@/shared/hooks/useApiQuery'
 import { collectionService } from '../api/collection'
-import { paths } from '../routes/paths'
 
 /** Card screen: one owned card in detail, with its copies and the factions it prevails over or is overpowered by. */
 export function ShipCollectionCardPage() {
@@ -25,13 +24,9 @@ export function ShipCollectionCardPage() {
   const prevailsOver = card ? advantages.filter((item) => item.dominantFactionId === card.faction.id).map((item) => nameOf(item.dominatedFactionId)) : []
   const overpoweredBy = card ? advantages.filter((item) => item.dominatedFactionId === card.faction.id).map((item) => nameOf(item.dominantFactionId)) : []
 
+  // TODO(PM): page title = card name, needs PageHeader support
   return (
     <section>
-      <title>{card ? `${card.name} – Will of the Void` : 'Card – Will of the Void'}</title>
-
-      {/* STYLE: back link to the collection. */}
-      <Link to={paths.collection}>← Collection</Link>
-
       {status === 'loading' && <output>Loading…</output>}
 
       {/* STYLE: error state with a "Try again" button. A card the Summoner does not own gives a "could not be found" message. */}
@@ -39,17 +34,11 @@ export function ShipCollectionCardPage() {
 
       {status === 'success' && (
         <>
-          {/* STYLE: card name as page title. */}
-          <h1>{data.card.name}</h1>
-
           {/* CARD: the PM's card component goes here, in its large version.
-              Until then, a plain image and text summary.
+              Until then, a plain text summary.
               Data available on `data.card`: id, name, description, imageUrl, faction.name, rarity.name, attack, defense. */}
-          {data.card.imageUrl && (
-            // NOTE: `imageUrl` is a relative path. The host that serves the images is still to be confirmed
-            // with the backend (gap G12 in docs/frontend-routes-and-api.md), so this image may not load yet.
-            <img src={data.card.imageUrl} alt={data.card.name} />
-          )}
+          {/* TODO: cardImage() + imageAlt when the cards branch is merged */}
+          <h2>{data.card.name}</h2>
           <p>
             {data.card.faction.name} · {data.card.rarity.name}
           </p>
@@ -64,7 +53,7 @@ export function ShipCollectionCardPage() {
           <p>
             Copies owned: {data.quantity}
             <br />
-            Arrived on <time dateTime={data.acquiredAt}>{new Date(data.acquiredAt).toLocaleDateString()}</time>
+            Arrived on <time dateTime={data.acquiredAt}>{new Date(data.acquiredAt).toLocaleDateString('en-US')}</time>
           </p>
 
           {/* STYLE: Wanderer time left. `expiresAt` is null for every other rarity.
@@ -72,7 +61,7 @@ export function ShipCollectionCardPage() {
               a countdown ("2 days left") is up to the PM. */}
           {data.expiresAt && (
             <p>
-              Leaves on <time dateTime={data.expiresAt}>{new Date(data.expiresAt).toLocaleString()}</time>
+              Leaves on <time dateTime={data.expiresAt}>{new Date(data.expiresAt).toLocaleString('en-US')}</time>
             </p>
           )}
 

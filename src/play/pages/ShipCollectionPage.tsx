@@ -25,8 +25,6 @@ export function ShipCollectionPage() {
   const factionId = toInt(params.get('factionId'))
   const rarityId = toInt(params.get('rarityId'))
   const availableInDeck = params.get('availableInDeck') === 'true'
-  // NOTE: assumes the API counts pages from 0. Check it in Swagger (http://localhost:8080/swagger-ui.html);
-  // if it counts from 1, change the "page + 1" in the pagination below.
   const page = toInt(params.get('page'))
 
   /** Changes some URL parameters. A value of undefined removes the parameter. */
@@ -62,9 +60,6 @@ export function ShipCollectionPage() {
 
   return (
     <section>
-      <title>Collection – Will of the Void</title>
-      <h1>Collection</h1>
-
       {/* STYLE: tabs "Cards" / "Archive". They are links (not buttons) because the tab is in the URL.
           The active one is marked with aria-current: the PM can style it with [aria-current='page'].
           The Archive is called "memory archive" in the game rules. */}
@@ -167,7 +162,7 @@ export function ShipCollectionPage() {
                       For now it shows the date it leaves; a countdown ("2 days left") is up to the PM. */}
                   {item.expiresAt && (
                     <p>
-                      Leaves on <time dateTime={item.expiresAt}>{new Date(item.expiresAt).toLocaleString()}</time>
+                      Leaves on <time dateTime={item.expiresAt}>{new Date(item.expiresAt).toLocaleString('en-US')}</time>
                     </p>
                   )}
                 </li>
@@ -186,8 +181,8 @@ export function ShipCollectionPage() {
                     {item.card.faction.name} · {item.card.rarity.name} · ATK {item.card.attack} / DEF {item.card.defense}
                   </p>
                   <p>
-                    Arrived <time dateTime={item.arrivedAt}>{new Date(item.arrivedAt).toLocaleDateString()}</time>, left{' '}
-                    <time dateTime={item.departedAt}>{new Date(item.departedAt).toLocaleDateString()}</time>
+                    Arrived <time dateTime={item.arrivedAt}>{new Date(item.arrivedAt).toLocaleDateString('en-US')}</time>, left{' '}
+                    <time dateTime={item.departedAt}>{new Date(item.departedAt).toLocaleDateString('en-US')}</time>
                   </p>
                 </li>
               ))}
