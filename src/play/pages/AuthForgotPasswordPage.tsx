@@ -13,6 +13,7 @@ import { paths } from '../routes/paths'
 /** Requests a reset link without revealing whether the email belongs to an account. */
 export function AuthForgotPasswordPage() {
   const { run, pending, errorMessage, fieldErrors, success } = useApiAction(authService.forgotPassword)
+  const title = success ? 'Check your inbox' : 'Reset your password'
   const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -23,8 +24,8 @@ export function AuthForgotPasswordPage() {
 
   return (
     <>
-      <title>Forgot password – Will of the Void</title>
-      <AuthScreen title={success ? 'Check your inbox' : 'Reset your password'} backToLogin={!success}>
+      <title>{`${title} – Will of the Void`}</title>
+      <AuthScreen title={title} backToLogin={!success}>
         {success ? (
           <>
             <Panel>
@@ -36,7 +37,7 @@ export function AuthForgotPasswordPage() {
           </>
         ) : (
           <form ref={formRef} className="column gap-s" onSubmit={submit}>
-            <Field name="email" label="Email" placeholder="name@example.com" type="email" autoComplete="email" autoCapitalize="none" required error={fieldErrors.email} />
+            <Field name="email" label="Email" placeholder="name@example.com" type="email" autoComplete="email" autoCapitalize="none" maxLength={255} required error={fieldErrors.email} />
             {errorMessage && <ErrorBox message={errorMessage} />}
             <Button className={styles.submit} variant="primary" type="submit" disabled={pending}>
               {pending ? 'Sending…' : 'Send reset link'}
