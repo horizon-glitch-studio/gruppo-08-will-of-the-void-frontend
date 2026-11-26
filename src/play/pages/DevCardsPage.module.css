@@ -1,0 +1,13 @@
+.page {
+  padding-block: var(--space-l);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, var(--_card));
+  justify-content: center;
+  gap: var(--space-l) var(--space-m);
+  margin: 0;
+  padding: var(--space-m) 0;
+  list-style: none;
+}
