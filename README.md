@@ -28,10 +28,11 @@ npm run dev            # development server on http://localhost:5173
 
 Environment variables (`.env.example`):
 
-| Variable            | Description                                                            |
-| ------------------- | ---------------------------------------------------------------------- |
-| `VITE_API_BASE_URL` | Backend API base URL, `/api/v1` included, no trailing slash            |
-| `VITE_GTM_ID`       | Google Tag Manager container (`GTM-XXXXXXX`). Empty: GTM is not loaded |
+| Variable            | Description                                                                         |
+| ------------------- | ----------------------------------------------------------------------------------- |
+| `VITE_API_BASE_URL` | Backend API base URL, `/api/v1` included, no trailing slash                         |
+| `VITE_GTM_ID`       | Google Tag Manager container (`GTM-XXXXXXX`). Empty: GTM is not loaded              |
+| `VITE_SITE_URL`     | Published site address, no trailing slash (canonical links, link previews, sitemap) |
 
 The backend builds the links in verification and password-reset emails from its `APP_FRONTEND_URL`, which must end with `/play` (for example `http://localhost:5173/play`).
 

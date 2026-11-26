@@ -101,7 +101,7 @@ function setupRing() {
 
 /**
  * Logo flight: measures how far the hero logo must travel and shrink to land on the bar logo, for home.css.
- * The flight lasts as much scroll as the logo height. Measured again when the window changes size.
+ * The flight lasts as much scroll as the logo height. Measured again when the page has loaded and when the window changes size.
  */
 function setupLogoFlight() {
   const hero = document.querySelector<HTMLElement>('.hero-title')
@@ -123,6 +123,9 @@ function setupLogoFlight() {
     root.classList.add('logo-fly')
   }
   measure()
+  // Safari can lay the page out again after the first run (fonts, images): measure again once everything is loaded
+  window.addEventListener('load', measure)
+  void document.fonts.ready.then(measure)
   window.addEventListener('resize', measure)
 }
 

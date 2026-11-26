@@ -99,7 +99,7 @@
 .wordmark {
   height: 2.25rem;
   aspect-ratio: 2944 / 512;
-  mask-image: url('../../assets/brand/wordmark-horizontal.svg');
+  mask-image: var(--logo-wordmark);
 }
 
 /* Guest bar: wordmark always visible and centered. The empty box on the right has the width of the menu button, to balance it */
