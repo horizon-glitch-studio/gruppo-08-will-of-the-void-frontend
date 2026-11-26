@@ -3,7 +3,6 @@ import { authService } from '@/shared/api/auth'
 import { Button, ButtonLink } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { Field } from '@/shared/components/Field'
-import { Panel } from '@/shared/components/Panel'
 import { useApiAction } from '@/shared/hooks/useApiAction'
 import { useFormErrorFocus } from '@/shared/hooks/useFormErrorFocus'
 import { AuthScreen } from '../components/AuthScreen'
@@ -14,7 +13,7 @@ import { paths } from '../routes/paths'
 export function AuthForgotPasswordPage() {
   const { run, pending, errorMessage, fieldErrors, success } = useApiAction(authService.forgotPassword)
   const title = success ? 'Check your inbox' : 'Reset your password'
-  const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
+  const { formRef, feedbackRef } = useFormErrorFocus({ pending, errorMessage, fieldErrors, focusFeedback: success })
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -28,9 +27,9 @@ export function AuthForgotPasswordPage() {
       <AuthScreen title={title} backToLogin={!success}>
         {success ? (
           <>
-            <Panel>
-              <output>If this email belongs to an account, a reset link has been sent. Check your spam folder too.</output>
-            </Panel>
+            <output ref={feedbackRef} tabIndex={-1}>
+              If this email belongs to an account, a reset link has been sent. Check your spam folder too.
+            </output>
             <ButtonLink className={styles.submit} to={paths.login}>
               Return to log in
             </ButtonLink>

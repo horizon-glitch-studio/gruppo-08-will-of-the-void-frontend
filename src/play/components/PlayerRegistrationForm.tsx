@@ -21,7 +21,7 @@ const timeZones = [...new Set(['UTC', detectedTimeZone, ...(Intl.supportedValues
 
 /** Renders the player registration form and its success confirmation. */
 export function PlayerRegistrationForm({ register, pending, errorMessage, fieldErrors, success }: PlayerRegistrationFormProps) {
-  const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
+  const { formRef, feedbackRef } = useFormErrorFocus({ pending, errorMessage, fieldErrors, focusFeedback: success })
   const [searchParams] = useSearchParams()
   const inviteInput = useRef<HTMLInputElement>(null)
   const enteringInvite = searchParams.has('invite')
@@ -47,7 +47,9 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
   return (
     <AuthScreen title={success ? 'Account created' : 'Create account'} backToLogin>
       {success ? (
-        <output>Check your inbox for the verification email. You can log in now.</output>
+        <output ref={feedbackRef} tabIndex={-1}>
+          Check your inbox for the verification email. You can log in now.
+        </output>
       ) : (
         <form ref={formRef} className="column gap-s" onSubmit={submit}>
           <Field

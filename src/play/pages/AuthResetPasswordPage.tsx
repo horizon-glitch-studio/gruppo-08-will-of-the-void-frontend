@@ -26,7 +26,7 @@ export function AuthResetPasswordPage() {
 function ResetPasswordScreen({ token }: { token: string }) {
   const { run, pending, errorCode, errorMessage, fieldErrors, success } = useApiAction(authService.resetPassword)
   const invalidToken = errorCode === 'ACTION_TOKEN_INVALID'
-  const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
+  const { formRef, feedbackRef } = useFormErrorFocus({ pending, errorMessage, fieldErrors, focusFeedback: success || invalidToken })
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -38,7 +38,9 @@ function ResetPasswordScreen({ token }: { token: string }) {
     <AuthScreen title={success ? 'Password updated' : 'Choose a new password'} backToLogin={!success}>
       {success ? (
         <>
-          <output>You can now log in with your new password.</output>
+          <output ref={feedbackRef} tabIndex={-1}>
+            You can now log in with your new password.
+          </output>
           <ButtonLink className={styles.submit} to={paths.login}>
             Return to log in
           </ButtonLink>
@@ -46,7 +48,7 @@ function ResetPasswordScreen({ token }: { token: string }) {
       ) : !token || invalidToken ? (
         <>
           <ErrorBox message={errorMessage ?? 'This reset link is incomplete. Request a new one to continue.'} />
-          <Link className={styles.submit} to={paths.forgotPassword}>
+          <Link ref={feedbackRef} className={styles.submit} to={paths.forgotPassword}>
             Request a new reset link
           </Link>
         </>

@@ -17,7 +17,7 @@ interface PlayerLoginFormProps {
 
 /** Renders the player login form and account-access links. */
 export function PlayerLoginForm({ login, pending, errorMessage, fieldErrors }: PlayerLoginFormProps) {
-  const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
+  const { formRef } = useFormErrorFocus({ pending, errorMessage, fieldErrors })
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
