@@ -19,6 +19,13 @@
   padding: 0 0 var(--space-s);
 }
 
+/* Reading pages (profile, settings): heading and content in one centered column */
+.layout[data-narrow] .main > * {
+  inline-size: 100%;
+  max-inline-size: 48rem;
+  margin-inline: auto;
+}
+
 /* Immersive screens (the story): tighter spacing, the content takes the height */
 .main[data-immersive] {
   max-width: none;

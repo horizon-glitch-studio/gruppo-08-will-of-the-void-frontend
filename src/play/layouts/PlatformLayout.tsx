@@ -16,7 +16,7 @@ export function PlatformLayout() {
   const isHub = meta?.isHub ?? false
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.layout} data-narrow={meta?.narrow || undefined}>
       <PreferencesSync />
       <a className="skip-link" href="#main">
         Skip to content

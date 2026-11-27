@@ -97,6 +97,12 @@
   --_color-end: var(--color-arena);
 }
 
+/* Actions that cannot be undone, such as deleting the account */
+.panel[data-tone='danger'] {
+  --_color: var(--color-danger);
+  --_color-end: var(--color-danger);
+}
+
 /*
  * Void: accent glow like every panel, border in the colors of the Void turning slowly, as its glow in the hub.
  * Each color holds 40% of the border, the change takes 10%: a clear switch, not a blend.

@@ -3,8 +3,8 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 /** Outline of a neon frame. */
 export type PanelShape = 'chamfered' | 'pointed'
 
-/** Color of a neon frame: the accent, or the color of a game area. */
-export type Tone = 'accent' | 'shop' | 'ship' | 'arena' | 'void'
+/** Color of a neon frame: the accent, the color of a game area, or danger for actions that cannot be undone. */
+export type Tone = 'accent' | 'shop' | 'ship' | 'arena' | 'void' | 'danger'
 
 /** Props of {@link Panel}: its own options plus the props of the element it renders. */
 export type PanelProps<E extends ElementType> = {
