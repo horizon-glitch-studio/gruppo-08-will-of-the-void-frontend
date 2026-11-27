@@ -2,10 +2,20 @@ import { apiRequest, revokeSession, setSession, type Tokens } from './client'
 
 export type PlayerRole = 'USER' | 'ADMIN'
 
-interface LoginResult extends Tokens {
+/** A Shard bonus: granted is false when it was already given (daily) or not due (comeback). */
+export interface Bonus {
+  granted: boolean
+  amount: number
+}
+
+/** The daily bonus and the bonus for coming back after an absence. */
+export interface LoginBonuses {
+  dailyBonus: Bonus
+  comebackBonus: Bonus
+}
+
+interface LoginResult extends Tokens, LoginBonuses {
   player: { id: number; username: string; role: PlayerRole; emailVerified: boolean }
-  dailyBonus: { granted: boolean; amount: number }
-  comebackBonus: { granted: boolean; amount: number }
 }
 
 export interface Registration {
@@ -44,4 +54,6 @@ export const authService = {
   resendVerification: () => apiRequest<void>('/auth/resend-verification', { method: 'POST', authenticated: true }),
   forgotPassword: (email: string) => apiRequest<void>('/auth/forgot-password', { method: 'POST', json: { email } }),
   resetPassword: (token: string, newPassword: string) => apiRequest<void>('/auth/reset-password', { method: 'POST', json: { token, newPassword } }),
+  /** Grants the bonuses that are due. Called when the app opens with a session already active: login grants them on its own. */
+  claimDailyBonus: () => apiRequest<LoginBonuses>('/auth/daily-bonus', { method: 'POST', authenticated: true }),
 }
