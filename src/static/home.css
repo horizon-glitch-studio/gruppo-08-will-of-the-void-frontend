@@ -160,9 +160,15 @@
   transition: --_how-hover var(--duration-base) var(--ease-out);
 }
 
-.how-item:hover,
 .how-item:focus-within {
   --_how-hover: 1;
+}
+
+/* Only with a mouse or trackpad: on touch screens :hover stays on the last step tapped */
+@media (hover: hover) {
+  .how-item:hover {
+    --_how-hover: 1;
+  }
 }
 
 /* Dot of the step on the line: filled when the light has reached it */
@@ -663,8 +669,10 @@
   cursor: pointer;
 }
 
-.anatomy-item:hover {
-  border-color: var(--color-border);
+@media (hover: hover) {
+  .anatomy-item:hover {
+    border-color: var(--color-border);
+  }
 }
 
 .anatomy-item[aria-pressed='true'] {

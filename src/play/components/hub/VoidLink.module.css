@@ -107,9 +107,15 @@
   transition: box-shadow var(--duration-base) var(--ease-out);
 }
 
-.void:hover .disk,
 .void:focus-visible .disk {
   --_halo: 36px;
+}
+
+/* Only with a mouse or trackpad: on touch screens :hover stays on the last element tapped, so the glow would stay lit */
+@media (hover: hover) {
+  .void:hover .disk {
+    --_halo: 36px;
+  }
 }
 
 @keyframes spin {
