@@ -1,5 +1,6 @@
 import { apiRequest } from '@/shared/api/client'
 import { queryString, type ApiId, type PageQuery, type PageResponse } from '@/shared/api/queries'
+import type { Orbit } from '@/shared/orbits'
 
 type MatchmakingMode = 'QUICK' | 'RANKED'
 type BattleMode = 'FRIEND' | MatchmakingMode
@@ -57,20 +58,35 @@ interface OpponentList {
   mode: MatchmakingMode
   generatedAt: string
   refreshAvailableAt: string
-  opponents: { position: number; opponent: PlayerRef; trophiesAtGeneration: number; orbit: string; attacked: boolean; battleId: number | null }[]
+  opponents: { position: number; opponent: PlayerRef; trophiesAtGeneration: number; orbit: Orbit; attacked: boolean; battleId: number | null }[]
 }
 
-interface LeaderboardEntry {
+/** A row of the current-season leaderboard. avatar is the avatar key, as in the player profile. */
+export interface LeaderboardEntry {
   position: number
+  id: number
   username: string
+  avatar: string | null
   trophies: number
+  orbit: Orbit
+}
+
+interface LeaderboardFilters extends PageQuery {
+  orbit?: Orbit
+}
+
+/** The Ranked season in progress. Dates are ISO 8601 instants. */
+export interface Season {
+  id: number
+  startsAt: string
+  endsAt: string
 }
 
 const authenticated = true
 const battlePath = (id: ApiId) => `/battles/${encodeURIComponent(id)}` as const
 const opponentsPath = '/matchmaking/opponents'
 
-/** Battle history, challenges, replays and opponent matchmaking. */
+/** Battle history, challenges, replays, opponent matchmaking, leaderboard and season. */
 export const arenaService = {
   history: (filters: BattleFilters = {}, signal?: AbortSignal) => apiRequest<PageResponse<Battle>>(`/users/me/battles${queryString(filters)}`, { authenticated, signal }),
   get: (id: ApiId, signal?: AbortSignal) => apiRequest<Battle>(battlePath(id), { authenticated, signal }),
@@ -83,6 +99,7 @@ export const arenaService = {
   listOpponents: (mode: MatchmakingMode, signal?: AbortSignal) => apiRequest<OpponentList>(`${opponentsPath}${queryString({ mode })}`, { authenticated, signal }),
   refreshOpponents: (mode: MatchmakingMode) => apiRequest<OpponentList>(`${opponentsPath}/refresh`, { authenticated, method: 'POST', json: { mode } }),
   attack: (id: ApiId, mode: MatchmakingMode, deckId: number) => apiRequest<Battle>(`${opponentsPath}/${encodeURIComponent(id)}/battle`, { authenticated, method: 'POST', json: { mode, deckId } }),
-  // Leaderboards and seasons are not exposed by a backend controller yet.
-  leaderboard: (): Promise<{ season: number; entries: LeaderboardEntry[] }> => Promise.resolve({ season: 1, entries: [{ position: 1, username: 'Example Summoner', trophies: 1200 }] }),
+  /** Current season only, and only players with at least one Ranked battle in it. */
+  leaderboard: (filters: LeaderboardFilters = {}, signal?: AbortSignal) => apiRequest<PageResponse<LeaderboardEntry>>(`/leaderboard${queryString(filters)}`, { authenticated, signal }),
+  currentSeason: (signal?: AbortSignal) => apiRequest<Season>('/seasons/current', { authenticated, signal }),
 }

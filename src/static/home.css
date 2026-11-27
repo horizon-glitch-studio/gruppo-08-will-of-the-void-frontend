@@ -160,9 +160,15 @@
   transition: --_how-hover var(--duration-base) var(--ease-out);
 }
 
-.how-item:hover,
 .how-item:focus-within {
   --_how-hover: 1;
+}
+
+/* Only with a mouse or trackpad: on touch screens :hover stays on the last step tapped */
+@media (hover: hover) {
+  .how-item:hover {
+    --_how-hover: 1;
+  }
 }
 
 /* Dot of the step on the line: filled when the light has reached it */
@@ -507,96 +513,125 @@
   text-align: center;
 }
 
-/* Example card in plain shapes: the real card design comes later */
-.anatomy-card {
-  position: relative;
+/*
+ * Example card: the card shapes (card.css) without art, borders in the primary panel colors, rendered at build time (src/static/cards.tsx).
+ * Each part is a direct child of .anatomy-card, so it can move on its own in 3D. Parts are placed like in the real card (320px reference).
+ * A lit part (scroll or legend) turns its border white: --_hl from 0 to 1. No drop-shadow: Safari repaints a changing one badly.
+ */
+.anatomy-frame {
   inline-size: 15rem;
-  aspect-ratio: 32 / 50;
-  border: 2px solid var(--color-accent);
-  border-radius: var(--radius-m);
-  background: var(--color-surface);
-  font-size: var(--text-sm);
 }
 
-.example-part {
+.anatomy-card {
+  /* Borders in the primary panel colors where a real card has its faction colors */
+  --_from: var(--color-accent);
+  --_to: var(--color-accent-end);
+  --_glass: var(--color-surface);
+  --_blur: none;
+
+  /* isolation would flatten the 3D of the parts: the transform below already makes a stacking context */
+  isolation: auto;
+}
+
+.anatomy-card > [data-part] {
+  --_hl: var(--_anat-on, 0);
+}
+
+.anatomy-card > [data-part][data-active] {
+  --_hl: 1;
+}
+
+.anatomy-art {
+  background: color-mix(in oklch, var(--color-text) calc(var(--_hl) * 12%), var(--color-surface-raised));
+}
+
+.anatomy-name {
+  --_from: color-mix(in oklch, var(--color-text) calc(var(--_hl) * 100%), var(--color-accent));
+
   position: absolute;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--color-border-strong);
-  border-radius: var(--radius-s);
-  background: var(--color-surface-raised);
-  font-weight: var(--weight-bold);
-  transition:
-    box-shadow var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out);
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  white-space: nowrap;
 }
 
-.example-part[data-active] {
-  border-color: var(--color-text);
-  box-shadow:
-    0 0 0 2px var(--color-text),
-    var(--glow-accent);
-  z-index: 1;
-}
-
-.card-art {
-  inset: 0.5rem 0.5rem 36%;
-  background:
-    radial-gradient(circle at 50% 55%, var(--color-bg) 22%, var(--color-void-warm) 24%, transparent 32%),
-    radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-space-violet) 40%, transparent), transparent 60%), var(--color-surface-raised);
-}
-
-.card-name {
-  inset: 0 18% auto;
-  block-size: 2rem;
-  border-block-start: 0;
-  border-radius: 0 0 var(--radius-m) var(--radius-m);
-}
-
-.card-atk,
-.card-def {
-  inset-block-start: calc(64% - 1.25rem);
-  inline-size: 2.5rem;
-  block-size: 2.5rem;
-  font-size: var(--text-h4);
-}
-
-.card-def {
-  inset-inline-start: -0.5rem;
-}
-
-.card-atk {
-  inset-inline-end: -0.5rem;
-}
-
-.card-text {
+/* Description box with placeholder lines, at the bottom like in the card */
+.anatomy-panel {
   position: absolute;
-  inset: 70% 0.75rem 3rem;
+  inset: auto var(--_pad) var(--_pad);
+  block-size: 50cqi;
+}
+
+.anatomy-text {
   display: flex;
   flex-direction: column;
-  gap: 0.375rem;
+  gap: 2.5cqi;
 }
 
-.card-text i {
-  block-size: 0.3rem;
+.anatomy-text i {
+  block-size: 2cqi;
   border-radius: var(--radius-full);
   background: var(--color-border);
 }
 
-.card-faction,
-.card-rarity {
-  inset-block-end: 0.5rem;
-  block-size: 1.75rem;
-  padding-inline: var(--space-2xs);
-  font-size: var(--text-xs);
+.anatomy-text i:last-child {
+  inline-size: 60%;
 }
 
-.card-faction {
-  inset-inline-start: 0.5rem;
+/* Stats astride the top edge of the box */
+.anatomy-stat {
+  inset-block-start: calc(100% - var(--_pad) - 50cqi);
+  filter: none;
 }
 
-.card-rarity {
-  inset-inline-end: 0.5rem;
+.anatomy-card > .game-card-defense {
+  inset-inline-start: var(--_pad);
+}
+
+.anatomy-card > .game-card-attack {
+  inset-inline-end: var(--_pad);
+}
+
+.anatomy-stat::before {
+  background: color-mix(in oklch, var(--_stat-color) calc(22% + var(--_hl) * 30%), var(--color-surface));
+}
+
+.anatomy-stat::after {
+  background: color-mix(in oklch, var(--color-text) calc(var(--_hl) * 100%), var(--_stat-color));
+}
+
+/* Faction and rarity: the bottom row of the box */
+.anatomy-tag {
+  position: absolute;
+  inset-block-end: calc(var(--_pad) + 2.5cqi);
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  /* End padding: room for the part number in the corner */
+  padding: 0.2em 0.9rem 0.2em 0.4em;
+  border-radius: var(--radius-s);
+  outline: calc(var(--_hl) * 2px) solid var(--color-text);
+  font-size: clamp(0.625rem, 0.375rem + 1.7cqi, 0.875rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.anatomy-faction {
+  inset-inline-start: calc(var(--_pad) + 3cqi);
+}
+
+.anatomy-rarity {
+  inset-inline-end: calc(var(--_pad) + 3cqi);
+}
+
+.anatomy-tag .game-card-faction-icon {
+  color: var(--color-matte);
+}
+
+.anatomy-tag .game-card-pip[data-on] {
+  border-color: var(--color-text);
+  background: var(--color-text);
 }
 
 /* Number of the legend item, in the corner of each part */
@@ -634,8 +669,10 @@
   cursor: pointer;
 }
 
-.anatomy-item:hover {
-  border-color: var(--color-border);
+@media (hover: hover) {
+  .anatomy-item:hover {
+    border-color: var(--color-border);
+  }
 }
 
 .anatomy-item[aria-pressed='true'] {
@@ -722,19 +759,8 @@
   --_z: 22;
 }
 
-.anatomy-card > .card-text {
+.anatomy-card > .anatomy-panel {
   --_z: 12;
-}
-
-/* A part lit by the scroll looks like a part picked from the legend */
-.anatomy-card > [data-part] {
-  box-shadow: 0 0 0 calc(var(--_anat-on) * 2px) var(--color-text);
-}
-
-.anatomy-card > [data-part][data-active] {
-  box-shadow:
-    0 0 0 2px var(--color-text),
-    var(--glow-accent);
 }
 
 .anatomy-item {
@@ -1087,7 +1113,7 @@
 }
 
 .ring-stage {
-  --_card: 9rem;
+  --_card: 10rem;
 
   /* Wide enough to fit the cards, and at least close to half the screen, so the side cards leave it */
   --_radius: max(var(--_n, 12) * var(--_card) * 1.18 / 6.283, 42vw);
@@ -1109,7 +1135,7 @@
 .ring {
   position: relative;
   inline-size: var(--_card);
-  aspect-ratio: 32 / 50;
+  aspect-ratio: 2 / 3;
   transform-style: preserve-3d;
   transform: translateZ(calc(-1 * var(--_radius))) rotateX(-6deg) rotateY(calc(var(--_ring-scroll) + var(--_ring-offset)));
   transition: --_ring-offset var(--duration-base) var(--ease-out);
@@ -1129,53 +1155,16 @@
 .ring-face {
   position: absolute;
   inset: 0;
-  border-radius: var(--radius-m);
   backface-visibility: hidden;
 }
 
-/* Front: a sample card in plain shapes, like the anatomy card */
-.ring-front {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3xs);
-  padding: var(--space-2xs);
-  border: 2px solid var(--_faction);
-  background: var(--color-surface);
-  font-size: var(--text-sm);
-  text-align: center;
-}
-
-.ring-art {
-  display: grid;
-  place-items: center;
-  inline-size: 100%;
-  flex: 1;
-  border-radius: var(--radius-s);
-  background: var(--color-surface-raised);
-}
-
-.ring-art .faction-icon {
-  inline-size: 3rem;
-  block-size: 3rem;
-}
-
-.ring-front span {
-  color: var(--color-text-muted);
-}
-
-/* Back: the colored logo on the card */
+/* Front: the card (card.css); back: the card back, turned away */
 .ring-back {
-  display: grid;
-  place-items: center;
-  border: 2px solid var(--color-accent);
-  background: var(--color-surface);
   transform: rotateY(180deg);
 }
 
-.ring-back img {
-  inline-size: 75%;
-  block-size: auto;
+/* Dragging the ring must not drag the card images */
+.ring-face img {
   pointer-events: none;
 }
 
@@ -1233,7 +1222,7 @@
   .ring-slot {
     position: relative;
     flex: 0 0 var(--_card);
-    aspect-ratio: 32 / 50;
+    aspect-ratio: 2 / 3;
     transform: none;
   }
 

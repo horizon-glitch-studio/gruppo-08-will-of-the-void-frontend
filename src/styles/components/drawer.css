@@ -44,6 +44,17 @@
   background: color-mix(in srgb, var(--color-bg) 60%, transparent);
 }
 
+/* Reduce transparency (account setting or system preference): the page behind is almost hidden */
+:root[data-transparency='reduced'] .drawer::backdrop {
+  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .drawer::backdrop {
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  }
+}
+
 .drawer-header {
   display: flex;
   align-items: center;

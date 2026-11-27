@@ -1,0 +1,1520 @@
+[
+  {
+    "id": 1,
+    "name": "Salabladder",
+    "description": "Its skin is thinner than paper. It hits hard, but it breaks at the very first blow it takes.",
+    "imageUrl": "/cards/lava/salabladder",
+    "imageAlt": "A salamander with a thin black crust over glowing molten rock, crawling low across a lava field with bright yellow eyes.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 8,
+    "defense": 4
+  },
+  {
+    "id": 2,
+    "name": "Scorpyro",
+    "description": "It hides under the cooling crust and strikes only once, then withdraws to recharge. It fights for gratitude, not glory.",
+    "imageUrl": "/cards/lava/scorpyro",
+    "imageAlt": "A scorpion of dark rock with lava glowing through its cracks, its stinger raised high above its back, on a field of molten rock.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 5,
+    "defense": 7
+  },
+  {
+    "id": 3,
+    "name": "Murlash",
+    "description": "It grows only on ash still warm from an eruption, hurling glowing spores. Wherever it walks, life comes back.",
+    "imageUrl": "/cards/lava/murlash",
+    "imageAlt": "A mushroom creature with a glowing orange cap, walking on twisted roots across volcanic ash and holding a flaming spear, glowing spores floating around it.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 4,
+    "defense": 8
+  },
+  {
+    "id": 4,
+    "name": "Embervix",
+    "description": "So fast it outruns its own flames, it leaves a trail of sparks that confuses every enemy. Its paws are always burned.",
+    "imageUrl": "/cards/lava/embervix",
+    "imageAlt": "A slender fox made of flames, with a long fiery tail, stepping down a dark rocky ridge streaked with lava.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 7
+  },
+  {
+    "id": 5,
+    "name": "Kobblor",
+    "description": "It tunnels under the Arena and resurfaces behind the enemy. They say it once dug across an entire planet.",
+    "imageUrl": "/cards/lava/kobblor",
+    "imageAlt": "A pangolin covered in overlapping rock scales, with glowing molten claws, crawling out of cracked volcanic ground.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 7,
+    "defense": 9
+  },
+  {
+    "id": 6,
+    "name": "Bellowtusk",
+    "description": "It fed a village forge until the lava took the village. It kept burning, and charges until the fire inside calms down.",
+    "imageUrl": "/cards/lava/bellowtusk",
+    "imageAlt": "An armored boar of dark rock plates with fire blazing inside its chest and between its plates, long curved tusks and burning eyes, charging forward.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 10
+  },
+  {
+    "id": 7,
+    "name": "Plumewyrm",
+    "description": "Trained to dive from above, it breathes fire as it swoops and lands only where the ground is already burning.",
+    "imageUrl": "/cards/lava/plumewyrm",
+    "imageAlt": "A wyvern of dark rock and glowing magma diving from a red sky, breathing a stream of fire onto the burning ground below.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 10,
+    "defense": 10
+  },
+  {
+    "id": 8,
+    "name": "Basaltaur",
+    "description": "Slow to start, it cracks the ground beneath its hooves once it charges. Once it runs, nothing can stop it.",
+    "imageUrl": "/cards/lava/basaltaur",
+    "imageAlt": "A huge bull of black basalt plates veined with glowing lava, with curved golden horns, charging head down as rocks burst from under its hooves.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 11
+  },
+  {
+    "id": 9,
+    "name": "Varagma",
+    "description": "Its scales cool and crack with every step. Its heat is so intense that even the Void can feel it.",
+    "imageUrl": "/cards/lava/varagma",
+    "imageAlt": "A colossal Komodo dragon of cracked molten rock with green eyes, standing on a lava field and breathing out a burst of flame.",
+    "faction": {
+      "id": 1,
+      "name": "Lava",
+      "inert": false
+    },
+    "rarity": {
+      "id": 4,
+      "name": "Champion",
+      "sortOrder": 4,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 3,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 13,
+    "defense": 11
+  },
+  {
+    "id": 10,
+    "name": "Sparkit",
+    "description": "Hyperactive and noisy, it bites, then shocks you: its way of saying sorry. It never holds back, not even for a second.",
+    "imageUrl": "/cards/electro/sparkit",
+    "imageAlt": "A small ferret with fur of crackling yellow lightning, leaping forward with its mouth open and claws out.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 8,
+    "defense": 4
+  },
+  {
+    "id": 11,
+    "name": "Molver",
+    "description": "It lives in copper veins and senses their currents. It surfaces where the enemy is weakest, sparking with every blow.",
+    "imageUrl": "/cards/electro/molver",
+    "imageAlt": "A mole with a pink snout and long whiskers, its huge claws glowing orange like hot copper as it breaks out of dark rock.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 5,
+    "defense": 7
+  },
+  {
+    "id": 12,
+    "name": "Ohmlet",
+    "description": "It charges up by rolling across the ground, then releases a small jolt on impact.",
+    "imageUrl": "/cards/electro/ohmlet",
+    "imageAlt": "A battery-shaped beetle wound with copper coils and capped with metal, crawling across wet ground as yellow sparks crackle around it.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 4,
+    "defense": 8
+  },
+  {
+    "id": 13,
+    "name": "Faradya",
+    "description": "It swims through the air along the lightning. Some say the power grid was never built: it grew around it.",
+    "imageUrl": "/cards/electro/faradya",
+    "imageAlt": "A pale ray gliding through a stormy sky, its wide wings and long tail traced with yellow lightning.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 7
+  },
+  {
+    "id": 14,
+    "name": "Purrcuit",
+    "description": "It patrols the copper plains in perfect silence. Only its purr gives it away: a faint current running through the grid.",
+    "imageUrl": "/cards/electro/purrcuit",
+    "imageAlt": "A sleek black cat traced with glowing blue circuit lines, wearing a golden collar, standing on a dark rock under a stormy sky.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 7,
+    "defense": 9
+  },
+  {
+    "id": 15,
+    "name": "Teslon",
+    "description": "Calm and majestic, it leads the herds of the storm plains. It strikes with precise discharges, never brute force.",
+    "imageUrl": "/cards/electro/teslon",
+    "imageAlt": "A majestic stag with great copper antlers, an electric arc crackling between them and lightning running along its body.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 10
+  },
+  {
+    "id": 16,
+    "name": "Arctalon",
+    "description": "With lightning running along its feathers, it flies and hunts in sync with its allies. Every dive is calculated.",
+    "imageUrl": "/cards/electro/arctalon",
+    "imageAlt": "An eagle with a white head and dark purple-tinged wings crackling with yellow lightning, diving with its talons outstretched.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 10,
+    "defense": 10
+  },
+  {
+    "id": 17,
+    "name": "Movolth",
+    "description": "It follows magnetic fields to find its way and hunts down anyone who flees, its trail of lightning lighting up the sky.",
+    "imageUrl": "/cards/electro/movolth",
+    "imageAlt": "A large moth with black and purple wings patterned with eye-like circles, flying through a storm of yellow lightning.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 11
+  },
+  {
+    "id": 18,
+    "name": "Xendrax",
+    "description": "Powered by a storm that never ends, it leaps faster than the eye. When you see the flash, the fight is already over.",
+    "imageUrl": "/cards/electro/xendrax",
+    "imageAlt": "A dark hare traced with violet light, leaping through rings of yellow lightning across a stormy plain.",
+    "faction": {
+      "id": 2,
+      "name": "Electro",
+      "inert": false
+    },
+    "rarity": {
+      "id": 4,
+      "name": "Champion",
+      "sortOrder": 4,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 3,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 13,
+    "defense": 11
+  },
+  {
+    "id": 19,
+    "name": "Bicefex",
+    "description": "Its two heads never get along: one attacks while the other watches. They argue mid-fight, so it is hard to predict.",
+    "imageUrl": "/cards/radio/bicefex",
+    "imageAlt": "A radioactive worm with two fanged heads, one roaring with its jaws wide open while the other keeps watch, rising from a glowing green swamp.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 6
+  },
+  {
+    "id": 20,
+    "name": "Mewtant",
+    "description": "Its antennae sense the enemy's energy. Wary and unpredictable, it fights only when someone invades its space.",
+    "imageUrl": "/cards/radio/mewtant",
+    "imageAlt": "A dark purple striped cat with two glowing pink antennae and yellow eyes, stalking warily through radioactive ruins.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 5,
+    "defense": 7
+  },
+  {
+    "id": 21,
+    "name": "Uranura",
+    "description": "Every drop it sheds is toxic. It never starts a fight, but nobody has ever touched it twice.",
+    "imageUrl": "/cards/radio/uranura",
+    "imageAlt": "A fat toad covered in glowing green spots, toxic slime dripping from its skin, sitting on a rock in a radioactive swamp.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 4,
+    "defense": 8
+  },
+  {
+    "id": 22,
+    "name": "Geigerix",
+    "description": "Its ears tick like a Geiger counter, faster as the enemy gets closer. It hunts in the dark, guided by radiation.",
+    "imageUrl": "/cards/radio/geigerix",
+    "imageAlt": "A giant bat with huge purple-veined ears and tattered wings, swooping out of the dark over a toxic swamp.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 7
+  },
+  {
+    "id": 23,
+    "name": "Beatler",
+    "description": "Its residue weakens the ground wherever it goes. Its enemies may survive the fight, but rarely what remains afterward.",
+    "imageUrl": "/cards/radio/beatler",
+    "imageAlt": "A beetle with a cracked green shell oozing glowing toxic slime, with red glowing eyes and antennae, crawling through a radioactive swamp.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 7,
+    "defense": 9
+  },
+  {
+    "id": 24,
+    "name": "Plumbelix",
+    "description": "Its lead shell was carved deep in the mines, and light leaks from its cracks. Slow, but nearly impossible to wound.",
+    "imageUrl": "/cards/radio/plumbelix",
+    "imageAlt": "A huge snail with a heavy shell of dark metal banded in gold, purple light leaking from its cracks, sliding through a toxic swamp.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 10
+  },
+  {
+    "id": 25,
+    "name": "Pluthorn",
+    "description": "Its first blow wounds. The second comes later, when the radiation takes effect.",
+    "imageUrl": "/cards/radio/pluthorn",
+    "imageAlt": "An armored rhino of cracked gray plates with a large glowing green plutonium horn, lowering its head to charge.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 10,
+    "defense": 10
+  },
+  {
+    "id": 26,
+    "name": "Cnidion",
+    "description": "Powered by endless fission, it fights without moving. Its filaments fry anything that drifts into reach.",
+    "imageUrl": "/cards/radio/cnidion",
+    "imageAlt": "A purple jellyfish glowing green from within, floating above a radioactive swamp, long purple and green filaments trailing below it.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 11
+  },
+  {
+    "id": 27,
+    "name": "Isodile",
+    "description": "Every hit seems to tear a piece away, but the missing piece keeps fighting on its own.",
+    "imageUrl": "/cards/radio/isodile",
+    "imageAlt": "A colossal crocodile, half covered in scales and half bare skeleton, its jaws wide open as it wades through a radioactive swamp.",
+    "faction": {
+      "id": 3,
+      "name": "Radio",
+      "inert": false
+    },
+    "rarity": {
+      "id": 4,
+      "name": "Champion",
+      "sortOrder": 4,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 3,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 11,
+    "defense": 13
+  },
+  {
+    "id": 28,
+    "name": "Shardskitter",
+    "description": "It runs with no set direction, always at full speed. It comes from the icy comets farthest from any star.",
+    "imageUrl": "/cards/ice/shardskitter",
+    "imageAlt": "A small dark comet shard scuttling on crystal legs across the ice, trailing a long glowing golden tail.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 6
+  },
+  {
+    "id": 29,
+    "name": "Azotol",
+    "description": "Everything it touches freezes instantly. Fragile, but hard to hit: in its own mist, it is almost invisible.",
+    "imageUrl": "/cards/ice/azotol",
+    "imageAlt": "A translucent white axolotl with golden feathery gills, its body dissolving into white vapor as it glides over icy cliffs.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 5,
+    "defense": 7
+  },
+  {
+    "id": 30,
+    "name": "Sleetseal",
+    "description": "It slides across the ice at full speed and freezes all it touches. Underestimate it, and you end up stuck to the ice.",
+    "imageUrl": "/cards/ice/sleetseal",
+    "imageAlt": "A frost-covered gray seal with icy whiskers, sliding fast across purple-lit ice with its mouth open in a snarl.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 4,
+    "defense": 8
+  },
+  {
+    "id": 31,
+    "name": "Methangler",
+    "description": "It walks on its fins and lures prey with a glowing light. Whatever it catches never returns to the surface.",
+    "imageUrl": "/cards/ice/methangler",
+    "imageAlt": "A dark anglerfish walking on its fins across the ice, its jaws full of sharp teeth, a glowing pink lure hanging from its head.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 7
+  },
+  {
+    "id": 32,
+    "name": "Carapax",
+    "description": "It made its home in a fallen comet and raises its huge claws to defend it. It gives up its shelter to no one.",
+    "imageUrl": "/cards/ice/carapax",
+    "imageAlt": "A hermit crab living in a spiral shell of ice, its huge claws banded with glowing green, charging across a frozen plain.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 7,
+    "defense": 9
+  },
+  {
+    "id": 33,
+    "name": "Driftsloth",
+    "description": "It moves very slowly along the frozen ridges. Patient as ice itself, it lets the enemy wear itself out.",
+    "imageUrl": "/cards/ice/driftsloth",
+    "imageAlt": "A huge white sloth with a coat of icicles and long crystal claws, climbing slowly over a frozen ridge.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 10
+  },
+  {
+    "id": 34,
+    "name": "Wolfrost",
+    "description": "It chases its prey for weeks, in no hurry at all. It knows every crack in the ice.",
+    "imageUrl": "/cards/ice/wolfrost",
+    "imageAlt": "A white ice wolf with spiky crystal fur, running across a frozen plain and kicking up a spray of frost.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 10,
+    "defense": 10
+  },
+  {
+    "id": 35,
+    "name": "Chelonice",
+    "description": "It advances very slowly, and it is hard to scratch. Its breath freezes the ground ahead.",
+    "imageUrl": "/cards/ice/chelonice",
+    "imageAlt": "A gigantic tortoise carrying an entire glacier on its back, frozen breath streaming from its mouth across a cracked ice field.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 11
+  },
+  {
+    "id": 36,
+    "name": "Kryngeon",
+    "description": "It strikes in silence, then rises, its jagged scales shattering the surface into a thousand blades.",
+    "imageUrl": "/cards/ice/kryngeon",
+    "imageAlt": "A sea serpent made of jagged ice shards with glowing purple eyes, bursting out of a frozen sea as the surface shatters around it.",
+    "faction": {
+      "id": 4,
+      "name": "Ice",
+      "inert": false
+    },
+    "rarity": {
+      "id": 4,
+      "name": "Champion",
+      "sortOrder": 4,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 3,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 11,
+    "defense": 13
+  },
+  {
+    "id": 37,
+    "name": "Antomator",
+    "description": "When it loses a piece, it replaces it with the first scrap of metal it finds. Small and stubborn, it takes huge blows.",
+    "imageUrl": "/cards/metal/antomator",
+    "imageAlt": "A mechanical ant of steel plates, gears and rivets, with a screw in place of one antenna, standing on a rocky red mining plain.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 6
+  },
+  {
+    "id": 38,
+    "name": "Leadlimbs",
+    "description": "It adapts to any terrain and any enemy. Its strength is modest.",
+    "imageUrl": "/cards/metal/leadlimbs",
+    "imageAlt": "A spider of liquid chrome on very long, curved legs, towering over a red mining crater.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 5,
+    "defense": 7
+  },
+  {
+    "id": 39,
+    "name": "Rustshell",
+    "description": "It raises its dented shell like a shield. It rarely strikes, but it withstands almost anything.",
+    "imageUrl": "/cards/metal/rustshell",
+    "imageAlt": "An old crab-shaped automaton covered in rust, with glowing yellow eyes, holding its dented domed shell over itself like a shield.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 4,
+    "defense": 8
+  },
+  {
+    "id": 40,
+    "name": "Vaultbug",
+    "description": "Its plates open only to strike, and then nothing holds it back. Nobody knows what it guards, and it will never tell.",
+    "imageUrl": "/cards/metal/vaultbug",
+    "imageAlt": "A heavily armored steel beetle with two curved horns, orange light glowing through the seams of its shell.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 7
+  },
+  {
+    "id": 41,
+    "name": "Brasstick",
+    "description": "A core of unknown origin glows inside it. It stands guard for hours without moving and lets no one through.",
+    "imageUrl": "/cards/metal/brasstick",
+    "imageAlt": "A giant mechanical tick with a dark metal body, a glowing green core in its round back and long jointed legs.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 7,
+    "defense": 9
+  },
+  {
+    "id": 42,
+    "name": "Porcupole",
+    "description": "It pulls toward itself the blows meant for its allies. A living shield, and proud of it.",
+    "imageUrl": "/cards/metal/porcupole",
+    "imageAlt": "A porcupine of dark steel quills edged in cyan light, with metal shards orbiting around it like a shield.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 10
+  },
+  {
+    "id": 43,
+    "name": "Hydrargus",
+    "description": "It studies the enemy at length, then strikes, leaving drops of silver behind.",
+    "imageUrl": "/cards/metal/hydrargus",
+    "imageAlt": "A great cat of polished liquid silver with glowing purple eyes, a crest of blades along its spine and a tail ending in a curved blade.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 10,
+    "defense": 10
+  },
+  {
+    "id": 44,
+    "name": "Steelink",
+    "description": "It coils up before every strike. Each ring of its body moves on its own.",
+    "imageUrl": "/cards/metal/steelink",
+    "imageAlt": "A steel serpent of jointed segments with blade-like fins and purple light between its plates, coiled and ready to strike.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 11
+  },
+  {
+    "id": 45,
+    "name": "Magnetark",
+    "description": "It controls the magnetic fields of an entire planet. Metal obeys before it even knows it has been called.",
+    "imageUrl": "/cards/metal/magnetark",
+    "imageAlt": "A colossal metal kraken with a glowing magenta eye and tentacles lined with pink light, surrounded by an orbiting storm of metal shards.",
+    "faction": {
+      "id": 5,
+      "name": "Metal",
+      "inert": false
+    },
+    "rarity": {
+      "id": 4,
+      "name": "Champion",
+      "sortOrder": 4,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 3,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 13,
+    "defense": 11
+  },
+  {
+    "id": 46,
+    "name": "Lumivora",
+    "description": "Wherever it lands, darkness falls and enemies lose their bearings. It comes from forests no light has ever touched.",
+    "imageUrl": "/cards/matte/lumivora",
+    "imageAlt": "A moth with huge opaque black wings, resting on dark rock veined with faint golden light, almost invisible against the darkness.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 8,
+    "defense": 4
+  },
+  {
+    "id": 47,
+    "name": "Sootling",
+    "description": "It slips into every crack and scratches with claws of ash. It annoys the enemy more than it hurts them.",
+    "imageUrl": "/cards/matte/sootling",
+    "imageAlt": "A small spirit of black soot drifting like smoke, with two glowing pink eyes and clawed hands of ash.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 5,
+    "defense": 7
+  },
+  {
+    "id": 48,
+    "name": "Coalcurl",
+    "description": "When threatened, it rolls up and waits. Hard to bring down, it wins by wearing the enemy out.",
+    "imageUrl": "/cards/matte/coalcurl",
+    "imageAlt": "An armadillo of raw black coal curled almost into a ball, purple embers glowing in the cracks between its plates.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 1,
+      "name": "Captive",
+      "sortOrder": 1,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 4,
+    "defense": 8
+  },
+  {
+    "id": 49,
+    "name": "Hurcrick",
+    "description": "Its spines suddenly stretch out in every direction. The glow at its center is the only part of it you can truly see.",
+    "imageUrl": "/cards/matte/hurcrick",
+    "imageAlt": "A sea urchin of pure darkness on long thin legs, its spines stretched out in every direction around a glowing blue core.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 7
+  },
+  {
+    "id": 50,
+    "name": "Lurkamael",
+    "description": "It moves from rock to rock unseen and strikes by surprise. Nobody remembers seeing it, which is just what it wants.",
+    "imageUrl": "/cards/matte/lurkamael",
+    "imageAlt": "A chameleon of matte black carbon with a bright green eye, clinging to a dark rock and blending into the shadows.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 7,
+    "defense": 9
+  },
+  {
+    "id": 51,
+    "name": "Graphink",
+    "description": "They say its ink writes the names of the fallen. It blinds its enemies with it, then strikes with its tentacles.",
+    "imageUrl": "/cards/matte/graphink",
+    "imageAlt": "A dark cuttlefish with golden-edged fins and tentacles, floating in the air and trailing a cloud of glowing purple ink.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 2,
+      "name": "Conscript",
+      "sortOrder": 2,
+      "maxCopiesPerDeck": 3,
+      "maxPerDeck": null,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 6,
+    "defense": 10
+  },
+  {
+    "id": 52,
+    "name": "Noctopus",
+    "description": "It comes from a world light never reached. It strikes before the enemy even knows it is being watched.",
+    "imageUrl": "/cards/matte/noctopus",
+    "imageAlt": "A shadow octopus emerging from the darkness, its black tentacles ending in curved golden hooks.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 10,
+    "defense": 10
+  },
+  {
+    "id": 53,
+    "name": "Murkpard",
+    "description": "It commands its kind without ever raising its voice. It stalks low and slow, and pounces only when sure to hit.",
+    "imageUrl": "/cards/matte/murkpard",
+    "imageAlt": "An armored black panther with golden markings and glowing magenta accents, stalking low across dark rocks.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 3,
+      "name": "Soldier",
+      "sortOrder": 3,
+      "maxCopiesPerDeck": 2,
+      "maxPerDeck": 8,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 9,
+    "defense": 11
+  },
+  {
+    "id": 54,
+    "name": "Umbrodon",
+    "description": "It advances slowly but unstoppably. It reminds the Void of something familiar, and nobody knows why.",
+    "imageUrl": "/cards/matte/umbrodon",
+    "imageAlt": "A colossal mammoth of black stone and shadow, violet cracks glowing across its body and huge obsidian tusks rimmed with green light.",
+    "faction": {
+      "id": 6,
+      "name": "Matte",
+      "inert": false
+    },
+    "rarity": {
+      "id": 4,
+      "name": "Champion",
+      "sortOrder": 4,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 3,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 11,
+    "defense": 13
+  },
+  {
+    "id": 55,
+    "name": "Adamantis",
+    "description": "It waits motionless, forelegs folded as if in prayer, then strikes once, cleanly. Nothing can crack it.",
+    "imageUrl": "/cards/gem/adamantis",
+    "imageAlt": "A mantis of clear diamond with prismatic, rainbow-edged blades, standing upright in a crystal cave, its forelegs folded as if in prayer.",
+    "faction": {
+      "id": 7,
+      "name": "Gem",
+      "inert": true
+    },
+    "rarity": {
+      "id": 5,
+      "name": "Elect",
+      "sortOrder": 5,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 2,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 10,
+    "defense": 18
+  },
+  {
+    "id": 56,
+    "name": "Sapphenix",
+    "description": "Elegant and hard to bring down, it soars over fields of giant crystals and strikes from above with precision.",
+    "imageUrl": "/cards/gem/sapphenix",
+    "imageAlt": "A sapphire bird with spread wings and a long tail of blue gem feathers, flying over a field of giant crystals in a cave.",
+    "faction": {
+      "id": 7,
+      "name": "Gem",
+      "inert": true
+    },
+    "rarity": {
+      "id": 5,
+      "name": "Elect",
+      "sortOrder": 5,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 2,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 12,
+    "defense": 16
+  },
+  {
+    "id": 57,
+    "name": "Arebyus",
+    "description": "Stubborn as stone, it charges head-on and never yields. It was born where heat and pressure turn rock to crystal.",
+    "imageUrl": "/cards/gem/arebyus",
+    "imageAlt": "A ram of faceted red ruby with golden spiral horns, charging head-on and shattering rock in a glowing crystal cave.",
+    "faction": {
+      "id": 7,
+      "name": "Gem",
+      "inert": true
+    },
+    "rarity": {
+      "id": 5,
+      "name": "Elect",
+      "sortOrder": 5,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 2,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 13,
+    "defense": 15
+  },
+  {
+    "id": 58,
+    "name": "Vulpaz",
+    "description": "It stores light and releases it in blinding flashes. Cunning and patient, it would rather endure than rush in.",
+    "imageUrl": "/cards/gem/vulpaz",
+    "imageAlt": "A topaz fox with a faceted golden body and a large tail of glowing amber crystals, standing in a crystal cave.",
+    "faction": {
+      "id": 7,
+      "name": "Gem",
+      "inert": true
+    },
+    "rarity": {
+      "id": 5,
+      "name": "Elect",
+      "sortOrder": 5,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 2,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 13,
+    "defense": 15
+  },
+  {
+    "id": 59,
+    "name": "Basilith",
+    "description": "Strong and ancient, it was born in a planet's core under immense pressure. Its faceted body breaks light into every hue.",
+    "imageUrl": "/cards/gem/basilith",
+    "imageAlt": "A crowned dragon of faceted purple amethyst, standing in a cave full of amethyst crystals.",
+    "faction": {
+      "id": 7,
+      "name": "Gem",
+      "inert": true
+    },
+    "rarity": {
+      "id": 5,
+      "name": "Elect",
+      "sortOrder": 5,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 2,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 14,
+    "defense": 14
+  },
+  {
+    "id": 60,
+    "name": "Emerlynx",
+    "description": "Agile and silent, it was born in geode caves. Balanced between attack and defense, it adapts to any fight.",
+    "imageUrl": "/cards/gem/emerlynx",
+    "imageAlt": "A translucent emerald lynx glowing green, crouched low on a crystal ledge in a dark geode cave, ready to pounce.",
+    "faction": {
+      "id": 7,
+      "name": "Gem",
+      "inert": true
+    },
+    "rarity": {
+      "id": 5,
+      "name": "Elect",
+      "sortOrder": 5,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 2,
+      "durationDays": null,
+      "tradeable": true
+    },
+    "attack": 14,
+    "defense": 14
+  },
+  {
+    "id": 61,
+    "name": "Xenopendra",
+    "description": "Even its own kind keeps its distance. It strikes with a force no other creature can match.",
+    "imageUrl": "/cards/noble-gas/xenopendra",
+    "imageAlt": "An alien centipede made of glowing green xenon gas, with dozens of curved golden claws, rearing up in open space.",
+    "faction": {
+      "id": 8,
+      "name": "Noble Gas",
+      "inert": true
+    },
+    "rarity": {
+      "id": 6,
+      "name": "Wanderer",
+      "sortOrder": 6,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 1,
+      "durationDays": 7,
+      "tradeable": false
+    },
+    "attack": 18,
+    "defense": 14
+  },
+  {
+    "id": 62,
+    "name": "Stryxton",
+    "description": "Mysterious and balanced, it watches everything and speaks little. It knows more than it says, and it knows it well.",
+    "imageUrl": "/cards/noble-gas/stryxton",
+    "imageAlt": "An owl made of glowing cyan and white krypton gas, its wings spread wide and its golden eyes staring forward, in open space.",
+    "faction": {
+      "id": 8,
+      "name": "Noble Gas",
+      "inert": true
+    },
+    "rarity": {
+      "id": 6,
+      "name": "Wanderer",
+      "sortOrder": 6,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 1,
+      "durationDays": 7,
+      "tradeable": false
+    },
+    "attack": 16,
+    "defense": 16
+  },
+  {
+    "id": 63,
+    "name": "Pavoneon",
+    "description": "Vain and dazzling, it fights only where someone is watching. Its blazing display leaves every enemy disoriented.",
+    "imageUrl": "/cards/noble-gas/pavoneon",
+    "imageAlt": "A peacock made of glowing orange neon gas, its tail fanned out with eye-like spots, rising through open space.",
+    "faction": {
+      "id": 8,
+      "name": "Noble Gas",
+      "inert": true
+    },
+    "rarity": {
+      "id": 6,
+      "name": "Wanderer",
+      "sortOrder": 6,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 1,
+      "durationDays": 7,
+      "tradeable": false
+    },
+    "attack": 15,
+    "defense": 17
+  },
+  {
+    "id": 64,
+    "name": "Lykadron",
+    "description": "It howls before every attack, and it is proud of being unpredictable: nothing about it holds its shape for long.",
+    "imageUrl": "/cards/noble-gas/lykadron",
+    "imageAlt": "A wolf made of glowing red radon smoke, howling, its body scattering into wisps against open space.",
+    "faction": {
+      "id": 8,
+      "name": "Noble Gas",
+      "inert": true
+    },
+    "rarity": {
+      "id": 6,
+      "name": "Wanderer",
+      "sortOrder": 6,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 1,
+      "durationDays": 7,
+      "tradeable": false
+    },
+    "attack": 14,
+    "defense": 18
+  },
+  {
+    "id": 65,
+    "name": "Drakelius",
+    "description": "Born in the nebulae, it belongs to no world. Elusive, it always vanishes a moment before you can thank it.",
+    "imageUrl": "/cards/noble-gas/drakelius",
+    "imageAlt": "A dragon made of glowing white and golden helium gas, its long body coiling through open space between galaxies.",
+    "faction": {
+      "id": 8,
+      "name": "Noble Gas",
+      "inert": true
+    },
+    "rarity": {
+      "id": 6,
+      "name": "Wanderer",
+      "sortOrder": 6,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 1,
+      "durationDays": 7,
+      "tradeable": false
+    },
+    "attack": 13,
+    "defense": 19
+  },
+  {
+    "id": 66,
+    "name": "Cetargos",
+    "description": "Few things are harder to bring down. It protects every ship it stops on, but it has never explained why.",
+    "imageUrl": "/cards/noble-gas/cetargos",
+    "imageAlt": "A colossal whale made of glowing purple argon gas, circled by thin rings of light, drifting through open space between galaxies.",
+    "faction": {
+      "id": 8,
+      "name": "Noble Gas",
+      "inert": true
+    },
+    "rarity": {
+      "id": 6,
+      "name": "Wanderer",
+      "sortOrder": 6,
+      "maxCopiesPerDeck": 1,
+      "maxPerDeck": 1,
+      "durationDays": 7,
+      "tradeable": false
+    },
+    "attack": 11,
+    "defense": 21
+  }
+]

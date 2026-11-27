@@ -1,4 +1,5 @@
-import { createBrowserRouter, Navigate } from 'react-router'
+import { lazy } from 'react'
+import { createBrowserRouter, Navigate, type RouteObject } from 'react-router'
 import { AuthLayout } from '../layouts/AuthLayout'
 import { PlatformLayout } from '../layouts/PlatformLayout'
 import { RequireAuth } from '../layouts/RequireAuth'
@@ -37,12 +38,16 @@ import { ShopPackOpeningPage } from '../pages/ShopPackOpeningPage'
 import { ShopPage } from '../pages/ShopPage'
 import { meta } from './meta'
 
+/** Development only: card preview with the mock catalog, no session needed. Left out of the production build. */
+const devRoutes: RouteObject[] = import.meta.env.DEV ? [{ path: 'dev/cards', Component: lazy(() => import('../pages/DevCardsPage').then((module) => ({ default: module.DevCardsPage }))) }] : []
+
 /**
  * Router of the /play app. Paths are relative to the basename /play.
  * Each platform screen sets `handle` to its PageMeta: title, back link and hub flag come from there.
  */
 export const router = createBrowserRouter(
   [
+    ...devRoutes,
     {
       // Account access: reachable without a session.
       element: <AuthLayout />,

@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
-import { defineConfig, type Plugin } from 'vite'
+import { createServer, defineConfig, type Plugin, type ViteDevServer } from 'vite'
 import { siteLinks } from './src/shared/site-links.ts'
 
 const root = import.meta.dirname
@@ -86,6 +86,56 @@ function htmlPartials(): Plugin {
     transformIndexHtml(html, ctx) {
       const page = ctx.path.replace(/index\.html$/, '')
       return insertPartials(html).replaceAll(`<li><a href="${page}">`, `<li><a href="${page}" aria-current="page">`)
+    },
+  }
+}
+
+const CARDS_BLOCK = /<!-- cards:([\w-]+) -->/g
+
+/**
+ * Static pages: replaces `<!-- cards:ring -->` with the cards rendered by the React components (src/static/cards.tsx),
+ * so the static site and the platform share one card markup and one stylesheet (card.css), with no React in the page.
+ * Dev: the running server loads the module. Build: a private server in SSR mode, with the same mode and env (image host).
+ */
+function staticCards(): Plugin {
+  let mode = 'development'
+  let devServer: ViteDevServer | undefined
+  let buildServer: Promise<ViteDevServer> | undefined
+
+  const loader = () =>
+    devServer ??
+    (buildServer ??= createServer({
+      configFile: false,
+      root,
+      mode,
+      appType: 'custom',
+      logLevel: 'error',
+      plugins: [react()],
+      resolve: { alias: { '@': resolve(root, 'src') } },
+      server: { middlewareMode: true, hmr: false, ws: false },
+      optimizeDeps: { noDiscovery: true, include: [] },
+    }))
+
+  return {
+    name: 'static-cards',
+    configResolved(config) {
+      mode = config.mode
+    },
+    configureServer(server) {
+      devServer = server
+    },
+    transformIndexHtml: {
+      // Before Vite resolves the asset URLs of the page: the card back image goes through the normal pipeline
+      order: 'pre',
+      async handler(html) {
+        if (!html.includes('<!-- cards:')) return html
+        const server = await loader()
+        const { renderCards } = (await server.ssrLoadModule('/src/static/cards.tsx')) as { renderCards: (block: string) => string }
+        return html.replace(CARDS_BLOCK, (_, block: string) => renderCards(block))
+      },
+    },
+    async closeBundle() {
+      await (await buildServer)?.close()
     },
   }
 }
@@ -175,7 +225,7 @@ function preloadFonts(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   appType: 'mpa',
-  plugins: [react(), htmlPartials(), seo(), preloadFonts(), spaFallback(['/play', '/admin']), notFoundPage()],
+  plugins: [react(), htmlPartials(), staticCards(), seo(), preloadFonts(), spaFallback(['/play', '/admin']), notFoundPage()],
   resolve: {
     alias: { '@': resolve(root, 'src') },
   },

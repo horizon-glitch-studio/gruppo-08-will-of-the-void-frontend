@@ -6,6 +6,13 @@
   background: var(--color-surface-raised);
 }
 
+/* Short screens (phone in landscape, large text): the navigation waits at the end of the page, as the top bar scrolls away */
+@media (max-height: 28em) {
+  .nav {
+    position: relative;
+  }
+}
+
 .list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
