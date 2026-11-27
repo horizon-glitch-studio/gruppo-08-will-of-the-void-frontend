@@ -107,22 +107,25 @@ export function StoryPage() {
         )}
       </div>
 
-      <div className={styles.stage}>
-        <div className={styles.media}>
-          <div className={styles.frame}>
-            {/* The text tells the story; the picture only sets the scene */}
-            <img className={styles.image} src={chapter.image.src} srcSet={chapter.image.srcSet} sizes={sizes} width={chapter.image.width} height={chapter.image.height} alt="" decoding="async" />
+      {/* A size container: on wide screens the image column is as wide as the image, so no gap opens beside it */}
+      <div className={styles.stageBox}>
+        <div className={styles.stage}>
+          <div className={styles.media}>
+            <div className={styles.frame}>
+              {/* The text tells the story; the picture only sets the scene */}
+              <img className={styles.image} src={chapter.image.src} srcSet={chapter.image.srcSet} sizes={sizes} width={chapter.image.width} height={chapter.image.height} alt="" decoding="async" />
+            </div>
           </div>
-        </div>
 
-        {/* Under the image, or beside it on wide screens. Plain text; only the voice of the Void gets a frame, so it stands out */}
-        {chapter.voice ? (
-          <Panel tone="void" className={styles.text}>
-            {body}
-          </Panel>
-        ) : (
-          <div className={`${styles.text} ${styles.plain}`}>{body}</div>
-        )}
+          {/* Under the image, or beside it on wide screens. Plain text; only the voice of the Void gets a frame, so it stands out */}
+          {chapter.voice ? (
+            <Panel tone="void" className={styles.text}>
+              {body}
+            </Panel>
+          ) : (
+            <div className={`${styles.text} ${styles.plain}`}>{body}</div>
+          )}
+        </div>
       </div>
     </article>
   )
