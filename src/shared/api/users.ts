@@ -23,9 +23,11 @@ export interface CurrentUser extends PublicProfile {
   invitedBy: string | null
 }
 
-interface Settings {
+/** Accessibility settings of the account, applied to the whole platform (src/shared/preferences.ts). */
+export interface Settings {
   reduceMotion: boolean
   reduceTransparency: boolean
+  /** Writes faction, rarity and advantages as text next to their color or icon. */
   showTextLabels: boolean
 }
 

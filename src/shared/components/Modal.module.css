@@ -40,6 +40,17 @@
   background: color-mix(in srgb, var(--color-bg) 70%, transparent);
 }
 
+/* Reduce transparency (account setting or system preference) */
+:global(:root[data-transparency='reduced']) .modal::backdrop {
+  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .modal::backdrop {
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+  }
+}
+
 .panel {
   --_fill: var(--color-surface-raised);
 }
