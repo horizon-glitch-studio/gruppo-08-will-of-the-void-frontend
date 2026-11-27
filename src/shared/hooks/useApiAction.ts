@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react'
+import { ApiError } from '@/shared/api/client'
 import { apiErrorMessage, apiFieldMessages } from '@/shared/api/error-message'
 
 interface ActionState {
   pending: boolean
+  errorCode?: string
   errorMessage?: string
   fieldErrors: Record<string, string>
   success: boolean
@@ -22,7 +24,13 @@ export function useApiAction<Args extends unknown[]>(action: (...args: Args) => 
       await action(...args)
       setState({ pending: false, fieldErrors: {}, success: true })
     } catch (error) {
-      setState({ pending: false, errorMessage: apiErrorMessage(error), fieldErrors: apiFieldMessages(error), success: false })
+      setState({
+        pending: false,
+        errorCode: error instanceof ApiError ? error.code : undefined,
+        errorMessage: apiErrorMessage(error),
+        fieldErrors: apiFieldMessages(error),
+        success: false,
+      })
     } finally {
       running.current = false
     }

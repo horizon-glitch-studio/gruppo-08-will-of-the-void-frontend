@@ -104,6 +104,25 @@ a:hover {
   }
 }
 
+/* Same for the reduce motion setting of the account (src/shared/preferences.ts), view transitions included */
+:root[data-motion='reduced'] {
+  scroll-behavior: auto;
+}
+
+:root[data-motion='reduced'] *,
+:root[data-motion='reduced'] *::before,
+:root[data-motion='reduced'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+:root[data-motion='reduced']::view-transition-group(*),
+:root[data-motion='reduced']::view-transition-old(*),
+:root[data-motion='reduced']::view-transition-new(*) {
+  animation: none !important;
+}
+
 /* Separator between groups of content: always the full width, even inside centered flex columns */
 hr {
   inline-size: 100%;

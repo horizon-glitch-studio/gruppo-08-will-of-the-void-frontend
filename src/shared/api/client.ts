@@ -115,6 +115,25 @@ export function setSession(value: Tokens | null) {
   )
 }
 
+/**
+ * Gives the current session new tokens and keeps its id, so the pages stay mounted (RequireAuth remounts on a new session).
+ * For a password change: the backend revokes every refresh token, this device's included, and a new login replaces them.
+ */
+export function replaceSessionTokens(value: Tokens) {
+  syncSession()
+  if (!session) return
+  storeSession({
+    id: session.id,
+    tokens: {
+      tokenType: value.tokenType,
+      accessToken: value.accessToken,
+      accessTokenExpiresIn: value.accessTokenExpiresIn,
+      refreshToken: value.refreshToken,
+      refreshTokenExpiresIn: value.refreshTokenExpiresIn,
+    },
+  })
+}
+
 /** Returns whether there is a session to validate with the API. */
 export function getSessionVersion() {
   return session ? sessionVersion : null

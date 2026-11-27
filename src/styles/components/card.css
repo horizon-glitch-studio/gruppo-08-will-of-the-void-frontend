@@ -1,0 +1,797 @@
+/*
+ * Card: front, back and the flip between them. Shared by the platform (CardFace.tsx, CardBack.tsx, CardFlip.tsx)
+ * and the static pages, where the markup is rendered at build time from the same components (vite.config.ts, cards plugin).
+ *
+ * Card front. Shapes are in cqi (1% of the card width): the card is a size container, so it scales as one piece.
+ * Text is clamp(rem, rem + cqi, rem), like the heading tokens with vw: the rem part follows the text size setting
+ * of the browser, the cqi part follows the card width. Values match the prototype at 320px (1cqi = 3.2px).
+ * Badges are in em, so they grow with their numbers. Borders keep at least 1px.
+ * With a much larger text setting the description box grows and the card gets taller than 2:3.
+ */
+
+.game-card {
+  container-type: inline-size;
+  inline-size: 100%;
+}
+
+.game-card-face {
+  /* Faction colors of the gradient: from, middle, to. Without a middle token the middle is halfway between the two */
+  --_from: var(--color-text);
+  --_to: var(--color-text);
+  --_mid: color-mix(in oklch, var(--_from), var(--_to));
+
+  /* Geometry */
+  --_bw: max(1px, 0.625cqi);
+  --_pad: 6.25cqi;
+  --_cut: 6.25cqi;
+  --_notch-x: 25cqi;
+  --_notch-d: 6.25cqi;
+  --_stat-font: clamp(0.75rem, 0.5rem + 3.7cqi, 1.5rem);
+
+  /* Same border thickness on the 45deg edges: inner offsets (2 - √2 ≈ 0.586, √2 ≈ 1.414, √2 - 1 ≈ 0.414) */
+  --_cut-in: calc(var(--_cut) - var(--_bw) * 0.586);
+  --_notch-x-in: calc(var(--_notch-x) - var(--_bw) * 1.414);
+
+  /* Frosted glass: the art shows through. Opaque with the reduced transparency setting (below) */
+  --_glass: hsl(250deg 60% 6% / 0.72);
+  --_blur: blur(1.25cqi);
+
+  position: relative;
+  isolation: isolate;
+  aspect-ratio: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 var(--_pad) var(--_pad);
+  font-family: var(--font-sans);
+  color: var(--color-text);
+}
+
+/* Faction colors */
+[data-faction='lava'] .game-card-face {
+  --_from: var(--color-lava);
+  --_to: var(--color-lava-end);
+}
+
+[data-faction='electro'] .game-card-face {
+  --_from: var(--color-electro);
+  --_to: var(--color-electro-end);
+}
+
+[data-faction='radio'] .game-card-face {
+  --_from: var(--color-radio);
+  --_to: var(--color-radio-end);
+}
+
+[data-faction='ice'] .game-card-face {
+  --_from: var(--color-ice);
+  --_to: var(--color-ice-end);
+}
+
+[data-faction='metal'] .game-card-face {
+  --_from: var(--color-metal);
+  --_to: var(--color-metal-end);
+}
+
+[data-faction='matte'] .game-card-face {
+  --_from: var(--color-matte);
+  --_to: var(--color-matte-end);
+}
+
+[data-faction='gem'] .game-card-face {
+  --_from: var(--color-gem);
+  --_mid: var(--color-gem-mid);
+  --_to: var(--color-gem-end);
+}
+
+[data-faction='noble-gas'] .game-card-face {
+  --_from: var(--color-noble-gas);
+  --_mid: var(--color-noble-gas-mid);
+  --_to: var(--color-noble-gas-end);
+}
+
+/* ---------- Art and border ---------- */
+
+/* The whole card, cut at the corners like the border */
+.game-card-art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  background: radial-gradient(circle at 50% 35%, color-mix(in oklch, var(--_from) 35%, transparent), transparent 70%), var(--color-bg);
+  clip-path: polygon(
+    0 var(--_cut),
+    var(--_cut) 0,
+    calc(100% - var(--_cut)) 0,
+    100% var(--_cut),
+    100% calc(100% - var(--_cut)),
+    calc(100% - var(--_cut)) 100%,
+    var(--_cut) 100%,
+    0 calc(100% - var(--_cut))
+  );
+}
+
+.game-card-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke-width: calc(var(--_bw) * 2);
+}
+
+.game-card-stop-from {
+  stop-color: var(--_from);
+}
+
+.game-card-stop-mid {
+  stop-color: var(--_mid);
+}
+
+.game-card-stop-to {
+  stop-color: var(--_to);
+}
+
+/* Rarity glow, from Champion (4) up; stronger for Elect and Wanderer. Fixed values: Safari repaints a changing drop-shadow badly */
+[data-rank='4'] .game-card-frame {
+  filter: drop-shadow(0 0 1.5cqi var(--_from));
+}
+
+[data-rank='5'] .game-card-frame,
+[data-rank='6'] .game-card-frame {
+  filter: drop-shadow(0 0 1.5cqi var(--_from)) drop-shadow(0 0 4cqi var(--_to));
+}
+
+/* ---------- Framed boxes: ::before is the glass, ::after the border ring (outer shape minus inner shape, evenodd) ---------- */
+
+.game-card-name,
+.game-card-panel,
+.game-card-stat {
+  position: relative;
+  isolation: isolate;
+}
+
+.game-card-name::before,
+.game-card-name::after,
+.game-card-panel::before,
+.game-card-panel::after,
+.game-card-stat::before,
+.game-card-stat::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.game-card-name::before,
+.game-card-panel::before,
+.game-card-stat::before {
+  background: var(--_glass);
+  backdrop-filter: var(--_blur);
+}
+
+/* ---------- Name: hangs from the top border, so its ring is open at the top ---------- */
+
+.game-card-name {
+  align-self: center;
+  min-inline-size: 50%;
+  margin-block-start: var(--_bw);
+  padding: 1.25cqi 6cqi 2cqi;
+  text-align: center;
+}
+
+.game-card-name::before {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--_cut)), calc(100% - var(--_cut)) 100%, var(--_cut) 100%, 0 calc(100% - var(--_cut)));
+}
+
+.game-card-name::after {
+  background: var(--_from);
+  clip-path: polygon(
+    0 0,
+    0 calc(100% - var(--_cut)),
+    var(--_cut) 100%,
+    calc(100% - var(--_cut)) 100%,
+    100% calc(100% - var(--_cut)),
+    100% 0,
+    calc(100% - var(--_bw)) 0,
+    calc(100% - var(--_bw)) calc(100% - var(--_bw) - var(--_cut-in)),
+    calc(100% - var(--_bw) - var(--_cut-in)) calc(100% - var(--_bw)),
+    calc(var(--_bw) + var(--_cut-in)) calc(100% - var(--_bw)),
+    var(--_bw) calc(100% - var(--_bw) - var(--_cut-in)),
+    var(--_bw) 0
+  );
+}
+
+.game-card-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.75rem, 0.625rem + 3.9cqi, 1.75rem);
+  font-weight: var(--weight-bold);
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ---------- Description panel: a notch at the top between the two stats ---------- */
+
+.game-card-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2cqi;
+  /* Same height on every card; it grows only if the text needs it (larger text settings) */
+  min-block-size: 46cqi;
+  /* Room for the lower half of the stat badges, which grow with a larger text setting */
+  padding: max(10cqi, calc(var(--_stat-font) * 0.95 + 2.5cqi)) 5cqi 2.5cqi;
+}
+
+.game-card-panel::before {
+  clip-path: polygon(
+    0 0,
+    var(--_notch-x) 0,
+    calc(var(--_notch-x) + var(--_notch-d)) var(--_notch-d),
+    calc(100% - var(--_notch-x) - var(--_notch-d)) var(--_notch-d),
+    calc(100% - var(--_notch-x)) 0,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* Outer shape, back to the start, then the inner shape: the short bridge between them is crossed twice, so evenodd leaves it empty */
+.game-card-panel::after {
+  background: linear-gradient(45deg, var(--_from) 20%, var(--_mid), var(--_to) 80%);
+  clip-path: polygon(
+    evenodd,
+    0 0,
+    var(--_notch-x) 0,
+    calc(var(--_notch-x) + var(--_notch-d)) var(--_notch-d),
+    calc(100% - var(--_notch-x) - var(--_notch-d)) var(--_notch-d),
+    calc(100% - var(--_notch-x)) 0,
+    100% 0,
+    100% 100%,
+    0 100%,
+    0 0,
+    var(--_bw) var(--_bw),
+    calc(var(--_bw) + var(--_notch-x-in)) var(--_bw),
+    calc(var(--_bw) + var(--_notch-x-in) + var(--_notch-d)) calc(var(--_bw) + var(--_notch-d)),
+    calc(100% - var(--_bw) - var(--_notch-x-in) - var(--_notch-d)) calc(var(--_bw) + var(--_notch-d)),
+    calc(100% - var(--_bw) - var(--_notch-x-in)) var(--_bw),
+    calc(100% - var(--_bw)) var(--_bw),
+    calc(100% - var(--_bw)) calc(100% - var(--_bw)),
+    var(--_bw) calc(100% - var(--_bw)),
+    var(--_bw) var(--_bw)
+  );
+}
+
+.game-card-text {
+  margin: 0;
+  font-size: clamp(0.75rem, 0.5rem + 1.9cqi, 1.25rem);
+  line-height: 1.4;
+}
+
+.game-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.3em 0.6em;
+  font-size: clamp(0.625rem, 0.375rem + 1.7cqi, 0.875rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.game-card-meta p {
+  margin: 0;
+}
+
+.game-card-faction {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  white-space: nowrap;
+}
+
+/* Faction name and stat labels: shown with the text labels setting (below), otherwise for screen readers only */
+.game-card-faction-name,
+.game-card-stat-label {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.game-card-faction-icon {
+  display: block;
+  flex: none;
+  inline-size: 1.8em;
+  block-size: 1.8em;
+}
+
+.game-card-rarity {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  white-space: nowrap;
+}
+
+/* Stays on the right also when it wraps under the faction name (text labels on a long faction name) */
+.game-card-meta .game-card-rarity {
+  margin-inline-start: auto;
+}
+
+/* Pips: filled up to the rarity, from 1 (Captive) to 6 (Wanderer) */
+.game-card-pips {
+  display: flex;
+  gap: 0.25em;
+}
+
+.game-card-pip {
+  inline-size: 0.5em;
+  block-size: 0.5em;
+  rotate: 45deg;
+  border: max(1px, 0.3cqi) solid color-mix(in oklch, var(--color-text) 45%, transparent);
+}
+
+.game-card-pip[data-on] {
+  border-color: var(--_from);
+  background: var(--_from);
+}
+
+/* ---------- Stats: hexagonal badges astride the top edge of the panel ---------- */
+
+.game-card-stat {
+  --_stat-color: var(--color-text);
+  /* In em: the badge grows with its number */
+  --_stat-h: 1.9em;
+  --_stat-cut: calc(var(--_stat-h) / 2);
+  --_stat-cut-in: calc(var(--_stat-cut) - var(--_bw) * 0.586);
+  --_stat-tip-in: calc(var(--_bw) * 0.414);
+
+  position: absolute;
+  inset-block-start: 0;
+  translate: 0 -50%;
+  display: flex;
+  align-items: center;
+  gap: 0.15em;
+  min-inline-size: 2.9em;
+  block-size: var(--_stat-h);
+  margin: 0;
+  padding: 0 0.75em;
+  justify-content: center;
+  font-size: var(--_stat-font);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  filter: drop-shadow(0 0 1.5cqi var(--_stat-color));
+}
+
+.game-card-stat::before {
+  background: color-mix(in oklch, var(--_stat-color) 22%, hsl(250deg 60% 6% / 0.85));
+  /* A filtered element is its own backdrop root: blur would not reach the art */
+  backdrop-filter: none;
+  clip-path: polygon(0 50%, var(--_stat-cut) 0, calc(100% - var(--_stat-cut)) 0, 100% 50%, calc(100% - var(--_stat-cut)) 100%, var(--_stat-cut) 100%);
+}
+
+.game-card-stat::after {
+  background: var(--_stat-color);
+  clip-path: polygon(
+    evenodd,
+    0 50%,
+    var(--_stat-cut) 0,
+    calc(100% - var(--_stat-cut)) 0,
+    100% 50%,
+    calc(100% - var(--_stat-cut)) 100%,
+    var(--_stat-cut) 100%,
+    0 50%,
+    calc(var(--_bw) + var(--_stat-tip-in)) 50%,
+    calc(var(--_bw) + var(--_stat-cut-in)) calc(100% - var(--_bw)),
+    calc(100% - var(--_bw) - var(--_stat-cut-in)) calc(100% - var(--_bw)),
+    calc(100% - var(--_bw) - var(--_stat-tip-in)) 50%,
+    calc(100% - var(--_bw) - var(--_stat-cut-in)) var(--_bw),
+    calc(var(--_bw) + var(--_stat-cut-in)) var(--_bw),
+    calc(var(--_bw) + var(--_stat-tip-in)) 50%
+  );
+}
+
+.game-card-defense {
+  --_stat-color: var(--color-void-cold);
+  inset-inline-start: 0;
+}
+
+.game-card-attack {
+  --_stat-color: var(--color-void-warm);
+  inset-inline-end: 0;
+}
+
+.game-card-stat-icon {
+  inline-size: 1em;
+  block-size: 1em;
+  flex: none;
+}
+
+/* ---------- Small cards (deck lists, pack contents): below 200px the text would be unreadable ---------- */
+
+/* Description and rarity name stay for screen readers; pips, stats and faction icon stay visible */
+@container (inline-size < 200px) {
+  .game-card-text,
+  .game-card-rarity > span:first-child {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .game-card-panel {
+    min-block-size: 22cqi;
+    justify-content: flex-end;
+  }
+
+  /* Pips and faction icon a step larger: they replace the rarity name */
+  .game-card-meta {
+    font-size: clamp(0.75rem, 0.5rem + 2.4cqi, 1rem);
+  }
+}
+
+/* ---------- Accessibility ---------- */
+
+/* Reduce transparency: opaque boxes, no blur. Setting on the root (profile settings), or the system preference where supported */
+:root[data-transparency='reduced'] .game-card-face {
+  --_glass: var(--color-bg);
+  --_blur: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root:not([data-transparency='full']) .game-card-face {
+    --_glass: var(--color-bg);
+    --_blur: none;
+  }
+}
+
+/*
+ * Show text labels (profile settings): what colors and icons say is also written. Faction name beside its icon,
+ * ATK and DEF beside the numbers (not on small cards: no room). The rarity name is always written; on small cards it comes back
+ * with this setting, in place of the pips.
+ */
+:root[data-labels='text'] :is(.game-card-faction-name, .game-card-stat-label) {
+  position: static;
+  inline-size: auto;
+  block-size: auto;
+  overflow: visible;
+  clip-path: none;
+}
+
+:root[data-labels='text'] .game-card-stat-label {
+  font-size: 0.6em;
+  letter-spacing: 0.06em;
+}
+
+@container (inline-size < 200px) {
+  :root[data-labels='text'] .game-card-rarity > span:first-child {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    overflow: visible;
+    clip-path: none;
+  }
+
+  :root[data-labels='text'] .game-card-pips {
+    display: none;
+  }
+
+  :root[data-labels='text'] .game-card-meta .game-card-rarity {
+    margin-inline-start: 0;
+  }
+
+  /* No room for ATK and DEF beside the numbers: the two badges would touch */
+  :root[data-labels='text'] .game-card-stat-label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  /* Faction and rarity names one under the other: side by side they would not fit */
+  :root[data-labels='text'] .game-card-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3em;
+    font-size: clamp(0.625rem, 0.375rem + 1.7cqi, 0.875rem);
+  }
+}
+
+/* No backdrop blur in the browser: a more opaque glass */
+@supports not (backdrop-filter: blur(1px)) {
+  .game-card-face {
+    --_glass: hsl(250deg 60% 6% / 0.9);
+  }
+}
+
+/* High contrast mode: system colors, borders kept, no glow */
+@media (forced-colors: active) {
+  .game-card-face {
+    --_glass: Canvas;
+    --_from: CanvasText;
+    --_mid: CanvasText;
+    --_to: CanvasText;
+  }
+
+  [data-rank] .game-card-frame,
+  .game-card-stat {
+    filter: none;
+  }
+
+  .game-card-frame path {
+    stroke: CanvasText;
+  }
+
+  /* FactionIcon sets its color inline */
+  .game-card-faction {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+
+  /* Faction name and stat labels: shown with the text labels setting (below), otherwise for screen readers only */
+  .game-card-faction-name,
+  .game-card-stat-label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .game-card-faction-icon {
+    color: CanvasText !important;
+  }
+
+  .game-card-stat {
+    --_stat-color: CanvasText;
+  }
+
+  .game-card-pip {
+    border-color: CanvasText;
+  }
+
+  .game-card-pip[data-on] {
+    background: CanvasText;
+  }
+}
+
+/* ---------- Back: after the design mockup. Border: primary panel gradient. No glows: flat lines and stars ---------- */
+
+.game-card-back {
+  --_from: var(--color-accent);
+  --_to: var(--color-accent-end);
+  --_line: color-mix(in oklch, var(--color-accent-end) 45%, transparent);
+
+  display: block;
+  padding: 0;
+}
+
+/* Plain deep space: the stars are an SVG layer (CardBack.tsx) */
+.game-card-back .game-card-art {
+  background: var(--color-bg);
+}
+
+.game-card-back-stars {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.game-card-back-stars [data-tone='indigo'] {
+  --_tone: var(--color-space-indigo);
+}
+
+.game-card-back-stars [data-tone='violet'] {
+  --_tone: var(--color-space-violet);
+}
+
+.game-card-back-stars [data-tone='purple'] {
+  --_tone: var(--color-space-purple);
+}
+
+.game-card-back-halo {
+  stop-color: var(--_tone);
+  stop-opacity: 0.5;
+}
+
+.game-card-back-star {
+  fill: var(--color-star);
+}
+
+.game-card-back-star-colored {
+  fill: var(--_tone);
+}
+
+/* Orbits around the symbol */
+.game-card-back-orbits {
+  position: absolute;
+  inset-inline: 6cqi;
+  inset-block-start: calc(43% - 44cqi);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, transparent 0 25cqi, var(--_line) 25cqi calc(25cqi + var(--_bw) / 2), transparent 0),
+    radial-gradient(circle, transparent 0 33cqi, var(--_line) 33cqi calc(33cqi + var(--_bw) / 2), transparent 0),
+    radial-gradient(circle, transparent 0 41cqi, var(--_line) 41cqi calc(41cqi + var(--_bw) / 2), transparent 0);
+}
+
+/* Crosshair: only between the inner and the outer orbit, so it never crosses the Void */
+.game-card-back-orbits::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(var(--_line), var(--_line)) center / calc(var(--_bw) / 2) 100% no-repeat,
+    linear-gradient(var(--_line), var(--_line)) center / 100% calc(var(--_bw) / 2) no-repeat;
+  mask: radial-gradient(circle, transparent 0 25cqi, #000 25cqi 41.5cqi, transparent 41.5cqi);
+}
+
+/* Dots where the crosshair meets the orbits */
+.game-card-back-orbits::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 0.8cqi at 50% 3.4%, var(--color-text), transparent), radial-gradient(circle 0.8cqi at 50% 96.6%, var(--color-void-cold), transparent),
+    radial-gradient(circle 0.8cqi at 3.4% 50%, var(--color-text), transparent), radial-gradient(circle 0.8cqi at 96.6% 50%, var(--color-text), transparent),
+    radial-gradient(circle 0.6cqi at 50% 21.6%, var(--color-text), transparent), radial-gradient(circle 0.6cqi at 50% 78.4%, var(--color-text), transparent),
+    radial-gradient(circle 0.6cqi at 21.6% 50%, var(--color-text), transparent), radial-gradient(circle 0.6cqi at 78.4% 50%, var(--color-text), transparent);
+}
+
+/* Thin inner frame, following the cut corners */
+.game-card-back-inner {
+  position: absolute;
+  inset: 3cqi;
+  background: var(--_line);
+  clip-path: polygon(
+    evenodd,
+    0 var(--_cut),
+    var(--_cut) 0,
+    calc(100% - var(--_cut)) 0,
+    100% var(--_cut),
+    100% calc(100% - var(--_cut)),
+    calc(100% - var(--_cut)) 100%,
+    var(--_cut) 100%,
+    0 calc(100% - var(--_cut)),
+    0 var(--_cut),
+    1px var(--_cut),
+    1px calc(100% - var(--_cut)),
+    calc(var(--_cut) + 0.4px) calc(100% - 1px),
+    calc(100% - var(--_cut) - 0.4px) calc(100% - 1px),
+    calc(100% - 1px) calc(100% - var(--_cut)),
+    calc(100% - 1px) var(--_cut),
+    calc(100% - var(--_cut) - 0.4px) 1px,
+    calc(var(--_cut) + 0.4px) 1px,
+    1px var(--_cut)
+  );
+}
+
+/* Four-point stars */
+.game-card-back-sparkle {
+  position: absolute;
+  inline-size: 7cqi;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background: linear-gradient(var(--color-text), var(--color-accent-end));
+  clip-path: polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%);
+}
+
+.game-card-back-sparkle[data-place='top-start'] {
+  inset: 9cqi auto auto 9cqi;
+}
+
+.game-card-back-sparkle[data-place='top'] {
+  inset: 9cqi auto auto 50%;
+}
+
+.game-card-back-sparkle[data-place='top-end'] {
+  inset: 9cqi auto auto 91cqi;
+}
+
+.game-card-back-sparkle[data-place='bottom-start'] {
+  inset: calc(100% - 9cqi) auto auto 9cqi;
+}
+
+.game-card-back-sparkle[data-place='bottom'] {
+  inset: calc(100% - 9cqi) auto auto 50%;
+}
+
+.game-card-back-sparkle[data-place='bottom-end'] {
+  inset: calc(100% - 9cqi) auto auto 91cqi;
+}
+
+.game-card-back-sparkle:is([data-place='top'], [data-place='bottom']) {
+  inline-size: 5cqi;
+}
+
+.game-card-back-symbol {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 43%;
+  inline-size: 62cqi;
+  block-size: auto;
+  translate: -50% -50%;
+}
+
+/* Wordmark: the logo SVG as a mask, filled with a pale violet */
+.game-card-back-wordmark {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 84%;
+  inline-size: 58cqi;
+  aspect-ratio: 2944 / 512;
+  translate: -50% -50%;
+  background: color-mix(in oklch, var(--color-text) 85%, var(--color-accent-end));
+  mask: var(--logo-wordmark) center / contain no-repeat;
+}
+
+@media (forced-colors: active) {
+  .game-card-back-wordmark,
+  .game-card-back-sparkle {
+    background: CanvasText;
+  }
+}
+
+/* ---------- Flip: back and front on the same spot; the card turns on its vertical axis ---------- */
+
+.game-card-flip {
+  perspective: 150rem;
+}
+
+.game-card-flip-inner {
+  display: grid;
+  transform-style: preserve-3d;
+  transition: rotate var(--duration-slow) var(--ease-out);
+}
+
+.game-card-flip-side {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+}
+
+.game-card-flip-front {
+  rotate: y 180deg;
+}
+
+.game-card-flip[data-revealed] .game-card-flip-inner {
+  rotate: y 180deg;
+}
+
+/* Reduced motion: no turn, the front fades in */
+@media (prefers-reduced-motion: reduce) {
+  .game-card-flip-inner,
+  .game-card-flip[data-revealed] .game-card-flip-inner,
+  .game-card-flip-front {
+    rotate: none;
+  }
+
+  .game-card-flip-side {
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
+
+  .game-card-flip-front,
+  .game-card-flip[data-revealed] .game-card-flip-back {
+    opacity: 0;
+  }
+
+  .game-card-flip[data-revealed] .game-card-flip-front {
+    opacity: 1;
+  }
+}

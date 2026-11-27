@@ -4,6 +4,17 @@
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: auto 1fr;
   min-height: 100dvh;
+
+  /* A quiet starfield with the Void's warm and cold rims at the edges of the screen. */
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-bg) 82%, transparent) 35% 65%, transparent),
+    radial-gradient(ellipse clamp(9rem, 25vw, 26rem) clamp(12rem, 36vw, 34rem) at -6% 35%, transparent 97%, color-mix(in srgb, var(--color-void-warm) 38%, transparent) 99%, transparent),
+    radial-gradient(ellipse clamp(9rem, 23vw, 24rem) clamp(12rem, 32vw, 32rem) at 106% 62%, transparent 97%, color-mix(in srgb, var(--color-void-cold) 28%, transparent) 99%, transparent),
+    radial-gradient(ellipse at 4% 30%, color-mix(in srgb, var(--color-space-purple) 30%, transparent), transparent 47%),
+    radial-gradient(ellipse at 96% 65%, color-mix(in srgb, var(--color-space-indigo) 25%, transparent), transparent 46%),
+    radial-gradient(circle at 28% 37%, color-mix(in srgb, var(--color-star) 52%, transparent) 0.75px, transparent 1.5px) 0 0 / 13rem 11rem,
+    radial-gradient(circle at 72% 61%, color-mix(in srgb, var(--color-star) 34%, transparent) 0.6px, transparent 1.3px) 0 0 / 19rem 17rem,
+    var(--color-bg);
 }
 
 /* The screen centers itself in the free height (margin: auto in AuthScreen); taller screens start at the top and scroll */

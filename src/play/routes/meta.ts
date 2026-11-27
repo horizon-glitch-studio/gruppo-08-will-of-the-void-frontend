@@ -11,6 +11,8 @@ export interface PageMeta {
   parent?: PageMeta
   /** The hub: no visible heading, no back link, no bottom navigation. */
   isHub?: boolean
+  /** Reading page (profile, settings): heading and content in one centered column of 48rem. */
+  narrow?: boolean
   /** Full-screen content (the story): minimal top bar, no visible heading or back link (the page has its own) and no bottom navigation, to leave the height to the content. */
   immersive?: boolean
 }
@@ -23,7 +25,7 @@ const decks: PageMeta = { title: 'Decks', path: paths.decks, parent: hub }
 const trades: PageMeta = { title: 'Trades', path: paths.trades, parent: hub }
 const arena: PageMeta = { title: 'Arena', path: paths.arena, parent: hub }
 const battle: PageMeta = { title: 'Battle', path: (params) => paths.battle(params.battleId ?? ''), parent: arena }
-const profile: PageMeta = { title: 'Profile', path: paths.profile, parent: hub }
+const profile: PageMeta = { title: 'Profile', path: paths.profile, parent: hub, narrow: true }
 const community: PageMeta = { title: 'Community', path: paths.community, parent: hub }
 
 /** Every screen of the platform, in the order of the router. */
@@ -53,7 +55,7 @@ export const meta = {
   friends: { title: 'Friends', parent: profile },
   community,
   summoner: { title: 'Summoner', parent: community },
-  settings: { title: 'Settings', parent: hub },
+  settings: { title: 'Settings', parent: hub, narrow: true },
   story: { title: 'Story', parent: hub, immersive: true },
   tutorial: { title: 'Tutorial', path: paths.tutorial, parent: hub },
   notFound: { title: 'Page not found', parent: hub },

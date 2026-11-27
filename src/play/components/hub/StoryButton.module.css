@@ -8,10 +8,15 @@
 }
 
 .button:hover {
-  --_glow: 14px;
-  --_glow-strength: 70%;
-
   color: var(--color-text);
+}
+
+/* Only with a mouse or trackpad: on touch screens :hover stays on the last element tapped, so the glow would stay lit */
+@media (hover: hover) {
+  .button:hover {
+    --_glow: 14px;
+    --_glow-strength: 70%;
+  }
 }
 
 .button:focus-visible {
