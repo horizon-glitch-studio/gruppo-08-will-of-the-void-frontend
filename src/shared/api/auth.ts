@@ -1,4 +1,4 @@
-import { apiRequest, revokeSession, setSession, type Tokens } from './client'
+import { apiRequest, replaceSessionTokens, revokeSession, setSession, type Tokens } from './client'
 
 export type PlayerRole = 'USER' | 'ADMIN'
 
@@ -49,6 +49,18 @@ export const authService = {
     return result
   },
   logout: revokeSession,
+  /**
+   * Logs in again on this device, inside the same session: after a password change, which revokes every refresh token.
+   * The pages stay open. If the login fails, the session ends and the player logs in with the new password.
+   */
+  async renewSession(identifier: string, password: string) {
+    try {
+      replaceSessionTokens(await apiRequest<LoginResult>('/auth/login', { method: 'POST', json: { identifier, password } }))
+    } catch (error) {
+      setSession(null)
+      throw error
+    }
+  },
   register: (json: Registration) => apiRequest<Registered>('/auth/register', { method: 'POST', json }),
   verifyEmail: (token: string) => apiRequest<void>('/auth/verify-email', { method: 'POST', json: { token } }),
   resendVerification: () => apiRequest<void>('/auth/resend-verification', { method: 'POST', authenticated: true }),
