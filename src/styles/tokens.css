@@ -79,7 +79,7 @@
   --color-arena: var(--purple-400); /* 4.4:1 on the background: icons and glows, not small text */
   --color-ship: var(--magenta-400);
 
-  /* Factions accent. Gradients stay with the card styles */
+  /* Factions accent */
   --color-lava: hsl(20deg 100% 60%); /* #ff7733 */
   --color-electro: hsl(60deg 100% 60%); /* #ffff33 */
   --color-radio: hsl(90deg 100% 60%); /* #99ff33 */
@@ -88,6 +88,22 @@
   --color-matte: hsl(250deg 40% 65%); /* #8e82c9 */
   --color-gem: var(--magenta-200);
   --color-noble-gas: hsl(45deg 100% 80%); /* #ffe699 */
+
+  /*
+   * Card border gradients: from the faction color to its -end color, solid until 20% and from 80%.
+   * Rules: the four bright factions turn the hue by -20 (Electro -10); Metal +20 lightness; Matte -20 saturation and lightness;
+   * the two inert factions (Gem, Noble Gas) pass through white in the middle.
+   */
+  --color-lava-end: hsl(0deg 100% 60%);
+  --color-electro-end: hsl(50deg 100% 60%);
+  --color-radio-end: hsl(70deg 100% 60%);
+  --color-ice-end: hsl(160deg 100% 60%);
+  --color-metal-end: hsl(215deg 10% 85%);
+  --color-matte-end: hsl(250deg 20% 45%);
+  --color-gem-mid: hsl(0deg 0% 100%);
+  --color-gem-end: hsl(280deg 100% 80%);
+  --color-noble-gas-mid: hsl(0deg 0% 100%);
+  --color-noble-gas-end: hsl(50deg 50% 70%);
 
   /* Space scene of the hub: stars, nebula, planets and the Void */
   --color-star: var(--indigo-50);
