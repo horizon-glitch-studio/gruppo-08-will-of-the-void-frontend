@@ -1,8 +1,7 @@
-import { ArrowLeftIcon } from '@phosphor-icons/react'
 import { useEffect, useRef, type FormEvent } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import type { Registration } from '@/shared/api/auth'
-import { Button } from '@/shared/components/Button'
+import { Button, ButtonLink } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { Field } from '@/shared/components/Field'
 import { TimeZoneOptions } from '@/shared/components/TimeZoneOptions'
@@ -22,7 +21,7 @@ interface PlayerRegistrationFormProps {
 
 /** Renders the player registration form and its success confirmation. */
 export function PlayerRegistrationForm({ register, pending, errorMessage, fieldErrors, success }: PlayerRegistrationFormProps) {
-  const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
+  const { formRef, feedbackRef } = useFormErrorFocus({ pending, errorMessage, fieldErrors, focusFeedback: success })
   const [searchParams] = useSearchParams()
   const inviteInput = useRef<HTMLInputElement>(null)
   const enteringInvite = searchParams.has('invite')
@@ -46,18 +45,16 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
   }
 
   return (
-    <AuthScreen
-      title={success ? 'Account created' : 'Create account'}
-      backLink={
-        // A plain link, like the way back of the story: less weight than the primary action of the form
-        <Link to={paths.login} className="row gap-3xs">
-          <ArrowLeftIcon size={16} weight="bold" aria-hidden="true" />
-          Back to log in
-        </Link>
-      }
-    >
+    <AuthScreen title={success ? 'Account created' : 'Create account'} backToLogin={!success}>
       {success ? (
-        <output>Check your inbox for the verification email. You can log in now.</output>
+        <>
+          <output ref={feedbackRef} tabIndex={-1}>
+            Check your inbox for the verification email. You can log in now.
+          </output>
+          <ButtonLink className={screenStyles.submit} to={paths.login}>
+            Return to log in
+          </ButtonLink>
+        </>
       ) : (
         <form ref={formRef} className="column gap-s" onSubmit={submit}>
           <Field

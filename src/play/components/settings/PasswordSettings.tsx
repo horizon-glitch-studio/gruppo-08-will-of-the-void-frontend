@@ -20,7 +20,7 @@ export function PasswordSettings() {
     await usersService.changePassword(currentPassword, newPassword).catch(wrongPasswordAsFieldError('currentPassword'))
     await authService.renewSession(user.username, newPassword)
   })
-  const formRef = useFormErrorFocus(change)
+  const { formRef } = useFormErrorFocus(change)
   const hintId = useId()
 
   // A saved password leaves the form: the fields empty out

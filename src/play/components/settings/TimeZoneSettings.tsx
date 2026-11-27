@@ -34,7 +34,7 @@ export function TimeZoneSettings() {
     setSavedZone(updated.timezone)
     await reload().catch(() => undefined)
   })
-  const formRef = useFormErrorFocus(save)
+  const { formRef } = useFormErrorFocus(save)
   const hintId = useId()
   const time = timeIn(zone)
 

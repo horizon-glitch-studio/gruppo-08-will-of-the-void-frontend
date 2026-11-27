@@ -12,10 +12,5 @@ export function AuthRegisterPage() {
     return registered
   })
 
-  return (
-    <>
-      <title>Create account – Will of the Void</title>
-      <PlayerRegistrationForm register={run} pending={pending} errorMessage={errorMessage} fieldErrors={fieldErrors} success={success} />
-    </>
-  )
+  return <PlayerRegistrationForm register={run} pending={pending} errorMessage={errorMessage} fieldErrors={fieldErrors} success={success} />
 }

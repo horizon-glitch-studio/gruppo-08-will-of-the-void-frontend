@@ -56,7 +56,7 @@ function DeleteAccountModal({ open, onClose }: { open: boolean; onClose: () => v
     await usersService.deleteAccount(password).catch(wrongPasswordAsFieldError('password'))
     window.location.replace('/')
   })
-  const formRef = useFormErrorFocus(remove)
+  const { formRef } = useFormErrorFocus(remove)
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

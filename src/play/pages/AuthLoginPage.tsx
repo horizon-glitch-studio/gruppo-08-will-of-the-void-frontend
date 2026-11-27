@@ -6,10 +6,5 @@ import { PlayerLoginForm } from '../components/PlayerLoginForm'
 export function AuthLoginPage() {
   const { login, pending, errorMessage, fieldErrors } = useLogin(undefined, paths.story(1))
 
-  return (
-    <>
-      <title>Log in – Will of the Void</title>
-      <PlayerLoginForm login={login} pending={pending} errorMessage={errorMessage} fieldErrors={fieldErrors} />
-    </>
-  )
+  return <PlayerLoginForm login={login} pending={pending} errorMessage={errorMessage} fieldErrors={fieldErrors} />
 }
