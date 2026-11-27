@@ -11,10 +11,11 @@ interface AuthScreenProps {
   children: ReactNode
 }
 
-/** Centers an account-access screen and renders its heading and optional return link. */
+/** Centers an account-access screen and renders its heading, browser tab title and optional return link. */
 export function AuthScreen({ title, subtitle, backToLogin, children }: AuthScreenProps) {
   return (
     <section className={`column gap-s ${styles.screen}`}>
+      <title>{`${title} – Will of the Void`}</title>
       {backToLogin && (
         <header className="row">
           <Link to={paths.login} className="row gap-3xs">

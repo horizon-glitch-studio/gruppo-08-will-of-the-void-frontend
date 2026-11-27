@@ -12,7 +12,6 @@ import { paths } from '../routes/paths'
 /** Requests a reset link without revealing whether the email belongs to an account. */
 export function AuthForgotPasswordPage() {
   const { run, pending, errorMessage, fieldErrors, success } = useApiAction(authService.forgotPassword)
-  const title = success ? 'Check your inbox' : 'Reset your password'
   const { formRef, feedbackRef } = useFormErrorFocus({ pending, errorMessage, fieldErrors, focusFeedback: success })
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -22,28 +21,25 @@ export function AuthForgotPasswordPage() {
   }
 
   return (
-    <>
-      <title>{`${title} – Will of the Void`}</title>
-      <AuthScreen title={title} backToLogin={!success}>
-        {success ? (
-          <>
-            <output ref={feedbackRef} tabIndex={-1}>
-              If this email belongs to an account, a reset link has been sent. Check your spam folder too.
-            </output>
-            <ButtonLink className={styles.submit} to={paths.login}>
-              Return to log in
-            </ButtonLink>
-          </>
-        ) : (
-          <form ref={formRef} className="column gap-s" onSubmit={submit}>
-            <Field name="email" label="Email" placeholder="name@example.com" type="email" autoComplete="email" autoCapitalize="none" maxLength={255} required error={fieldErrors.email} />
-            {errorMessage && <ErrorBox message={errorMessage} />}
-            <Button className={styles.submit} variant="primary" type="submit" disabled={pending}>
-              {pending ? 'Sending…' : 'Send reset link'}
-            </Button>
-          </form>
-        )}
-      </AuthScreen>
-    </>
+    <AuthScreen title={success ? 'Check your inbox' : 'Reset your password'} backToLogin={!success}>
+      {success ? (
+        <>
+          <output ref={feedbackRef} tabIndex={-1}>
+            If this email belongs to an account, a reset link has been sent. Check your spam folder too.
+          </output>
+          <ButtonLink className={styles.submit} to={paths.login}>
+            Return to log in
+          </ButtonLink>
+        </>
+      ) : (
+        <form ref={formRef} className="column gap-s" onSubmit={submit}>
+          <Field name="email" label="Email" placeholder="name@example.com" type="email" autoComplete="email" autoCapitalize="none" maxLength={255} required error={fieldErrors.email} />
+          {errorMessage && <ErrorBox message={errorMessage} />}
+          <Button className={styles.submit} variant="primary" type="submit" disabled={pending}>
+            {pending ? 'Sending…' : 'Send reset link'}
+          </Button>
+        </form>
+      )}
+    </AuthScreen>
   )
 }

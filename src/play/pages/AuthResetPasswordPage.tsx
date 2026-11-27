@@ -15,17 +15,13 @@ export function AuthResetPasswordPage() {
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')?.trim() ?? ''
 
-  return (
-    <>
-      <title>Choose a new password – Will of the Void</title>
-      <ResetPasswordScreen key={token} token={token} />
-    </>
-  )
+  return <ResetPasswordScreen key={token} token={token} />
 }
 
 function ResetPasswordScreen({ token }: { token: string }) {
   const { run, pending, errorCode, errorMessage, fieldErrors, success } = useApiAction(authService.resetPassword)
   const invalidToken = errorCode === 'ACTION_TOKEN_INVALID'
+  const title = success ? 'Password updated' : invalidToken ? 'Reset link expired' : token ? 'Choose a new password' : 'Reset link incomplete'
   const { formRef, feedbackRef } = useFormErrorFocus({ pending, errorMessage, fieldErrors, focusFeedback: success || invalidToken })
 
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -35,7 +31,7 @@ function ResetPasswordScreen({ token }: { token: string }) {
   }
 
   return (
-    <AuthScreen title={success ? 'Password updated' : 'Choose a new password'} backToLogin={!success}>
+    <AuthScreen title={title} backToLogin={!success}>
       {success ? (
         <>
           <output ref={feedbackRef} tabIndex={-1}>
