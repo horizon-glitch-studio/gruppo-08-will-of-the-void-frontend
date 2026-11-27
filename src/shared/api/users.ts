@@ -1,13 +1,24 @@
 import type { PlayerRole } from './auth'
 import { apiRequest, setSession } from './client'
+import type { Orbit } from '@/shared/orbits'
 
-interface PublicProfile {
+/** Battle record. winRate is a percentage with one decimal (wins / matches played × 100), 0 without battles. */
+export interface BattleStats {
+  matchesPlayed: number
+  wins: number
+  losses: number
+  draws: number
+  winRate: number
+}
+
+export interface PublicProfile {
   id: number
   username: string
+  /** Key of a preset avatar (avatar_07), null when none is chosen. */
   avatar: string | null
   trophies: number
-  league: string
-  stats: { matchesPlayed: number; wins: number; losses: number; draws: number; winRate: number }
+  league: Orbit
+  stats: BattleStats
   createdAt: string
 }
 

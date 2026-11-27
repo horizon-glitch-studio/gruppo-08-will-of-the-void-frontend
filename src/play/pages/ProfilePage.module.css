@@ -1,0 +1,163 @@
+.identityRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+/* Name and details next to the avatar, or under it when the text is very large */
+.identityRow > div {
+  flex: 1 1 12em;
+  min-width: 0;
+}
+
+/* Initial of the username in a circle, until the preset avatars have images */
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  inline-size: 4.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-end));
+  color: var(--color-text);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-bold);
+}
+
+.name {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-h3);
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin: 0;
+  font-weight: var(--weight-semibold);
+}
+
+.since,
+.hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.protected {
+  flex-wrap: nowrap;
+  align-items: start;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* The shield stays on the first line of the text */
+.protected > svg {
+  flex-shrink: 0;
+  margin-block-start: 0.15em;
+}
+
+/* Battle record: five numbers in a row on wide screens, three and two on most phones */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+.stats > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-3xs);
+  padding: var(--space-s);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+}
+
+.stats dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.stats dd {
+  align-items: center;
+  margin: 0;
+  font-size: var(--text-h4);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Icon or advantage sign before the number, in a fixed box so the numbers line up */
+.mark {
+  display: grid;
+  place-items: center;
+  inline-size: 1.25em;
+  color: var(--color-accent);
+  font-size: var(--text-base);
+  line-height: 1;
+}
+
+/* Account details: label above value on phones, side by side from 40rem */
+.details {
+  display: grid;
+  gap: var(--space-s);
+  margin: 0;
+}
+
+.details > div {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.details dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.details dd {
+  margin: 0;
+}
+
+@media (min-width: 40rem) {
+  .details > div {
+    grid-template-columns: 10rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+}
+
+.email {
+  overflow-wrap: anywhere;
+}
+
+/* Status in words, not only in color */
+.verified {
+  color: var(--color-success);
+}
+
+.unverified {
+  color: var(--color-text-muted);
+}
+
+/* A button inside the details keeps the width of its label */
+.inlineAction {
+  align-self: start;
+}
+
+.code {
+  padding: var(--space-3xs) var(--space-2xs);
+  border-radius: var(--radius-s);
+  background: var(--color-surface);
+  font-size: var(--text-base);
+  letter-spacing: 0.08em;
+  user-select: all;
+}
+
+.links {
+  flex-wrap: wrap;
+}
