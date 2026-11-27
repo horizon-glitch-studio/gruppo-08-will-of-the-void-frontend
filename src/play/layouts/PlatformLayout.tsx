@@ -2,6 +2,7 @@ import { Outlet } from 'react-router'
 import { BonusNotice } from '../components/BonusNotice'
 import { BottomNav } from '../components/BottomNav'
 import { PageHeader } from '../components/PageHeader'
+import { PreferencesSync } from '../components/PreferencesSync'
 import { TopBar } from '../components/TopBar'
 import { usePageMeta } from '../hooks/usePageMeta'
 import styles from './PlatformLayout.module.css'
@@ -15,7 +16,8 @@ export function PlatformLayout() {
   const isHub = meta?.isHub ?? false
 
   return (
-    <div className={styles.layout}>
+    <div className={styles.layout} data-narrow={meta?.narrow || undefined}>
+      <PreferencesSync />
       <a className="skip-link" href="#main">
         Skip to content
       </a>

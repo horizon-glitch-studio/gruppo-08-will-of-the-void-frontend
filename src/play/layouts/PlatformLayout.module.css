@@ -3,6 +3,8 @@
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   min-height: 100dvh;
+  /* One column as wide as the screen: a wide child scrolls inside its own box, never the whole page sideways */
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .main {
@@ -15,6 +17,13 @@
  */
 .main[data-hub] {
   padding: 0 0 var(--space-s);
+}
+
+/* Reading pages (profile, settings): heading and content in one centered column */
+.layout[data-narrow] .main > * {
+  inline-size: 100%;
+  max-inline-size: 48rem;
+  margin-inline: auto;
 }
 
 /* Immersive screens (the story): tighter spacing, the content takes the height */
