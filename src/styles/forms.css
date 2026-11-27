@@ -122,6 +122,33 @@
   translate: calc(var(--_width) - 2 * var(--border-width-field) - 2 * var(--_gap) - var(--_thumb)) 0;
 }
 
+/* Forced colors (Windows contrast themes) paint every background as Canvas: the thumb would vanish. System colors keep it visible */
+@media (forced-colors: active) {
+  :where(input[type='checkbox'][role='switch']) {
+    forced-color-adjust: none;
+    border-color: CanvasText;
+    background-color: Canvas;
+  }
+
+  :where(input[type='checkbox'][role='switch'])::before {
+    background-color: CanvasText;
+  }
+
+  :where(input[type='checkbox'][role='switch']):checked {
+    border-color: Highlight;
+    background-color: Highlight;
+  }
+
+  :where(input[type='checkbox'][role='switch']):checked::before {
+    background-color: HighlightText;
+  }
+
+  :where(input[type='checkbox'][role='switch']):focus-visible {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :where(input, select, textarea),
   :where(input[type='checkbox'][role='switch'])::before {

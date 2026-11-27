@@ -3,6 +3,8 @@
   display: grid;
   grid-template-rows: auto auto 1fr auto;
   min-height: 100dvh;
+  /* One column as wide as the screen: a wide child scrolls inside its own box, never the whole page sideways */
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .main {

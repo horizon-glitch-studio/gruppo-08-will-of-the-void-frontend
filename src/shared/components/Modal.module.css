@@ -1,13 +1,19 @@
-/* Native <dialog> without its default box: the Panel inside is the frame */
+/*
+ * Native <dialog> without its default box: the Panel inside is the frame.
+ * The dialog scrolls when the panel is taller than the screen (large text, phone in landscape): the padding leaves room
+ * for the panel glow, since a scrolling box clips at its padding edge.
+ */
 .modal {
-  width: min(32rem, 100% - 2 * var(--space-s));
-  max-height: calc(100dvh - 2 * var(--space-s));
+  width: min(32rem + 2 * var(--space-s), 100%);
+  max-width: none; /* the browser default (100% - 2em - 6px) grows with large text and squeezes the panel */
+  max-height: 100dvh;
   margin: auto; /* centered: the reset removes the default margin of <dialog> */
-  padding: 0;
+  padding: var(--space-s);
   border: 0;
   background: none;
   color: var(--color-text);
-  overflow: visible;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   opacity: 0;
   translate: 0 var(--space-s);
   transition:
@@ -47,10 +53,15 @@
 }
 
 .title {
+  flex: 1;
+  min-width: 0;
   font-size: var(--text-h3);
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .close {
+  flex-shrink: 0;
   display: grid;
   place-items: center;
   padding: var(--space-2xs);
