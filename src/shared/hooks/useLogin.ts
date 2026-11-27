@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { authService, type PlayerRole } from '@/shared/api/auth'
+import { rememberLoginBonuses } from '../loginBonuses'
 import { takeNewAccount } from '../newAccount'
 import { useApiAction } from './useApiAction'
 
@@ -25,6 +26,8 @@ export function useLogin(requiredRole?: PlayerRole, firstLoginTo?: string) {
       setRoleDenied(true)
       return
     }
+    // The player platform shows them (BonusNotice); the backoffice ignores them
+    if (!requiredRole) rememberLoginBonuses(result)
 
     const returnTo: unknown = state?.returnTo
     const target = typeof returnTo === 'string' && /^\/(?![/\\])/.test(returnTo) ? returnTo : '/'
