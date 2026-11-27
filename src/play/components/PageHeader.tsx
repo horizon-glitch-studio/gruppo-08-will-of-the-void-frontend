@@ -1,9 +1,11 @@
 import { ArrowLeftIcon } from '@phosphor-icons/react'
 import { Link } from 'react-router'
+import { usePageTitleOverride } from '../hooks/usePageTitle'
 import styles from './PageHeader.module.css'
 
 /** Props of {@link PageHeader}. */
 interface PageHeaderProps {
+  /** Title of the route meta. A page can replace it with its data (a card name) through usePageTitle. */
   title: string
   /** Screen that "back" leads to. No link when missing. */
   back?: { to: string; label: string }
@@ -12,7 +14,9 @@ interface PageHeaderProps {
 }
 
 /** Back link to the parent screen, page heading and browser tab title. */
-export function PageHeader({ title, back, hideTitle = false }: PageHeaderProps) {
+export function PageHeader({ title: metaTitle, back, hideTitle = false }: PageHeaderProps) {
+  const title = usePageTitleOverride() ?? metaTitle
+
   return (
     // Nothing visible (no back link, hidden title): take the header out of the layout, so it adds no gap
     <header className={hideTitle && !back ? 'visually-hidden' : styles.header}>

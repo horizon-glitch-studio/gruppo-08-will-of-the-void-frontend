@@ -1,11 +1,12 @@
-import { ArrowLeftIcon } from '@phosphor-icons/react'
 import { useEffect, useRef, type FormEvent } from 'react'
-import { Link, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import type { Registration } from '@/shared/api/auth'
-import { Button } from '@/shared/components/Button'
+import { Button, ButtonLink } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { Field } from '@/shared/components/Field'
+import { TimeZoneOptions } from '@/shared/components/TimeZoneOptions'
 import { useFormErrorFocus } from '@/shared/hooks/useFormErrorFocus'
+import { deviceTimeZone } from '@/shared/timeZones'
 import { paths } from '../routes/paths'
 import { AuthScreen } from './AuthScreen'
 import screenStyles from './AuthScreen.module.css'
@@ -18,12 +19,9 @@ interface PlayerRegistrationFormProps {
   success: boolean
 }
 
-const detectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
-const timeZones = [...new Set(['UTC', detectedTimeZone, ...(Intl.supportedValuesOf?.('timeZone') ?? [])])].sort()
-
 /** Renders the player registration form and its success confirmation. */
 export function PlayerRegistrationForm({ register, pending, errorMessage, fieldErrors, success }: PlayerRegistrationFormProps) {
-  const formRef = useFormErrorFocus({ pending, errorMessage, fieldErrors })
+  const { formRef, feedbackRef } = useFormErrorFocus({ pending, errorMessage, fieldErrors, focusFeedback: success })
   const [searchParams] = useSearchParams()
   const inviteInput = useRef<HTMLInputElement>(null)
   const enteringInvite = searchParams.has('invite')
@@ -47,18 +45,16 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
   }
 
   return (
-    <AuthScreen
-      title={success ? 'Account created' : 'Create account'}
-      backLink={
-        // A plain link, like the way back of the story: less weight than the primary action of the form
-        <Link to={paths.login} className="row gap-3xs">
-          <ArrowLeftIcon size={16} weight="bold" aria-hidden="true" />
-          Back to log in
-        </Link>
-      }
-    >
+    <AuthScreen title={success ? 'Account created' : 'Create account'} backToLogin={!success}>
       {success ? (
-        <output>Check your inbox for the verification email. You can log in now.</output>
+        <>
+          <output ref={feedbackRef} tabIndex={-1}>
+            Check your inbox for the verification email. You can log in now.
+          </output>
+          <ButtonLink className={screenStyles.submit} to={paths.login}>
+            Return to log in
+          </ButtonLink>
+        </>
       ) : (
         <form ref={formRef} className="column gap-s" onSubmit={submit}>
           <Field
@@ -75,12 +71,8 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
           />
           <Field name="email" label="Email" placeholder="name@example.com" type="email" autoComplete="email" maxLength={255} required error={fieldErrors.email} />
           <Field name="password" label="Password" placeholder="Create a password" type="password" autoComplete="new-password" minLength={8} maxLength={72} required error={fieldErrors.password} />
-          <Field as="select" name="timezone" label="Time zone" defaultValue={detectedTimeZone} error={fieldErrors.timezone}>
-            {timeZones.map((zone) => (
-              <option key={zone} value={zone}>
-                {zone}
-              </option>
-            ))}
+          <Field as="select" name="timezone" label="Time zone" defaultValue={deviceTimeZone} error={fieldErrors.timezone}>
+            <TimeZoneOptions />
           </Field>
           <Field name="inviteCode" label="Invite code · optional" placeholder="Enter the code" ref={inviteInput} error={fieldErrors.inviteCode} />
           <p>

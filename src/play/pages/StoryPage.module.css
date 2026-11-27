@@ -25,13 +25,19 @@
   font-weight: var(--weight-semibold);
 }
 
+/* Takes the height left under the links; its size tells the wide layout how big the image can be */
+.stageBox {
+  flex: 1;
+  min-height: 10rem;
+  container-type: size;
+}
+
 .stage {
   /* The image never grows wider than --_image-max. Wide screens: the text column keeps at least --_text */
   --_text: 20rem;
   --_image-max: 60rem;
 
-  flex: 1;
-  min-height: 10rem;
+  block-size: 100%;
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   gap: var(--space-s);
@@ -131,12 +137,13 @@
 
 /*
  * Wide window (5:4 or wider): image on the left, text on the right, side by side.
- * The text column keeps --_text; the image takes the rest, up to 4:3 and --_image-max.
+ * The text column keeps --_text; the image column is exactly as wide as the image: the width left by the text,
+ * at most 4:3 of the height and --_image-max. A wider column would leave empty space between image and text.
  */
 @media (min-aspect-ratio: 5/4) {
   .stage {
     grid-template-rows: none;
-    grid-template-columns: minmax(0, var(--_image-max)) var(--_text);
+    grid-template-columns: min(var(--_image-max), 100cqh * 4 / 3, 100cqw - var(--_text) - var(--space-l)) var(--_text);
     justify-content: center;
     align-items: center;
     gap: var(--space-l);

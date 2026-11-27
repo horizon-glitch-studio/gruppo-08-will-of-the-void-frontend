@@ -16,6 +16,7 @@ const messages: Record<string, string> = {
   DEFENSE_DECK_INVALID: 'This deck is not valid, so it cannot defend your Ship.',
   REPLAY_EXPIRED: 'This replay has expired.',
   VALIDATION_FAILED: 'Check the information you entered.',
+  TIMEZONE_CHANGE_TOO_SOON: 'You changed your time zone less than 30 days ago. Try again later.',
 }
 
 const fieldMessages: Record<string, string> = {
@@ -26,7 +27,11 @@ const fieldMessages: Record<string, string> = {
   USERNAME_INVALID_CHARACTERS: 'Use letters, numbers, and underscores.',
   PASSWORD_TOO_SHORT: 'Use at least 8 characters.',
   PASSWORD_TOO_LONG: 'Choose a shorter password.',
+  // Set by the frontend from INVALID_CREDENTIALS: wrongPasswordAsFieldError
+  PASSWORD_WRONG: 'This password is not correct.',
   QUANTITY_INVALID: 'Enter a quantity of at least 1.',
+  TIMEZONE_INVALID: 'Choose a time zone from the list.',
+  AVATAR_INVALID: 'Choose an avatar from the list.',
 }
 
 /** Returns displayable field feedback for structured validation errors. */
@@ -50,4 +55,15 @@ export function apiErrorMessage(error: unknown) {
   if (error.status === 404) return 'This item could not be found.'
   if (error.status >= 500) return 'The service is temporarily unavailable. Try again.'
   return 'The request could not be completed. Check your information and try again.'
+}
+
+/**
+ * The backend answers a wrong password with INVALID_CREDENTIALS, the login error, whose text speaks of username and email.
+ * In a form that asks only for the password (settings), it belongs to that field: use it in a .catch() of the request.
+ */
+export function wrongPasswordAsFieldError(field: string) {
+  return (error: unknown): never => {
+    if (error instanceof ApiError && error.code === 'INVALID_CREDENTIALS') throw new ApiError(401, { code: 'VALIDATION_FAILED', fieldErrors: [{ field, code: 'PASSWORD_WRONG' }] })
+    throw error
+  }
 }

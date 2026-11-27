@@ -1,0 +1,38 @@
+/* Always in the page, so screen readers notice the text; empty when there is nothing to show: a grid row of the layout with no height */
+.region {
+  display: block;
+}
+
+.region:not(:empty) {
+  padding-block-start: var(--space-s);
+}
+
+.row {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: var(--weight-semibold);
+}
+
+/* Icon button: the target stays 44px for touch */
+.close {
+  display: grid;
+  place-items: center;
+  min-inline-size: 44px;
+  min-block-size: 44px;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.close:hover {
+  color: var(--color-text);
+}

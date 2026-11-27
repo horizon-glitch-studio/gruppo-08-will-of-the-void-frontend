@@ -541,8 +541,11 @@
   transition: border-color var(--duration-base) var(--ease-out);
 }
 
-.round-button:hover:not(:disabled) {
-  border-color: var(--color-text);
+/* Hover effects only with a mouse or trackpad: on touch screens :hover stays on the last element tapped */
+@media (hover: hover) {
+  .round-button:hover:not(:disabled) {
+    border-color: var(--color-text);
+  }
 }
 
 .round-button:disabled {
@@ -668,9 +671,11 @@
     box-shadow var(--duration-base) var(--ease-out);
 }
 
-.faction-card:hover {
-  border-color: var(--_faction);
-  box-shadow: 0 0 12px color-mix(in srgb, var(--_faction) 40%, transparent);
+@media (hover: hover) {
+  .faction-card:hover {
+    border-color: var(--_faction);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--_faction) 40%, transparent);
+  }
 }
 
 .faction-card h3 {
@@ -929,8 +934,10 @@
     background-color var(--duration-base) var(--ease-out);
 }
 
-.versus-tile:hover {
-  border-color: var(--_faction);
+@media (hover: hover) {
+  .versus-tile:hover {
+    border-color: var(--_faction);
+  }
 }
 
 .versus-tile[aria-pressed='true'] {

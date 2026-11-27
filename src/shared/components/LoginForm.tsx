@@ -14,7 +14,7 @@ interface LoginFormProps {
 /** Displays the sign-in form and its validation feedback. */
 export function LoginForm({ login, pending, errorMessage, fieldErrors, roleDenied }: LoginFormProps) {
   const roleError = roleDenied ? 'An administrator account is required.' : undefined
-  const formRef = useFormErrorFocus({ pending, errorMessage: errorMessage ?? roleError, fieldErrors })
+  const { formRef } = useFormErrorFocus({ pending, errorMessage: errorMessage ?? roleError, fieldErrors })
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

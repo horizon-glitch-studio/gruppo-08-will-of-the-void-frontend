@@ -4,6 +4,7 @@
 }
 
 .bar {
+  container: top-bar / inline-size;
   position: sticky;
   inset-block-start: 0;
   z-index: var(--z-header);
@@ -45,6 +46,44 @@
 .end {
   flex-wrap: nowrap;
   margin-inline-start: auto;
+}
+
+/* Short screens (phone in landscape, large text): the bar scrolls away with the page, so the content keeps the height */
+@media (max-height: 28em) {
+  .bar {
+    position: relative;
+  }
+}
+
+/*
+ * Larger text or a narrow screen (iOS text zoom shrinks the viewport): Shards and Trophies move to a second line,
+ * under the menu and account buttons, instead of pushing the account button out of the bar.
+ * On one line the content needs about 18em (5-digit Shards); 21em adds the bar and panel padding. em follows the text size.
+ */
+@container top-bar (inline-size < 21em) {
+  .bar[data-variant='player'] .content {
+    flex-wrap: wrap;
+    row-gap: var(--space-2xs);
+  }
+
+  .bar[data-variant='player'] .end {
+    display: contents;
+  }
+
+  .bar[data-variant='player'] .end > .iconButton {
+    margin-inline-start: auto;
+  }
+
+  /* Very large text: Trophies may go under Shards */
+  .bar[data-variant='player'] .stats {
+    order: 1;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-block-start: var(--space-2xs);
+    border-inline: 0;
+    border-block-start: 1px solid var(--_line);
+  }
 }
 
 /* Very narrow phones (320 px): less space around the stats */
