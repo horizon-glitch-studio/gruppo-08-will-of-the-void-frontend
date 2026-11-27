@@ -46,7 +46,7 @@ Every `/play` route needs login, except Account access.
 | Route | Data shown | Actions | Endpoints | Notes |
 | --- | --- | --- | --- | --- |
 | `/play/login` | – | log in with username or email | `POST /auth/login` | Errors: `INVALID_CREDENTIALS`. |
-| `/play/register` | – | create account; time zone read from the browser; optional invite code | `POST /auth/register` | Errors: `USERNAME_ALREADY_USED`, `EMAIL_ALREADY_USED`, `INVITE_CODE_INVALID`, `fieldErrors`. Starter deck and registration bonus are given by the server. |
+| `/play/register` | – | create account; time zone read from the browser (`UTC` becomes `Etc/UTC`: the backend accepts only names with a region); optional invite code | `POST /auth/register` | Errors: `USERNAME_ALREADY_USED`, `EMAIL_ALREADY_USED`, `INVITE_CODE_INVALID`, `fieldErrors`. Starter deck and registration bonus are given by the server. |
 | `/play/forgot-password` | – | ask for a reset link | `POST /auth/forgot-password` | Always 202: same message whether the email exists or not. |
 | `/play/reset-password?token=` | – | choose a new password | `POST /auth/reset-password` | Email link: `{APP_FRONTEND_URL}/reset-password?token=`, where `APP_FRONTEND_URL` ends with `/play`. |
 | `/play/verify-email?token=` | result | verify email | `POST /auth/verify-email` | Email link: `{APP_FRONTEND_URL}/verify-email?token=`, where `APP_FRONTEND_URL` ends with `/play`. |

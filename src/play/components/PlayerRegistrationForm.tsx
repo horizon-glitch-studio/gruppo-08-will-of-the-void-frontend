@@ -5,7 +5,9 @@ import type { Registration } from '@/shared/api/auth'
 import { Button } from '@/shared/components/Button'
 import { ErrorBox } from '@/shared/components/ErrorBox'
 import { Field } from '@/shared/components/Field'
+import { TimeZoneOptions } from '@/shared/components/TimeZoneOptions'
 import { useFormErrorFocus } from '@/shared/hooks/useFormErrorFocus'
+import { deviceTimeZone } from '@/shared/timeZones'
 import { paths } from '../routes/paths'
 import { AuthScreen } from './AuthScreen'
 import screenStyles from './AuthScreen.module.css'
@@ -17,9 +19,6 @@ interface PlayerRegistrationFormProps {
   fieldErrors: Record<string, string>
   success: boolean
 }
-
-const detectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
-const timeZones = [...new Set(['UTC', detectedTimeZone, ...(Intl.supportedValuesOf?.('timeZone') ?? [])])].sort()
 
 /** Renders the player registration form and its success confirmation. */
 export function PlayerRegistrationForm({ register, pending, errorMessage, fieldErrors, success }: PlayerRegistrationFormProps) {
@@ -75,12 +74,8 @@ export function PlayerRegistrationForm({ register, pending, errorMessage, fieldE
           />
           <Field name="email" label="Email" placeholder="name@example.com" type="email" autoComplete="email" maxLength={255} required error={fieldErrors.email} />
           <Field name="password" label="Password" placeholder="Create a password" type="password" autoComplete="new-password" minLength={8} maxLength={72} required error={fieldErrors.password} />
-          <Field as="select" name="timezone" label="Time zone" defaultValue={detectedTimeZone} error={fieldErrors.timezone}>
-            {timeZones.map((zone) => (
-              <option key={zone} value={zone}>
-                {zone}
-              </option>
-            ))}
+          <Field as="select" name="timezone" label="Time zone" defaultValue={deviceTimeZone} error={fieldErrors.timezone}>
+            <TimeZoneOptions />
           </Field>
           <Field name="inviteCode" label="Invite code · optional" placeholder="Enter the code" ref={inviteInput} error={fieldErrors.inviteCode} />
           <p>
